@@ -1,0 +1,366 @@
+import Dexie, { Table } from 'dexie';
+import {
+  VocabularyWord,
+  Category,
+  Subcategory,
+  UserProgress,
+  StudySession,
+  FlashcardState,
+  UserSettings,
+  User,
+} from '@/types';
+
+export class PolishAppDatabase extends Dexie {
+  vocabulary!: Table<VocabularyWord, string>;
+  categories!: Table<Category, string>;
+  subcategories!: Table<Subcategory, string>;
+  users!: Table<User, string>;
+  userProgress!: Table<UserProgress, string>;
+  studySessions!: Table<StudySession, string>;
+  flashcardStates!: Table<FlashcardState, string>;
+  settings!: Table<UserSettings, number>;
+
+  constructor() {
+    super('PolishAppDB');
+    
+    this.version(1).stores({
+      vocabulary: 'id, polish, english, category, subcategory, difficulty',
+      categories: 'id, titlePolish, titleEnglish',
+      subcategories: 'id, categoryId, titlePolish',
+      userProgress: 'userId, level, totalPoints',
+      studySessions: 'id, categoryId, startedAt, completedAt',
+      flashcardStates: 'wordId, nextReview, interval',
+      settings: '++id',
+    });
+    
+    this.version(2).stores({
+      vocabulary: 'id, polish, english, category, subcategory, difficulty, [category+subcategory]',
+      categories: 'id, titlePolish, titleEnglish',
+      subcategories: 'id, categoryId, titlePolish',
+      users: 'id, name, createdAt',
+      userProgress: 'userId, level, totalPoints',
+      studySessions: 'id, categoryId, startedAt, completedAt',
+      flashcardStates: 'wordId, nextReview, interval',
+      settings: '++id',
+    }).upgrade(async () => {
+      // Migration: No data migration needed, just adding users table
+      console.log('Database upgraded to version 2');
+    });
+    
+    // Version 3: Add compound index for category+subcategory queries
+    this.version(3).stores({
+      vocabulary: 'id, polish, english, category, subcategory, difficulty, [category+subcategory]',
+      categories: 'id, titlePolish, titleEnglish',
+      subcategories: 'id, categoryId, titlePolish',
+      users: 'id, name, createdAt',
+      userProgress: 'userId, level, totalPoints',
+      studySessions: 'id, categoryId, startedAt, completedAt',
+      flashcardStates: 'wordId, nextReview, interval',
+      settings: '++id',
+    }).upgrade(async () => {
+      console.log('Database upgraded to version 3 - added compound index');
+    });
+  }
+}
+
+export const db = new PolishAppDatabase();
+
+// Funciones helper para inicializar la base de datos
+export async function initializeDatabase() {
+  try {
+    // Verificar si ya hay datos
+    const categoryCount = await db.categories.count();
+    
+    if (categoryCount === 0) {
+      // Inicializar con datos base
+      await seedInitialData();
+    }
+    
+    // Verificar si hay configuración de usuario
+    const settingsCount = await db.settings.count();
+    if (settingsCount === 0) {
+      await db.settings.add({
+        soundEnabled: true,
+        autoPlayAudio: true,
+        dailyGoal: 20,
+        theme: 'system',
+        notifications: true,
+      });
+    }
+    
+    // No crear progreso por defecto - se creará cuando el usuario se registre
+    
+    console.log('Database initialized successfully');
+    return true;
+  } catch (error) {
+    console.error('Error initializing database:', error);
+    return false;
+  }
+}
+
+// Función para poblar datos iniciales
+async function seedInitialData() {
+  // Estas son las 16 categorías del diccionario
+  const categories: Category[] = [
+    {
+      id: 'people',
+      titlePolish: 'LUDZIE',
+      titleEnglish: 'People',
+      description: 'Cuerpo, familia, emociones',
+      icon: '👥',
+      color: '#3B82F6',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'appearance',
+      titlePolish: 'WYGLĄD',
+      titleEnglish: 'Appearance',
+      description: 'Ropa, accesorios, belleza',
+      icon: '👔',
+      color: '#8B5CF6',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'health',
+      titlePolish: 'ZDROWIE',
+      titleEnglish: 'Health',
+      description: 'Medicina, hospital, terapias',
+      icon: '🏥',
+      color: '#EF4444',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'home',
+      titlePolish: 'DOM',
+      titleEnglish: 'Home',
+      description: 'Casa, cocina, jardín',
+      icon: '🏠',
+      color: '#F59E0B',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'services',
+      titlePolish: 'USŁUGI',
+      titleEnglish: 'Services',
+      description: 'Emergencias, banco, hotel',
+      icon: '🔧',
+      color: '#10B981',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'shopping',
+      titlePolish: 'ZAKUPY',
+      titleEnglish: 'Shopping',
+      description: 'Tiendas, supermercado',
+      icon: '🛒',
+      color: '#EC4899',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'food',
+      titlePolish: 'ŻYWNOŚĆ',
+      titleEnglish: 'Food',
+      description: 'Alimentos y bebidas',
+      icon: '🍎',
+      color: '#F97316',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'eating-out',
+      titlePolish: 'JADANIE POZA DOMEM',
+      titleEnglish: 'Eating Out',
+      description: 'Restaurantes, cafés',
+      icon: '🍽️',
+      color: '#06B6D4',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'study',
+      titlePolish: 'NAUKA',
+      titleEnglish: 'Study',
+      description: 'Escuela, ciencias',
+      icon: '📚',
+      color: '#6366F1',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'work',
+      titlePolish: 'PRACA',
+      titleEnglish: 'Work',
+      description: 'Oficina, profesiones',
+      icon: '💼',
+      color: '#14B8A6',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'transport',
+      titlePolish: 'TRANSPORT',
+      titleEnglish: 'Transport',
+      description: 'Vehículos, viajes',
+      icon: '🚗',
+      color: '#84CC16',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'sports',
+      titlePolish: 'SPORT',
+      titleEnglish: 'Sports',
+      description: 'Deportes y fitness',
+      icon: '⚽',
+      color: '#22C55E',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'leisure',
+      titlePolish: 'CZAS WOLNY',
+      titleEnglish: 'Leisure',
+      description: 'Teatro, música, arte',
+      icon: '🎭',
+      color: '#A855F7',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'environment',
+      titlePolish: 'ŚRODOWISKO',
+      titleEnglish: 'Environment',
+      description: 'Naturaleza, animales',
+      icon: '🌍',
+      color: '#059669',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'reference',
+      titlePolish: 'INFORMACJE',
+      titleEnglish: 'Reference',
+      description: 'Tiempo, números, mapas',
+      icon: '📋',
+      color: '#64748B',
+      subcategories: [],
+      totalWords: 0,
+    },
+  ];
+  
+  await db.categories.bulkAdd(categories);
+  
+  console.log('Initial data seeded');
+}
+
+// Funciones de utilidad para trabajar con la base de datos
+
+export async function getCurrentUser(): Promise<User | null> {
+  try {
+    const users = await db.users.toArray();
+    return users.length > 0 ? users[0] : null;
+  } catch (error) {
+    console.error('Error getting current user:', error);
+    return null;
+  }
+}
+
+export async function createUser(name: string): Promise<User> {
+  const userId = `user_${Date.now()}`;
+  const user: User = {
+    id: userId,
+    name: name.trim(),
+    createdAt: new Date(),
+  };
+  await db.users.add(user);
+  
+  // Crear progreso inicial para el usuario
+  await db.userProgress.add({
+    userId: userId,
+    totalPoints: 0,
+    level: 1,
+    streak: 0,
+    lastStudyDate: new Date(),
+    completedCategories: [],
+    achievements: [],
+  });
+  
+  return user;
+}
+
+export async function getUserProgress(userId?: string): Promise<UserProgress | undefined> {
+  if (!userId) {
+    const user = await getCurrentUser();
+    if (!user) return undefined;
+    userId = user.id;
+  }
+  return await db.userProgress.get(userId);
+}
+
+export async function updateUserProgress(updates: Partial<UserProgress>, userId?: string) {
+  if (!userId) {
+    const user = await getCurrentUser();
+    if (!user) return;
+    userId = user.id;
+  }
+  await db.userProgress.update(userId, updates);
+}
+
+export async function getUserSettings(): Promise<UserSettings | undefined> {
+  return await db.settings.toCollection().first();
+}
+
+export async function updateSettings(updates: Partial<UserSettings>) {
+  const settings = await getUserSettings();
+  if (settings) {
+    await db.settings.update(1, updates);
+  }
+}
+
+export async function addStudySession(session: Omit<StudySession, 'id'>) {
+  const id = `session_${Date.now()}`;
+  await db.studySessions.add({ ...session, id });
+  return id;
+}
+
+export async function getWordsByCategory(categoryId: string): Promise<VocabularyWord[]> {
+  return await db.vocabulary.where('category').equals(categoryId).toArray();
+}
+
+export async function getWordsBySubcategory(
+  categoryId: string,
+  subcategoryId: string
+): Promise<VocabularyWord[]> {
+  return await db.vocabulary
+    .where('[category+subcategory]')
+    .equals([categoryId, subcategoryId])
+    .toArray();
+}
+
+export async function updateFlashcardState(wordId: string, state: Partial<FlashcardState>) {
+  const existing = await db.flashcardStates.get(wordId);
+  
+  if (existing) {
+    await db.flashcardStates.update(wordId, state);
+  } else {
+    await db.flashcardStates.add({
+      wordId,
+      easeFactor: 2.5,
+      interval: 1,
+      repetitions: 0,
+      nextReview: new Date(),
+      ...state,
+    });
+  }
+}
+
+export async function getDueFlashcards(): Promise<FlashcardState[]> {
+  const now = new Date();
+  return await db.flashcardStates.where('nextReview').belowOrEqual(now).toArray();
+}
