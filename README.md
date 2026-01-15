@@ -1,115 +1,115 @@
 # 🇵🇱 Polish Learning App
 
-Aplicación web progresiva (PWA) para aprender polaco mediante flashcards interactivas, ejercicios de quiz y gamificación.
+Progressive web application (PWA) for learning Polish through interactive flashcards, quiz exercises, and gamification.
 
-## 📋 Características
+## 📋 Features
 
-### ✨ Funcionalidades Principales
+### ✨ Main Features
 
-- **16 Categorías Temáticas**: Desde "Ludzie" (People) hasta "Informacje" (Reference)
-- **Múltiples Modos de Estudio**:
-  - 🃏 Flashcards interactivas con flip animation
-  - 📝 Ejercicios de quiz con verificación instantánea
-  - 🔊 Pronunciación con síntesis de voz
+- **16 Thematic Categories**: From "Ludzie" (People) to "Informacje" (Reference)
+- **Multiple Study Modes**:
+  - 🃏 Interactive flashcards with flip animation
+  - 📝 Quiz exercises with instant verification
+  - 🔊 Pronunciation with speech synthesis
   
-### 🎮 Gamificación
+### 🎮 Gamification
 
-- **Sistema de Puntos**: Gana puntos por respuestas correctas
-- **Niveles**: Progresa del nivel 1 al 50
-- **Rachas**: Mantén tu racha diaria de estudio
-- **Logros**: Desbloquea insignias por hitos alcanzados
-- **Celebraciones**: Efectos visuales con confetti al subir de nivel
+- **Points System**: Earn points for correct answers
+- **Levels**: Progress from level 1 to 50
+- **Streaks**: Maintain your daily study streak
+- **Achievements**: Unlock badges for milestones reached
+- **Celebrations**: Visual effects with confetti when leveling up
 
-### 🧠 Repetición Espaciada (SRS)
+### 🧠 Spaced Repetition (SRS)
 
-- Implementación del algoritmo SM-2 (SuperMemo 2)
-- Revisiones programadas según dificultad de recordar
-- Optimización del aprendizaje a largo plazo
+- Implementation of SM-2 (SuperMemo 2) algorithm
+- Scheduled reviews based on difficulty of remembering
+- Long-term learning optimization
 
-### 💾 Almacenamiento Local
+### 💾 Local Storage
 
-- Base de datos IndexedDB con Dexie
-- Funciona 100% offline
-- Exportación de datos personales
+- IndexedDB database with Dexie
+- Works 100% offline
+- Personal data export
 
 ### 📱 PWA (Progressive Web App)
 
-- Instalable en dispositivos móviles y desktop
-- Funciona sin conexión
-- Service Worker para caché de recursos
+- Installable on mobile and desktop devices
+- Works without connection
+- Service Worker for resource caching
 
-## 🚀 Instalación y Configuración
+## 🚀 Installation and Setup
 
-### Requisitos Previos
+### Prerequisites
 
-- Node.js 18+ instalado
-- npm o yarn
+- Node.js 18+ installed
+- npm or yarn
 
-### Pasos de Instalación
+### Installation Steps
 
-1. **Descargar el proyecto completo**
+1. **Download the complete project**
    
-   Descarga todos los archivos proporcionados y colócalos en una carpeta llamada `polish-learning-app`
+   Download all provided files and place them in a folder called `polish-learning-app`
 
-2. **Instalar dependencias**
+2. **Install dependencies**
 
    ```bash
    cd polish-learning-app
    npm install
    ```
 
-3. **Iniciar servidor de desarrollo**
+3. **Start development server**
 
    ```bash
    npm run dev
    ```
 
-   La aplicación estará disponible en `http://localhost:5173`
+   The application will be available at `http://localhost:5173`
 
-4. **Construir para producción**
+4. **Build for production**
 
    ```bash
    npm run build
    ```
 
-   Los archivos optimizados estarán en la carpeta `dist/`
+   Optimized files will be in the `dist/` folder
 
-5. **Vista previa de producción**
+5. **Preview production build**
 
    ```bash
    npm run preview
    ```
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 polish-learning-app/
-├── public/                  # Archivos estáticos
+├── public/                  # Static files
 ├── src/
 │   ├── components/         
-│   │   ├── common/         # Componentes reutilizables
+│   │   ├── common/         # Reusable components
 │   │   │   └── LoadingScreen.tsx
-│   │   ├── layout/         # Layout y navegación
+│   │   ├── layout/         # Layout and navigation
 │   │   │   └── Layout.tsx
-│   │   └── pages/          # Páginas principales
+│   │   └── pages/          # Main pages
 │   │       ├── HomePage.tsx
 │   │       ├── CategoryPage.tsx
 │   │       ├── StudyPage.tsx
 │   │       ├── ProgressPage.tsx
 │   │       └── SettingsPage.tsx
-│   ├── data/               # Datos de vocabulario
+│   ├── data/               # Vocabulary data
 │   │   └── vocabulary-people.ts
 │   ├── hooks/              # Custom React hooks
-│   ├── styles/             # Estilos CSS
+│   ├── styles/             # CSS styles
 │   │   └── index.css
 │   ├── types/              # TypeScript types
 │   │   └── index.ts
-│   ├── utils/              # Utilidades
+│   ├── utils/              # Utilities
 │   │   ├── database.ts     # Dexie DB
-│   │   ├── gamification.ts # Sistema de puntos
-│   │   └── spaced-repetition.ts # Algoritmo SRS
-│   ├── App.tsx             # Componente principal
-│   └── main.tsx            # Punto de entrada
+│   │   ├── gamification.ts # Points system
+│   │   └── spaced-repetition.ts # SRS algorithm
+│   ├── App.tsx             # Main component
+│   └── main.tsx            # Entry point
 ├── index.html
 ├── package.json
 ├── tsconfig.json
@@ -118,53 +118,53 @@ polish-learning-app/
 └── README.md
 ```
 
-## 🎯 Uso de la Aplicación
+## 🎯 Using the Application
 
-### Comenzar a Estudiar
+### Start Studying
 
-1. En la página principal, verás las 16 categorías disponibles
-2. Selecciona una categoría (por ejemplo, "LUDZIE - People")
-3. Puedes estudiar toda la categoría o seleccionar un tema específico
-4. Elige entre modo Flashcards o Quiz
+1. On the main page, you'll see the 16 available categories
+2. Select a category (for example, "LUDZIE - People")
+3. You can study the entire category or select a specific theme
+4. Choose between Flashcards or Quiz mode
 
-### Modo Flashcards
+### Flashcards Mode
 
-- Haz clic en la tarjeta para voltearla
-- Escucha la pronunciación con el botón de audio
-- Avanza con los botones "Siguiente" y "Anterior"
+- Click on the card to flip it
+- Listen to pronunciation with the audio button
+- Navigate with "Next" and "Previous" buttons
 
-### Modo Quiz
+### Quiz Mode
 
-- Escribe la traducción de la palabra mostrada
-- Presiona Enter o "Verificar" para comprobar
-- Recibe feedback instantáneo
-- Acumula puntos por respuestas correctas
+- Type the translation of the displayed word
+- Press Enter or "Check" to verify
+- Receive instant feedback
+- Accumulate points for correct answers
 
-### Ver tu Progreso
+### View Your Progress
 
-- Accede a "Progreso" desde el menú
-- Visualiza tu nivel, puntos y racha
-- Revisa tus logros desbloqueados
+- Access "Progress" from the menu
+- View your level, points, and streak
+- Review your unlocked achievements
 
-## 🔧 Configuración
+## 🔧 Configuration
 
-### Ajustes Disponibles
+### Available Settings
 
-- **Audio**: Activar/desactivar sonidos y reproducción automática
-- **Meta Diaria**: Establecer objetivo de palabras por día (5-100)
-- **Notificaciones**: Recordatorios de estudio
-- **Exportar Datos**: Descarga tu progreso en JSON
-- **Reiniciar Progreso**: Borra todos los datos y comienza de nuevo
+- **Audio**: Enable/disable sounds and auto-play
+- **Daily Goal**: Set word goal per day (5-100)
+- **Notifications**: Study reminders
+- **Export Data**: Download your progress as JSON
+- **Reset Progress**: Delete all data and start over
 
-## 🗂️ Agregar Más Vocabulario
+## 🗂️ Adding More Vocabulary
 
-Para agregar vocabulario de otras categorías:
+To add vocabulary from other categories:
 
-1. Crea un nuevo archivo en `src/data/` (ej: `vocabulary-food.ts`)
-2. Sigue el mismo formato que `vocabulary-people.ts`
-3. Importa y ejecuta la función seed en `App.tsx`
+1. Create a new file in `src/data/` (e.g., `vocabulary-food.ts`)
+2. Follow the same format as `vocabulary-people.ts`
+3. Import and execute the seed function in `App.tsx`
 
-Ejemplo:
+Example:
 
 ```typescript
 export const foodVocabulary: VocabularyWord[] = [
@@ -175,24 +175,24 @@ export const foodVocabulary: VocabularyWord[] = [
     category: 'food',
     subcategory: 'bakery',
     difficulty: 'beginner',
-    tags: ['comida', 'panadería'],
+    tags: ['food', 'bakery'],
   },
-  // ... más palabras
+  // ... more words
 ];
 ```
 
-## 🎨 Personalización
+## 🎨 Customization
 
-### Cambiar Colores
+### Change Colors
 
-Edita `tailwind.config.js` para modificar la paleta de colores:
+Edit `tailwind.config.js` to modify the color palette:
 
 ```javascript
 theme: {
   extend: {
     colors: {
       primary: {
-        500: '#TU_COLOR_AQUI',
+        500: '#YOUR_COLOR_HERE',
         // ...
       }
     }
@@ -200,75 +200,75 @@ theme: {
 }
 ```
 
-### Agregar Nuevos Logros
+### Add New Achievements
 
-Edita `src/utils/gamification.ts` y agrega nuevos logros en la función `updateProgressAfterSession`
+Edit `src/utils/gamification.ts` and add new achievements in the `updateProgressAfterSession` function
 
-## 🐛 Solución de Problemas
+## 🐛 Troubleshooting
 
-### La base de datos no se inicializa
+### Database doesn't initialize
 
-- Abre las DevTools del navegador
-- Ve a la pestaña "Application" > "IndexedDB"
-- Elimina la base de datos "PolishAppDB"
-- Recarga la página
+- Open browser DevTools
+- Go to "Application" tab > "IndexedDB"
+- Delete the "PolishAppDB" database
+- Reload the page
 
-### Las palabras no se muestran
+### Words don't show up
 
-- Verifica que el archivo de vocabulario esté correctamente importado
-- Revisa la consola del navegador para errores
-- Asegúrate de que la función seed se ejecute en `App.tsx`
+- Verify that the vocabulary file is correctly imported
+- Check the browser console for errors
+- Make sure the seed function runs in `App.tsx`
 
-### Errores de TypeScript
+### TypeScript errors
 
 ```bash
-# Reinstalar dependencias
+# Reinstall dependencies
 rm -rf node_modules package-lock.json
 npm install
 ```
 
-## 📚 Tecnologías Utilizadas
+## 📚 Technologies Used
 
-- **React 18** - Biblioteca UI
-- **TypeScript** - Tipado estático
+- **React 18** - UI library
+- **TypeScript** - Static typing
 - **Vite** - Build tool
-- **Tailwind CSS** - Estilos
-- **Dexie.js** - Wrapper para IndexedDB
-- **React Router** - Navegación
-- **Framer Motion** - Animaciones
-- **Canvas Confetti** - Efectos de celebración
+- **Tailwind CSS** - Styles
+- **Dexie.js** - IndexedDB wrapper
+- **React Router** - Navigation
+- **Framer Motion** - Animations
+- **Canvas Confetti** - Celebration effects
 
 ## 🗺️ Roadmap
 
-- [ ] Agregar vocabulario completo de las 16 categorías
-- [ ] Implementar modo de escucha (audio → selección)
-- [ ] Agregar ejercicios de relacionar imágenes
-- [ ] Sincronización en la nube (opcional)
-- [ ] Modo oscuro
-- [ ] Estadísticas detalladas por categoría
-- [ ] Desafíos semanales
-- [ ] Competencia con otros usuarios
+- [ ] Add complete vocabulary for all 16 categories
+- [ ] Implement listening mode (audio → selection)
+- [ ] Add image matching exercises
+- [ ] Cloud synchronization (optional)
+- [ ] Dark mode
+- [ ] Detailed statistics by category
+- [ ] Weekly challenges
+- [ ] Competition with other users
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está basado en el vocabulario del libro "Polish-English Bilingual Visual Dictionary" (Dorling Kindersley, 2008).
+This project is based on vocabulary from the book "Polish-English Bilingual Visual Dictionary" (Dorling Kindersley, 2008).
 
-El código de la aplicación está disponible para uso educativo.
+The application code is available for educational use.
 
-## 🤝 Contribuciones
+## 🤝 Contributing
 
-Las contribuciones son bienvenidas. Por favor:
+Contributions are welcome. Please:
 
-1. Haz fork del proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+1. Fork the project
+2. Create a branch for your feature (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📧 Contacto
+## 📧 Contact
 
-¿Preguntas o sugerencias? Abre un issue en el repositorio.
+Questions or suggestions? Open an issue in the repository.
 
 ---
 
-**¡Buena suerte con tu aprendizaje del polaco! 🇵🇱📚**
+**Good luck with your Polish learning! 🇵🇱📚**
