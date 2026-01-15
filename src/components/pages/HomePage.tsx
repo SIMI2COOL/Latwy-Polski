@@ -10,7 +10,7 @@ import { useUser } from '@/contexts/UserContext';
 function HomePage() {
   const { user, userProgress, refreshProgress } = useUser();
   
-  // Cargar categorías desde la base de datos
+  // Load categories from database
   const categories = useLiveQuery(() => db.categories.toArray());
 
   useEffect(() => {
@@ -30,10 +30,10 @@ function HomePage() {
       {/* Stats Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          ¡Hola, {user.name}! 👋
+          Hello, {user.name}! 👋
         </h1>
         <p className="text-gray-600">
-          Continúa tu viaje de aprendizaje del polaco
+          Continue your Polish learning journey
         </p>
       </div>
 
@@ -47,7 +47,7 @@ function HomePage() {
               {userProgress.streak}
             </span>
           </div>
-          <p className="text-sm text-gray-600">Días de racha</p>
+          <p className="text-sm text-gray-600">Day Streak</p>
           {userProgress.streak > 0 && (
             <div className="mt-2 h-2 bg-orange-100 rounded-full overflow-hidden">
               <div
@@ -71,7 +71,7 @@ function HomePage() {
           </p>
           <div className="mt-2">
             <span className="text-xs text-gray-500">
-              {userProgress.totalPoints} puntos
+              {userProgress.totalPoints} points
             </span>
           </div>
         </div>
@@ -84,7 +84,7 @@ function HomePage() {
               {userProgress.achievements.length}
             </span>
           </div>
-          <p className="text-sm text-gray-600">Logros obtenidos</p>
+          <p className="text-sm text-gray-600">Achievements Unlocked</p>
           {userProgress.achievements.length > 0 && (
             <div className="mt-2 flex -space-x-2">
               {userProgress.achievements.slice(0, 3).map((achievement) => (
@@ -103,8 +103,8 @@ function HomePage() {
 
       {/* Categories Section */}
       <div className="mb-4">
-        <h2 className="text-2xl font-bold text-gray-900 mb-1">Categorías</h2>
-        <p className="text-gray-600">Selecciona una categoría para comenzar a estudiar</p>
+        <h2 className="text-2xl font-bold text-gray-900 mb-1">Categories</h2>
+        <p className="text-gray-600">Select a category to start studying</p>
       </div>
 
       {/* Categories Grid */}
@@ -120,16 +120,16 @@ function HomePage() {
 
       {/* Quick Action */}
       <div className="mt-8 card p-6 text-white" style={{ background: 'linear-gradient(to right, #0074bd, #004470)' }}>
-        <h3 className="text-xl font-bold mb-2">¿Listo para practicar?</h3>
+        <h3 className="text-xl font-bold mb-2">Ready to practice?</h3>
         <p className="mb-4 opacity-90">
-          Continúa donde lo dejaste o comienza una nueva lección
+          Continue where you left off or start a new lesson
         </p>
         <Link
           to="/category/people"
           className="inline-block bg-white px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
           style={{ color: '#0074bd' }}
         >
-          Comenzar ahora
+          Start Now
         </Link>
       </div>
     </div>
@@ -155,7 +155,7 @@ function CategoryCard({ category, isCompleted }: CategoryCardProps) {
           <span className="text-4xl">{category.icon}</span>
           {isCompleted && (
             <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">
-              ✓ Completado
+              ✓ Completed
             </span>
           )}
         </div>
@@ -173,7 +173,7 @@ function CategoryCard({ category, isCompleted }: CategoryCardProps) {
         {category.totalWords > 0 && (
           <div className="mt-4 pt-4 border-t border-gray-100">
             <span className="text-xs text-gray-500">
-              {category.totalWords} palabras
+              {category.totalWords} words
             </span>
           </div>
         )}

@@ -43,12 +43,12 @@ function SettingsPage() {
 
   const handleResetProgress = async () => {
     try {
-      // Eliminar todo el progreso
+      // Delete all progress
       await db.userProgress.clear();
       await db.studySessions.clear();
       await db.flashcardStates.clear();
 
-      // Recrear progreso inicial
+      // Recreate initial progress
       await db.userProgress.add({
         userId: 'default-user',
         totalPoints: 0,
@@ -59,11 +59,11 @@ function SettingsPage() {
         achievements: [],
       });
 
-      alert('Progreso reiniciado correctamente');
+      alert('Progress reset successfully');
       window.location.reload();
     } catch (error) {
       console.error('Error resetting progress:', error);
-      alert('Error al reiniciar el progreso');
+      alert('Error resetting progress');
     }
   };
 
@@ -88,7 +88,7 @@ function SettingsPage() {
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error exporting data:', error);
-      alert('Error al exportar los datos');
+      alert('Error exporting data');
     }
   };
 
@@ -102,7 +102,7 @@ function SettingsPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 md:pb-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Configuración</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">Settings</h1>
 
       {/* Audio Settings */}
       <div className="card p-6 mb-6">
@@ -113,15 +113,15 @@ function SettingsPage() {
 
         <div className="space-y-4">
           <SettingToggle
-            label="Sonido activado"
-            description="Reproducir efectos de sonido"
+            label="Sound enabled"
+            description="Play sound effects"
             checked={settings.soundEnabled}
             onChange={() => handleToggle('soundEnabled')}
           />
 
           <SettingToggle
-            label="Reproducción automática"
-            description="Reproducir audio de palabras automáticamente"
+            label="Auto-play audio"
+            description="Automatically play word audio"
             checked={settings.autoPlayAudio}
             onChange={() => handleToggle('autoPlayAudio')}
           />
@@ -132,13 +132,13 @@ function SettingsPage() {
       <div className="card p-6 mb-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
           <Target className="w-6 h-6 mr-2 text-green-600" />
-          Objetivos de Estudio
+          Study Goals
         </h2>
 
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Meta diaria de palabras
+              Daily word goal
             </label>
             <input
               type="number"
@@ -150,7 +150,7 @@ function SettingsPage() {
               className="input max-w-xs"
             />
             <p className="mt-1 text-sm text-gray-500">
-              Número de palabras nuevas por día (5-100)
+              Number of new words per day (5-100)
             </p>
           </div>
         </div>
@@ -165,8 +165,8 @@ function SettingsPage() {
 
         <div className="space-y-4">
           <SettingToggle
-            label="Recordatorios de estudio"
-            description="Recibir notificaciones para mantener tu racha"
+            label="Study reminders"
+            description="Receive notifications to maintain your streak"
             checked={settings.notifications}
             onChange={() => handleToggle('notifications')}
           />
@@ -177,7 +177,7 @@ function SettingsPage() {
       <div className="card p-6 mb-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
           <Download className="w-6 h-6 mr-2 text-blue-600" />
-          Gestión de Datos
+          Data Management
         </h2>
 
         <div className="space-y-4">
@@ -187,10 +187,10 @@ function SettingsPage() {
               className="btn-secondary w-full sm:w-auto"
             >
               <Download className="w-4 h-4 inline mr-2" />
-              Exportar mis datos
+              Export My Data
             </button>
             <p className="mt-2 text-sm text-gray-500">
-              Descarga una copia de tu progreso y configuración
+              Download a copy of your progress and settings
             </p>
           </div>
 
@@ -200,10 +200,10 @@ function SettingsPage() {
               className="btn-danger w-full sm:w-auto"
             >
               <Trash2 className="w-4 h-4 inline mr-2" />
-              Reiniciar progreso
+              Reset Progress
             </button>
             <p className="mt-2 text-sm text-gray-500">
-              Elimina todo tu progreso y comienza desde cero
+              Delete all your progress and start from scratch
             </p>
           </div>
         </div>
@@ -212,17 +212,17 @@ function SettingsPage() {
       {/* About */}
       <div className="card p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4">
-          Acerca de
+          About
         </h2>
         <div className="text-sm text-gray-600 space-y-2">
           <p>
             <strong>Polish Learning App</strong> v1.0.0
           </p>
           <p>
-            Aplicación de aprendizaje de polaco basada en diccionario visual
+            Polish learning app based on visual dictionary
           </p>
           <p>
-            Vocabulario basado en <em>Polish-English Bilingual Visual Dictionary</em> (Dorling Kindersley, 2008)
+            Vocabulary based on <em>Polish-English Bilingual Visual Dictionary</em> (Dorling Kindersley, 2008)
           </p>
         </div>
       </div>
@@ -232,18 +232,18 @@ function SettingsPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg max-w-md w-full p-6">
             <h3 className="text-xl font-bold text-gray-900 mb-4">
-              ¿Reiniciar progreso?
+              Reset Progress?
             </h3>
             <p className="text-gray-600 mb-6">
-              Esta acción eliminará todo tu progreso, puntos, logros y racha.
-              No se puede deshacer.
+              This action will delete all your progress, points, achievements, and streak.
+              This cannot be undone.
             </p>
             <div className="flex space-x-3">
               <button
                 onClick={() => setShowResetConfirm(false)}
                 className="flex-1 btn-secondary"
               >
-                Cancelar
+                Cancel
               </button>
               <button
                 onClick={() => {
@@ -252,7 +252,7 @@ function SettingsPage() {
                 }}
                 className="flex-1 btn-danger"
               >
-                Sí, reiniciar
+                Yes, Reset
               </button>
             </div>
           </div>

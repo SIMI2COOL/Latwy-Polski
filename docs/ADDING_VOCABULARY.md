@@ -1,26 +1,26 @@
-# 📖 Guía para Agregar Vocabulario
+# 📖 Guide for Adding Vocabulary
 
-## Estructura de Vocabulario
+## Vocabulary Structure
 
-Cada palabra en la aplicación sigue esta estructura TypeScript:
+Each word in the application follows this TypeScript structure:
 
 ```typescript
 interface VocabularyWord {
-  id: string;              // Identificador único
-  polish: string;          // Palabra en polaco
-  english: string;         // Traducción al inglés
-  category: string;        // ID de categoría
-  subcategory: string;     // ID de subcategoría
+  id: string;              // Unique identifier
+  polish: string;          // Word in Polish
+  english: string;         // English translation
+  category: string;        // Category ID
+  subcategory: string;     // Subcategory ID
   difficulty: 'beginner' | 'intermediate' | 'advanced';
-  tags?: string[];         // Etiquetas opcionales
-  imageUrl?: string;       // URL de imagen (futuro)
-  audioUrl?: string;       // URL de audio (futuro)
+  tags?: string[];         // Optional tags
+  imageUrl?: string;       // Image URL (future)
+  audioUrl?: string;       // Audio URL (future)
 }
 ```
 
-## Categorías Disponibles
+## Available Categories
 
-| ID | Polaco | Inglés | Icono |
+| ID | Polish | English | Icon |
 |---|---|---|---|
 | `people` | LUDZIE | People | 👥 |
 | `appearance` | WYGLĄD | Appearance | 👔 |
@@ -38,11 +38,11 @@ interface VocabularyWord {
 | `environment` | ŚRODOWISKO | Environment | 🌍 |
 | `reference` | INFORMACJE | Reference | 📋 |
 
-## Ejemplo: Agregar Categoría "Food"
+## Example: Adding "Food" Category
 
-### 1. Crear archivo de vocabulario
+### 1. Create vocabulary file
 
-Crea `src/data/vocabulary-food.ts`:
+Create `src/data/vocabulary-food.ts`:
 
 ```typescript
 import { VocabularyWord } from '@/types';
@@ -56,7 +56,7 @@ export const foodVocabulary: VocabularyWord[] = [
     category: 'food',
     subcategory: 'meat',
     difficulty: 'beginner',
-    tags: ['carne', 'proteína'],
+    tags: ['meat', 'protein'],
   },
   {
     id: 'meat_002',
@@ -65,7 +65,7 @@ export const foodVocabulary: VocabularyWord[] = [
     category: 'food',
     subcategory: 'meat',
     difficulty: 'intermediate',
-    tags: ['carne', 'proteína'],
+    tags: ['meat', 'protein'],
   },
   {
     id: 'meat_003',
@@ -74,7 +74,7 @@ export const foodVocabulary: VocabularyWord[] = [
     category: 'food',
     subcategory: 'meat',
     difficulty: 'intermediate',
-    tags: ['carne', 'proteína'],
+    tags: ['meat', 'protein'],
   },
 
   // WARZYWA (Vegetables)
@@ -85,7 +85,7 @@ export const foodVocabulary: VocabularyWord[] = [
     category: 'food',
     subcategory: 'vegetables',
     difficulty: 'beginner',
-    tags: ['verdura'],
+    tags: ['vegetable'],
   },
   {
     id: 'veg_002',
@@ -94,7 +94,7 @@ export const foodVocabulary: VocabularyWord[] = [
     category: 'food',
     subcategory: 'vegetables',
     difficulty: 'beginner',
-    tags: ['verdura'],
+    tags: ['vegetable'],
   },
   {
     id: 'veg_003',
@@ -103,7 +103,7 @@ export const foodVocabulary: VocabularyWord[] = [
     category: 'food',
     subcategory: 'vegetables',
     difficulty: 'beginner',
-    tags: ['verdura'],
+    tags: ['vegetable'],
   },
 
   // OWOCE (Fruits)
@@ -114,7 +114,7 @@ export const foodVocabulary: VocabularyWord[] = [
     category: 'food',
     subcategory: 'fruits',
     difficulty: 'beginner',
-    tags: ['fruta'],
+    tags: ['fruit'],
   },
   {
     id: 'fruit_002',
@@ -123,7 +123,7 @@ export const foodVocabulary: VocabularyWord[] = [
     category: 'food',
     subcategory: 'fruits',
     difficulty: 'beginner',
-    tags: ['fruta'],
+    tags: ['fruit'],
   },
   {
     id: 'fruit_003',
@@ -132,7 +132,7 @@ export const foodVocabulary: VocabularyWord[] = [
     category: 'food',
     subcategory: 'fruits',
     difficulty: 'beginner',
-    tags: ['fruta'],
+    tags: ['fruit'],
   },
 ];
 
@@ -142,7 +142,7 @@ export async function seedFoodVocabulary() {
   try {
     await db.vocabulary.bulkAdd(foodVocabulary);
     
-    // Actualizar contador de palabras en la categoría
+    // Update word count in category
     const category = await db.categories.get('food');
     if (category) {
       await db.categories.update('food', {
@@ -159,13 +159,13 @@ export async function seedFoodVocabulary() {
 }
 ```
 
-### 2. Importar en App.tsx
+### 2. Import in App.tsx
 
-Edita `src/App.tsx`:
+Edit `src/App.tsx`:
 
 ```typescript
 import { seedPeopleVocabulary } from '@/data/vocabulary-people';
-import { seedFoodVocabulary } from '@/data/vocabulary-food'; // AGREGAR
+import { seedFoodVocabulary } from '@/data/vocabulary-food'; // ADD
 
 function App() {
   useEffect(() => {
@@ -178,7 +178,7 @@ function App() {
         }
 
         await seedPeopleVocabulary();
-        await seedFoodVocabulary(); // AGREGAR
+        await seedFoodVocabulary(); // ADD
         
         setIsInitialized(true);
       } catch (err) {
@@ -191,22 +191,22 @@ function App() {
 }
 ```
 
-## Convenciones de Nomenclatura
+## Naming Conventions
 
-### IDs de Palabras
+### Word IDs
 
-Formato: `{subcategory}_{número}`
+Format: `{subcategory}_{number}`
 
-Ejemplos:
+Examples:
 - `body_001`, `body_002`, `body_003`
 - `meat_001`, `meat_002`
 - `fruit_001`, `fruit_002`
 
-### IDs de Subcategorías
+### Subcategory IDs
 
-Usa nombres en inglés, minúsculas, con guiones:
+Use English names, lowercase, with hyphens:
 
-✅ Correcto:
+✅ Correct:
 - `body`
 - `face`
 - `family`
@@ -214,23 +214,23 @@ Usa nombres en inglés, minúsculas, con guiones:
 - `vegetables`
 - `dairy-products`
 
-❌ Incorrecto:
-- `Body` (mayúscula)
-- `dairy products` (espacio)
+❌ Incorrect:
+- `Body` (uppercase)
+- `dairy products` (space)
 - `dairy_products` (underscore)
 
-### Niveles de Dificultad
+### Difficulty Levels
 
-- **beginner**: Palabras básicas y cotidianas
-  - Ej: "głowa" (head), "ręka" (hand), "jabłko" (apple)
+- **beginner**: Basic and everyday words
+  - Ex: "głowa" (head), "ręka" (hand), "jabłko" (apple)
 
-- **intermediate**: Palabras menos comunes
-  - Ej: "nadgarstek" (wrist), "biodro" (hip), "wieprzowina" (pork)
+- **intermediate**: Less common words
+  - Ex: "nadgarstek" (wrist), "biodro" (hip), "wieprzowina" (pork)
 
-- **advanced**: Palabras especializadas o técnicas
-  - Ej: términos médicos, vocabulario técnico
+- **advanced**: Specialized or technical words
+  - Ex: medical terms, technical vocabulary
 
-## Plantilla Rápida
+## Quick Template
 
 ```typescript
 import { VocabularyWord } from '@/types';
@@ -246,7 +246,7 @@ export const CATEGORY_NAMEVocabulary: VocabularyWord[] = [
     difficulty: 'beginner',
     tags: ['tag1', 'tag2'],
   },
-  // ... más palabras
+  // ... more words
 ];
 
 export async function seedCATEGORY_NAMEVocabulary() {
@@ -266,35 +266,35 @@ export async function seedCATEGORY_NAMEVocabulary() {
 }
 ```
 
-## Verificación
+## Verification
 
-Después de agregar vocabulario, verifica que:
+After adding vocabulary, verify that:
 
-1. ✅ No hay IDs duplicados
-2. ✅ Todos los campos requeridos están presentes
-3. ✅ Las categorías y subcategorías son consistentes
-4. ✅ El nivel de dificultad es apropiado
-5. ✅ La función seed está importada en App.tsx
+1. ✅ No duplicate IDs
+2. ✅ All required fields are present
+3. ✅ Categories and subcategories are consistent
+4. ✅ Difficulty level is appropriate
+5. ✅ Seed function is imported in App.tsx
 
-## Herramientas Útiles
+## Useful Tools
 
-### Script de Validación
+### Validation Script
 
-Puedes crear un script simple para validar el vocabulario:
+You can create a simple script to validate vocabulary:
 
 ```typescript
 function validateVocabulary(words: VocabularyWord[]): boolean {
   const ids = new Set();
   
   for (const word of words) {
-    // Verificar ID único
+    // Check unique ID
     if (ids.has(word.id)) {
       console.error(`Duplicate ID: ${word.id}`);
       return false;
     }
     ids.add(word.id);
     
-    // Verificar campos requeridos
+    // Check required fields
     if (!word.polish || !word.english || !word.category || !word.subcategory) {
       console.error(`Missing required field in word: ${word.id}`);
       return false;
@@ -306,30 +306,30 @@ function validateVocabulary(words: VocabularyWord[]): boolean {
 }
 ```
 
-## Recursos del Diccionario
+## Dictionary Resources
 
-El vocabulario proviene del libro "Polish-English Bilingual Visual Dictionary" (DK, 2008).
+The vocabulary comes from the book "Polish-English Bilingual Visual Dictionary" (DK, 2008).
 
-Estructura del libro:
+Book structure:
 
-- **Páginas 1-172**: Categorías 1-9
-- **Páginas 173-362**: Categorías 10-16
-- **Índices**: Páginas 324-360
+- **Pages 1-172**: Categories 1-9
+- **Pages 173-362**: Categories 10-16
+- **Indexes**: Pages 324-360
 
-Consulta el documento Word "Diccionario_Polaco_Analisis_Completo.docx" para ver la estructura completa con todas las subcategorías.
+Consult the Word document "Diccionario_Polaco_Analisis_Completo.docx" to see the complete structure with all subcategories.
 
-## Próximos Pasos
+## Next Steps
 
-Para un vocabulario completo:
+For complete vocabulary:
 
-1. Prioriza categorías según tu interés de aprendizaje
-2. Comienza con subcategorías pequeñas (10-20 palabras)
-3. Agrupa palabras relacionadas en la misma subcategoría
-4. Mantén consistencia en los nombres de subcategorías
+1. Prioritize categories according to your learning interest
+2. Start with small subcategories (10-20 words)
+3. Group related words in the same subcategory
+4. Maintain consistency in subcategory names
 
-Sugerencia de orden:
-1. ✅ LUDZIE (People) - Ya hecho
-2. ŻYWNOŚĆ (Food) - Vocabulario cotidiano
-3. DOM (Home) - Útil para conversaciones básicas
-4. ZAKUPY (Shopping) - Práctico
-5. ... continúa según tus necesidades
+Suggested order:
+1. ✅ LUDZIE (People) - Already done
+2. ŻYWNOŚĆ (Food) - Everyday vocabulary
+3. DOM (Home) - Useful for basic conversations
+4. ZAKUPY (Shopping) - Practical
+5. ... continue according to your needs

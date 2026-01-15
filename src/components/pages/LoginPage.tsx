@@ -16,12 +16,12 @@ function LoginPage() {
     setError('');
     
     if (!name.trim()) {
-      setError('Por favor, ingresa tu nombre');
+      setError('Please enter your name');
       return;
     }
 
     if (name.trim().length < 2) {
-      setError('El nombre debe tener al menos 2 caracteres');
+      setError('Name must be at least 2 characters');
       return;
     }
 
@@ -31,7 +31,7 @@ function LoginPage() {
       setUser(user);
       navigate('/');
     } catch (err) {
-      setError('Error al crear el usuario. Por favor, intenta de nuevo.');
+      setError('Error creating user. Please try again.');
       console.error('Error creating user:', err);
     } finally {
       setLoading(false);
@@ -50,21 +50,21 @@ function LoginPage() {
               Łatwy Polski
             </h1>
             <p className="text-gray-600">
-              Bienvenido a tu viaje de aprendizaje del polaco
+              Welcome to your Polish learning journey
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                ¿Cuál es tu nombre?
+                What's your name?
               </label>
               <input
                 id="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Ingresa tu nombre"
+                placeholder="Enter your name"
                 className="input"
                 autoFocus
                 disabled={loading}
@@ -83,12 +83,12 @@ function LoginPage() {
               disabled={loading || !name.trim()}
               className="w-full btn-primary"
             >
-              {loading ? 'Creando cuenta...' : 'Comenzar'}
+              {loading ? 'Creating account...' : 'Get Started'}
             </button>
           </form>
 
           <p className="mt-6 text-center text-sm text-gray-500">
-            Tu progreso se guardará localmente en tu dispositivo
+            Your progress will be saved locally on your device
           </p>
         </div>
       </div>

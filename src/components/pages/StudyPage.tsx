@@ -55,7 +55,7 @@ function StudyPage() {
 
       console.log(`Loaded ${wordsToStudy.length} words for category: ${categoryId}, subcategory: ${subcategoryId || 'all'}`);
 
-      // Mezclar las palabras
+      // Shuffle the words
       const shuffled = wordsToStudy.sort(() => Math.random() - 0.5);
       setWords(shuffled);
     }
@@ -108,7 +108,7 @@ function StudyPage() {
     setIsCorrect(correct);
     setShowResult(true);
 
-    // Calcular puntos
+    // Calculate points
     const currentStreak = correct ? streak + 1 : 0;
     const points = calculatePoints(correct, timeSpent, currentStreak);
     
@@ -146,7 +146,7 @@ function StudyPage() {
       await db.flashcardStates.add(newState);
     }
 
-    // Celebrar si es correcto
+    // Celebrate if correct
     if (correct && currentStreak > 0 && currentStreak % 5 === 0) {
       confetti({
         particleCount: 100,
@@ -204,18 +204,18 @@ function StudyPage() {
       <div className="max-w-2xl mx-auto px-4 py-12 text-center">
         <div className="card p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            No hay palabras disponibles
+            No Words Available
           </h2>
           <p className="text-gray-600 mb-6">
             {subcategoryId 
-              ? 'Esta subcategoría aún no tiene vocabulario disponible.'
-              : 'Esta categoría aún no tiene vocabulario disponible.'}
+              ? 'This subcategory does not have vocabulary available yet.'
+              : 'This category does not have vocabulary available yet.'}
           </p>
           <button
             onClick={() => navigate(-1)}
             className="btn-primary"
           >
-            Volver
+            Go Back
           </button>
         </div>
       </div>
@@ -231,7 +231,7 @@ function StudyPage() {
         <div className="card p-8">
           <div className="text-6xl mb-4">🎉</div>
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            ¡Sesión Completada!
+            Session Completed!
           </h2>
           
           <div className="grid grid-cols-3 gap-4 mb-8">
@@ -239,19 +239,19 @@ function StudyPage() {
               <div className="text-3xl font-bold" style={{ color: '#0074bd' }}>
                 {sessionPoints}
               </div>
-              <div className="text-sm text-gray-600">Puntos</div>
+              <div className="text-sm text-gray-600">Points</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <div className="text-3xl font-bold text-green-600">
                 {accuracy}%
               </div>
-              <div className="text-sm text-gray-600">Precisión</div>
+              <div className="text-sm text-gray-600">Accuracy</div>
             </div>
             <div className="p-4 bg-orange-50 rounded-lg">
               <div className="text-3xl font-bold text-orange-600">
                 {streak}
               </div>
-              <div className="text-sm text-gray-600">Racha máx.</div>
+              <div className="text-sm text-gray-600">Max Streak</div>
             </div>
           </div>
 
@@ -260,13 +260,13 @@ function StudyPage() {
               onClick={() => window.location.reload()}
               className="w-full btn-primary"
             >
-              Estudiar de nuevo
+              Study Again
             </button>
             <button
               onClick={() => navigate(`/category/${categoryId}`)}
               className="w-full btn-secondary"
             >
-              Volver a la categoría
+              Back to Category
             </button>
           </div>
         </div>
@@ -283,7 +283,7 @@ function StudyPage() {
           className="flex items-center text-gray-600 hover:text-gray-900"
         >
           <ArrowLeft className="w-5 h-5 mr-2" />
-          Atrás
+          Back
         </button>
 
         <div className="flex items-center space-x-4">
@@ -358,7 +358,7 @@ function StudyPage() {
               {isFlipped ? currentWord.english : currentWord.polish}
             </div>
             <div className="text-gray-500 text-sm">
-              {isFlipped ? 'Inglés' : 'Polaco'} - Click para voltear
+              {isFlipped ? 'English' : 'Polish'} - Click to flip
             </div>
           </div>
 
@@ -368,13 +368,13 @@ function StudyPage() {
               disabled={currentIndex === 0}
               className="btn-secondary"
             >
-              Anterior
+              Previous
             </button>
             <button
               onClick={handleNext}
               className="btn-primary"
             >
-              {currentIndex === words.length - 1 ? 'Finalizar' : 'Siguiente'}
+              {currentIndex === words.length - 1 ? 'Finish' : 'Next'}
             </button>
           </div>
         </div>
@@ -392,7 +392,7 @@ function StudyPage() {
 
           <div className="text-center mb-6">
             <div className="text-4xl font-bold mb-2">{currentWord.polish}</div>
-            <div className="text-gray-500">¿Cómo se dice en inglés?</div>
+            <div className="text-gray-500">How do you say this in English?</div>
           </div>
 
           {!showResult ? (
@@ -407,7 +407,7 @@ function StudyPage() {
                     handleSubmitAnswer();
                   }
                 }}
-                placeholder="Escribe tu respuesta..."
+                placeholder="Type your answer..."
                 className="input mb-4"
                 autoFocus
               />
@@ -416,7 +416,7 @@ function StudyPage() {
                 disabled={!quizAnswer.trim()}
                 className="w-full btn-primary"
               >
-                Verificar (Enter)
+                Check Answer (Enter)
               </button>
             </div>
           ) : (
@@ -439,11 +439,11 @@ function StudyPage() {
                       isCorrect ? 'text-green-800' : 'text-red-800'
                     }`}
                   >
-                    {isCorrect ? '¡Correcto!' : 'Incorrecto'}
+                    {isCorrect ? 'Correct!' : 'Incorrect'}
                   </div>
                   {!isCorrect && (
                     <div className="text-gray-700">
-                      La respuesta correcta es: <strong>{currentWord.english}</strong>
+                      The correct answer is: <strong>{currentWord.english}</strong>
                     </div>
                   )}
                 </div>
@@ -459,7 +459,7 @@ function StudyPage() {
                 className="w-full btn-primary"
                 autoFocus
               >
-                {currentIndex === words.length - 1 ? 'Ver Resultados (Enter)' : 'Continuar (Enter)'}
+                {currentIndex === words.length - 1 ? 'View Results (Enter)' : 'Continue (Enter)'}
               </button>
             </div>
           )}

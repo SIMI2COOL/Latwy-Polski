@@ -10,7 +10,7 @@ function CategoryPage() {
   const navigate = useNavigate();
   const [category, setCategory] = useState<Category | null>(null);
 
-  // Cargar palabras de esta categoría
+  // Load words from this category
   const words = useLiveQuery(
     () => categoryId ? db.vocabulary.where('category').equals(categoryId).toArray() : [],
     [categoryId]
@@ -36,7 +36,7 @@ function CategoryPage() {
     );
   }
 
-  // Agrupar palabras por subcategoría
+  // Group words by subcategory
   const wordsBySubcategory = words?.reduce((acc, word) => {
     if (!acc[word.subcategory]) {
       acc[word.subcategory] = [];
@@ -57,7 +57,7 @@ function CategoryPage() {
           className="flex items-center text-gray-600 hover:text-gray-900 mb-4 transition-colors"
         >
           <ArrowLeft className="w-5 h-5 mr-2" />
-          Volver al inicio
+          Back to Home
         </button>
 
         <div className="flex items-start space-x-4">
@@ -74,10 +74,10 @@ function CategoryPage() {
             <div className="mt-4 flex items-center space-x-4">
               <span className="text-sm text-gray-500">
                 <BookOpen className="w-4 h-4 inline mr-1" />
-                {totalWords} palabras
+                {totalWords} words
               </span>
               <span className="text-sm text-gray-500">
-                {subcategories.length} temas
+                {subcategories.length} themes
               </span>
             </div>
           </div>
@@ -93,7 +93,7 @@ function CategoryPage() {
             style={{ backgroundColor: category.color }}
           >
             <Play className="w-5 h-5 mr-2" />
-            Comenzar a estudiar toda la categoría
+            Start Studying Entire Category
           </Link>
         </div>
       )}
@@ -102,7 +102,7 @@ function CategoryPage() {
       {totalWords > 0 ? (
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Temas en esta categoría
+            Themes in this Category
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {subcategories.map((subcategory) => {
@@ -124,7 +124,7 @@ function CategoryPage() {
                           {subcategoryName}
                         </h3>
                         <p className="text-sm text-gray-500">
-                          {subcategoryWords.length} palabras
+                          {subcategoryWords.length} words
                         </p>
                       </div>
                       <Play
@@ -133,7 +133,7 @@ function CategoryPage() {
                       />
                     </div>
 
-                    {/* Preview de algunas palabras */}
+                    {/* Preview of some words */}
                     <div className="mt-4 pt-4 border-t border-gray-100">
                       <div className="flex flex-wrap gap-2">
                         {subcategoryWords.slice(0, 3).map((word) => (
@@ -165,10 +165,10 @@ function CategoryPage() {
         <div className="text-center py-12">
           <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-gray-700 mb-2">
-            Contenido en desarrollo
+            Content in Development
           </h3>
           <p className="text-gray-500">
-            Esta categoría estará disponible pronto con vocabulario completo.
+            This category will be available soon with complete vocabulary.
           </p>
         </div>
       )}

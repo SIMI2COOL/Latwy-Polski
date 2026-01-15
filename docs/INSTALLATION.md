@@ -1,25 +1,25 @@
-# 🚀 Guía de Instalación Paso a Paso
+# 🚀 Step-by-Step Installation Guide
 
-## ¿Qué necesitas?
+## What do you need?
 
-1. **Node.js** (versión 18 o superior)
-   - Descarga desde: https://nodejs.org/
-   - Elige la versión LTS (recomendada)
-   - Verifica instalación: abre terminal y escribe `node --version`
+1. **Node.js** (version 18 or higher)
+   - Download from: https://nodejs.org/
+   - Choose the LTS version (recommended)
+   - Verify installation: open terminal and type `node --version`
 
-2. **Editor de Código** (opcional pero recomendado)
+2. **Code Editor** (optional but recommended)
    - VS Code: https://code.visualstudio.com/
-   - O cualquier editor de texto
+   - Or any text editor
 
-3. **Terminal/Línea de Comandos**
-   - Windows: PowerShell o CMD
+3. **Terminal/Command Line**
+   - Windows: PowerShell or CMD
    - Mac/Linux: Terminal
 
-## Paso 1: Organizar los Archivos
+## Step 1: Organize Files
 
-1. Descarga todos los archivos del proyecto
-2. Crea una carpeta llamada `polish-learning-app`
-3. Coloca todos los archivos descargados manteniendo la estructura:
+1. Download all project files
+2. Create a folder called `polish-learning-app`
+3. Place all downloaded files maintaining the structure:
 
 ```
 polish-learning-app/
@@ -63,47 +63,47 @@ polish-learning-app/
 └── vite.config.ts
 ```
 
-## Paso 2: Abrir Terminal en la Carpeta del Proyecto
+## Step 2: Open Terminal in Project Folder
 
 ### Windows:
-1. Abre el Explorador de Archivos
-2. Navega a la carpeta `polish-learning-app`
-3. Haz clic en la barra de dirección
-4. Escribe `cmd` o `powershell` y presiona Enter
+1. Open File Explorer
+2. Navigate to the `polish-learning-app` folder
+3. Click on the address bar
+4. Type `cmd` or `powershell` and press Enter
 
 ### Mac/Linux:
-1. Abre Terminal
-2. Navega a la carpeta:
+1. Open Terminal
+2. Navigate to the folder:
    ```bash
-   cd ruta/a/polish-learning-app
+   cd path/to/polish-learning-app
    ```
 
-## Paso 3: Instalar Dependencias
+## Step 3: Install Dependencies
 
-En la terminal, ejecuta:
+In the terminal, run:
 
 ```bash
 npm install
 ```
 
-**¿Qué hace esto?**
-- Descarga todas las librerías necesarias (React, TypeScript, etc.)
-- Puede tardar 2-5 minutos dependiendo de tu conexión
-- Verás un progreso en la terminal
+**What does this do?**
+- Downloads all necessary libraries (React, TypeScript, etc.)
+- May take 2-5 minutes depending on your connection
+- You'll see progress in the terminal
 
-**Posibles errores:**
-- Si dice "npm: command not found": Node.js no está instalado correctamente
-- Si hay errores de permisos en Mac/Linux: usa `sudo npm install`
+**Possible errors:**
+- If it says "npm: command not found": Node.js is not installed correctly
+- If there are permission errors on Mac/Linux: use `sudo npm install`
 
-## Paso 4: Iniciar la Aplicación
+## Step 4: Start the Application
 
-Una vez instaladas las dependencias, ejecuta:
+Once dependencies are installed, run:
 
 ```bash
 npm run dev
 ```
 
-**¿Qué verás?**
+**What will you see?**
 ```
   VITE v5.0.8  ready in 1234 ms
 
@@ -112,141 +112,141 @@ npm run dev
   ➜  press h to show help
 ```
 
-## Paso 5: Abrir en el Navegador
+## Step 5: Open in Browser
 
-1. Abre tu navegador favorito (Chrome, Firefox, Safari, Edge)
-2. Ve a la dirección: `http://localhost:5173`
-3. ¡Deberías ver la aplicación funcionando! 🎉
+1. Open your favorite browser (Chrome, Firefox, Safari, Edge)
+2. Go to: `http://localhost:5173`
+3. You should see the application running! 🎉
 
-## Verificación
+## Verification
 
-Si todo está correcto, deberías ver:
+If everything is correct, you should see:
 
-1. ✅ Pantalla de carga inicial
-2. ✅ Página principal con categorías
-3. ✅ Estadísticas de usuario (puntos, nivel, racha)
-4. ✅ Categoría "LUDZIE (People)" con vocabulario
+1. ✅ Initial loading screen
+2. ✅ Main page with categories
+3. ✅ User statistics (points, level, streak)
+4. ✅ "LUDZIE (People)" category with vocabulary
 
-## Comandos Útiles
+## Useful Commands
 
-### Detener el servidor
-- Presiona `Ctrl + C` en la terminal
+### Stop the server
+- Press `Ctrl + C` in the terminal
 
-### Reiniciar el servidor
+### Restart the server
 ```bash
 npm run dev
 ```
 
-### Construir para producción
+### Build for production
 ```bash
 npm run build
 ```
 
-### Previsualizar build de producción
+### Preview production build
 ```bash
 npm run preview
 ```
 
-### Limpiar y reinstalar
+### Clean and reinstall
 ```bash
-# Eliminar carpeta node_modules
+# Remove node_modules folder
 rm -rf node_modules
 
-# Eliminar package-lock.json
+# Remove package-lock.json
 rm package-lock.json
 
-# Reinstalar
+# Reinstall
 npm install
 ```
 
-## Solución de Problemas Comunes
+## Troubleshooting Common Issues
 
 ### Error: "Cannot find module"
 
-**Solución:**
+**Solution:**
 ```bash
 npm install
 ```
 
 ### Error: "Port 5173 is already in use"
 
-**Solución:**
-- Cierra otras instancias de la aplicación
-- O cambia el puerto en `vite.config.ts`:
+**Solution:**
+- Close other instances of the application
+- Or change the port in `vite.config.ts`:
 ```typescript
 export default defineConfig({
   server: {
-    port: 3000 // Cambiar a otro puerto
+    port: 3000 // Change to another port
   }
 })
 ```
 
-### La página está en blanco
+### Page is blank
 
-**Solución:**
-1. Abre DevTools del navegador (F12)
-2. Mira la pestaña "Console" para ver errores
-3. Verifica que todos los archivos estén en su lugar
-4. Recarga la página (Ctrl+R o Cmd+R)
+**Solution:**
+1. Open browser DevTools (F12)
+2. Check the "Console" tab for errors
+3. Verify that all files are in place
+4. Reload the page (Ctrl+R or Cmd+R)
 
-### Errores de TypeScript
+### TypeScript errors
 
-**Solución:**
+**Solution:**
 ```bash
 npm run build
 ```
-Esto mostrará todos los errores de TypeScript
+This will show all TypeScript errors
 
-### Base de datos no se inicializa
+### Database doesn't initialize
 
-**Solución:**
-1. Abre DevTools (F12)
-2. Ve a Application > Storage > IndexedDB
-3. Elimina "PolishAppDB"
-4. Recarga la página
+**Solution:**
+1. Open DevTools (F12)
+2. Go to Application > Storage > IndexedDB
+3. Delete "PolishAppDB"
+4. Reload the page
 
-## Desarrollo en VS Code
+## Development in VS Code
 
-### Extensiones Recomendadas
+### Recommended Extensions
 
-1. **ESLint** - Para linting de código
-2. **Prettier** - Para formateo automático
-3. **TypeScript** - Soporte para TS
-4. **Tailwind CSS IntelliSense** - Autocompletado de Tailwind
+1. **ESLint** - For code linting
+2. **Prettier** - For automatic formatting
+3. **TypeScript** - Support for TS
+4. **Tailwind CSS IntelliSense** - Tailwind autocomplete
 
-### Atajos Útiles
+### Useful Shortcuts
 
-- `Ctrl + ` ` - Abrir terminal integrada
-- `Ctrl + P` - Buscar archivo
-- `F5` - Iniciar debugger
-- `Ctrl + Shift + F` - Buscar en todo el proyecto
+- `Ctrl + ` ` - Open integrated terminal
+- `Ctrl + P` - Search file
+- `F5` - Start debugger
+- `Ctrl + Shift + F` - Search entire project
 
-## Próximos Pasos
+## Next Steps
 
-Una vez que la aplicación esté funcionando:
+Once the application is running:
 
-1. 📖 Lee el `README.md` para entender las funcionalidades
-2. 🎯 Explora la aplicación navegando entre categorías
-3. 📝 Lee `docs/ADDING_VOCABULARY.md` para agregar más palabras
-4. 🎨 Personaliza los colores en `tailwind.config.js`
-5. 🚀 Comparte tu progreso con amigos
+1. 📖 Read the `README.md` to understand the features
+2. 🎯 Explore the application by navigating between categories
+3. 📝 Read `docs/ADDING_VOCABULARY.md` to add more words
+4. 🎨 Customize colors in `tailwind.config.js`
+5. 🚀 Share your progress with friends
 
-## Recursos Adicionales
+## Additional Resources
 
-- **Documentación de React**: https://react.dev/
-- **Documentación de TypeScript**: https://www.typescriptlang.org/
-- **Documentación de Tailwind**: https://tailwindcss.com/
-- **Documentación de Vite**: https://vitejs.dev/
+- **React Documentation**: https://react.dev/
+- **TypeScript Documentation**: https://www.typescriptlang.org/
+- **Tailwind Documentation**: https://tailwindcss.com/
+- **Vite Documentation**: https://vitejs.dev/
 
-## ¿Necesitas Ayuda?
+## Need Help?
 
-Si encuentras problemas:
+If you encounter problems:
 
-1. Revisa esta guía cuidadosamente
-2. Busca el error en Google
-3. Consulta la documentación oficial de las tecnologías
-4. Verifica que Node.js esté actualizado: `node --version`
+1. Review this guide carefully
+2. Search for the error on Google
+3. Consult the official documentation of the technologies
+4. Verify that Node.js is up to date: `node --version`
 
 ---
 
-**¡Disfruta aprendiendo polaco! 🇵🇱**
+**Enjoy learning Polish! 🇵🇱**

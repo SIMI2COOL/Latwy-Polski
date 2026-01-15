@@ -1,13 +1,14 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, TrendingUp, Settings } from 'lucide-react';
+import { Home, TrendingUp, Settings } from 'lucide-react';
+import { Logo } from '@/components/common/Logo';
 
 function Layout() {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', icon: Home, label: 'Inicio' },
-    { path: '/progress', icon: TrendingUp, label: 'Progreso' },
-    { path: '/settings', icon: Settings, label: 'Ajustes' },
+    { path: '/', icon: Home, label: 'Home' },
+    { path: '/progress', icon: TrendingUp, label: 'Progress' },
+    { path: '/settings', icon: Settings, label: 'Settings' },
   ];
 
   return (
@@ -17,7 +18,7 @@ function Layout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2">
-              <BookOpen className="w-8 h-8" style={{ color: '#0074bd' }} />
+              <Logo size={32} />
               <span className="text-xl font-bold text-gradient">Łatwy Polski</span>
             </Link>
             

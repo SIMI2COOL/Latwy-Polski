@@ -1,49 +1,49 @@
 import { UserProgress } from '@/types';
 
 /**
- * Sistema de puntos y gamificación
+ * Points and gamification system
  */
 
-// Constantes de puntuación
+// Scoring constants
 export const POINTS = {
   CORRECT_ANSWER: 10,
-  PERFECT_ANSWER: 15, // Respuesta correcta en menos de 3 segundos
-  STREAK_BONUS_MULTIPLIER: 0.5, // +50% por cada racha de 5
+  PERFECT_ANSWER: 15, // Correct answer in less than 3 seconds
+  STREAK_BONUS_MULTIPLIER: 0.5, // +50% for every streak of 5
   DAILY_GOAL_BONUS: 50,
   CATEGORY_COMPLETION_BONUS: 200,
   LEVEL_UP_BONUS: 100,
 };
 
-// Niveles - cada nivel requiere más puntos
+// Levels - each level requires more points
 const LEVEL_THRESHOLDS = [
-  0,     // Nivel 1
-  100,   // Nivel 2
-  250,   // Nivel 3
-  500,   // Nivel 4
-  850,   // Nivel 5
-  1300,  // Nivel 6
-  1850,  // Nivel 7
-  2500,  // Nivel 8
-  3250,  // Nivel 9
-  4100,  // Nivel 10
-  5050,  // Nivel 11
-  6100,  // Nivel 12
-  7250,  // Nivel 13
-  8500,  // Nivel 14
-  9850,  // Nivel 15
+  0,     // Level 1
+  100,   // Level 2
+  250,   // Level 3
+  500,   // Level 4
+  850,   // Level 5
+  1300,  // Level 6
+  1850,  // Level 7
+  2500,  // Level 8
+  3250,  // Level 9
+  4100,  // Level 10
+  5050,  // Level 11
+  6100,  // Level 12
+  7250,  // Level 13
+  8500,  // Level 14
+  9850,  // Level 15
 ];
 
-// Para niveles superiores a 15, usar fórmula exponencial
+// For levels above 15, use exponential formula
 function calculateLevelThreshold(level: number): number {
   if (level <= 15) {
     return LEVEL_THRESHOLDS[level - 1];
   }
-  // Fórmula: threshold = 9850 + (level - 15) * 1500
+  // Formula: threshold = 9850 + (level - 15) * 1500
   return LEVEL_THRESHOLDS[14] + (level - 15) * 1500;
 }
 
 /**
- * Calcula los puntos ganados por una respuesta
+ * Calculates points earned for an answer
  */
 export function calculatePoints(
   isCorrect: boolean,
@@ -54,12 +54,12 @@ export function calculatePoints(
   
   let points: number = POINTS.CORRECT_ANSWER;
   
-  // Bonus por respuesta perfecta (< 3 segundos)
+  // Bonus for perfect answer (< 3 seconds)
   if (timeSpent < 3) {
     points = POINTS.PERFECT_ANSWER;
   }
   
-  // Bonus por racha (multiplicador cada 5 respuestas)
+  // Bonus for streak (multiplier every 5 answers)
   const streakMultiplier = Math.floor(currentStreak / 5) * POINTS.STREAK_BONUS_MULTIPLIER;
   points = Math.round(points * (1 + streakMultiplier));
   
@@ -67,21 +67,21 @@ export function calculatePoints(
 }
 
 /**
- * Determina el nivel basado en puntos totales
+ * Determines level based on total points
  */
 export function calculateLevel(totalPoints: number): number {
   let level = 1;
   
   while (totalPoints >= calculateLevelThreshold(level + 1)) {
     level++;
-    if (level > 50) break; // Máximo nivel 50
+    if (level > 50) break; // Maximum level 50
   }
   
   return level;
 }
 
 /**
- * Calcula los puntos necesarios para el siguiente nivel
+ * Calculates points needed for next level
  */
 export function getPointsToNextLevel(totalPoints: number, currentLevel: number): number {
   const nextLevelThreshold = calculateLevelThreshold(currentLevel + 1);
@@ -89,7 +89,7 @@ export function getPointsToNextLevel(totalPoints: number, currentLevel: number):
 }
 
 /**
- * Calcula el progreso hacia el siguiente nivel (0-100)
+ * Calculates progress toward next level (0-100)
  */
 export function getLevelProgress(totalPoints: number, currentLevel: number): number {
   const currentThreshold = calculateLevelThreshold(currentLevel);
@@ -101,7 +101,7 @@ export function getLevelProgress(totalPoints: number, currentLevel: number): num
 }
 
 /**
- * Verifica si el usuario subió de nivel
+ * Checks if user leveled up
  */
 export function didLevelUp(oldPoints: number, newPoints: number): boolean {
   const oldLevel = calculateLevel(oldPoints);
@@ -110,7 +110,7 @@ export function didLevelUp(oldPoints: number, newPoints: number): boolean {
 }
 
 /**
- * Actualiza el progreso del usuario después de una sesión de estudio
+ * Updates user progress after a study session
  */
 export function updateProgressAfterSession(
   currentProgress: UserProgress,
@@ -126,52 +126,52 @@ export function updateProgressAfterSession(
   const newLevel = calculateLevel(newTotalPoints);
   const leveledUp = newLevel > currentProgress.level;
   
-  // Actualizar racha
+  // Update streak
   const today = new Date().toDateString();
   const lastStudy = new Date(currentProgress.lastStudyDate).toDateString();
   const yesterday = new Date(Date.now() - 86400000).toDateString();
   
   let newStreak = currentProgress.streak;
   if (lastStudy === today) {
-    // Ya estudió hoy, mantener racha
+    // Already studied today, maintain streak
   } else if (lastStudy === yesterday) {
-    // Estudió ayer, incrementar racha
+    // Studied yesterday, increment streak
     newStreak++;
   } else {
-    // Rompió la racha
+    // Broke the streak
     newStreak = 1;
   }
   
-  // Verificar nuevos logros
+  // Check for new achievements
   const achievements: string[] = [];
   
-  // Logro: Primera sesión perfecta
+  // Achievement: Perfect session
   if (correctAnswers === totalQuestions && totalQuestions >= 5) {
     if (!currentProgress.achievements.find(a => a.id === 'perfect-session')) {
       achievements.push('perfect-session');
     }
   }
   
-  // Logro: Racha de 7 días
+  // Achievement: 7 day streak
   if (newStreak === 7) {
     if (!currentProgress.achievements.find(a => a.id === 'week-streak')) {
       achievements.push('week-streak');
     }
   }
   
-  // Logro: Racha de 30 días
+  // Achievement: 30 day streak
   if (newStreak === 30) {
     if (!currentProgress.achievements.find(a => a.id === 'month-streak')) {
       achievements.push('month-streak');
     }
   }
   
-  // Logro: Alcanzar nivel 10
+  // Achievement: Reach level 10
   if (newLevel >= 10 && currentProgress.level < 10) {
     achievements.push('level-10');
   }
   
-  // Logro: 1000 puntos
+  // Achievement: 1000 points
   if (newTotalPoints >= 1000 && currentProgress.totalPoints < 1000) {
     achievements.push('points-1000');
   }
@@ -201,25 +201,25 @@ export function updateProgressAfterSession(
   };
 }
 
-// Helper functions para logros
+// Helper functions for achievements
 function getAchievementTitle(id: string): string {
   const titles: Record<string, string> = {
-    'perfect-session': '¡Perfecto!',
-    'week-streak': 'Racha Semanal',
-    'month-streak': 'Racha Mensual',
-    'level-10': 'Maestro',
-    'points-1000': 'Milésimo',
+    'perfect-session': 'Perfect!',
+    'week-streak': 'Weekly Streak',
+    'month-streak': 'Monthly Streak',
+    'level-10': 'Master',
+    'points-1000': 'Thousand',
   };
-  return titles[id] || 'Logro Desbloqueado';
+  return titles[id] || 'Achievement Unlocked';
 }
 
 function getAchievementDescription(id: string): string {
   const descriptions: Record<string, string> = {
-    'perfect-session': 'Completaste una sesión sin errores',
-    'week-streak': '7 días consecutivos estudiando',
-    'month-streak': '30 días consecutivos estudiando',
-    'level-10': 'Alcanzaste el nivel 10',
-    'points-1000': 'Acumulaste 1000 puntos',
+    'perfect-session': 'Completed a session without errors',
+    'week-streak': '7 consecutive days studying',
+    'month-streak': '30 consecutive days studying',
+    'level-10': 'Reached level 10',
+    'points-1000': 'Accumulated 1000 points',
   };
   return descriptions[id] || '';
 }
@@ -236,14 +236,14 @@ function getAchievementIcon(id: string): string {
 }
 
 /**
- * Obtiene el título del nivel
+ * Gets the level title
  */
 export function getLevelTitle(level: number): string {
-  if (level < 5) return 'Principiante';
-  if (level < 10) return 'Aprendiz';
-  if (level < 15) return 'Intermedio';
-  if (level < 25) return 'Avanzado';
-  if (level < 35) return 'Experto';
-  if (level < 45) return 'Maestro';
-  return 'Gran Maestro';
+  if (level < 5) return 'Beginner';
+  if (level < 10) return 'Learner';
+  if (level < 15) return 'Intermediate';
+  if (level < 25) return 'Advanced';
+  if (level < 35) return 'Expert';
+  if (level < 45) return 'Master';
+  return 'Grand Master';
 }
