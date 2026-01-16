@@ -399,6 +399,7 @@ function StudyPage() {
   const isFemaleVoice = (voice: SpeechSynthesisVoice): boolean => {
     const nameLower = voice.name.toLowerCase();
     // Check if voice has gender property (some browsers support this)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ('gender' in voice && (voice as any).gender === 'female') {
       return true;
     }
@@ -448,7 +449,7 @@ function StudyPage() {
       if (!englishVoice) {
         englishVoice = voices.find(voice => 
           voice.lang.startsWith('en') && voice.localService
-        ) || voices.find(voice => voice.lang.startsWith('en'));
+        ) || voices.find(voice => voice.lang.startsWith('en')) || null;
       }
       
       if (englishVoice) {
@@ -469,14 +470,14 @@ function StudyPage() {
       if (!polishVoice) {
         polishVoice = voices.find(voice => 
           voice.lang.startsWith('pl') && voice.localService
-        ) || voices.find(voice => voice.lang.startsWith('pl'));
+        ) || voices.find(voice => voice.lang.startsWith('pl')) || null;
       }
       
       // If still no Polish voice found, try to find any voice that supports Polish
       if (!polishVoice) {
         polishVoice = voices.find(voice => 
           voice.lang.includes('pl') || voice.name.toLowerCase().includes('polish')
-        );
+        ) || null;
       }
       
       if (polishVoice) {

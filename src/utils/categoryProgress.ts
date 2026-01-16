@@ -25,19 +25,9 @@ export async function calculateCategoryProgress(categoryId: string): Promise<num
     // Create a map for quick lookup
     const stateMap = new Map(flashcardStates.map((s) => [s.wordId, s]));
 
-    // Calculate mastery for each word
-    let totalMastery = 0;
-    let wordsWithProgress = 0;
-
-    for (const word of words) {
-      const state = stateMap.get(word.id);
-      if (state) {
-        const mastery = calculateWordMastery(state);
-        totalMastery += mastery;
-        wordsWithProgress++;
-      }
-    }
-
+    // Check if any words have been studied
+    const wordsWithProgress = words.filter(word => stateMap.has(word.id)).length;
+    
     // If no words have been studied, return 0
     if (wordsWithProgress === 0) return 0;
 

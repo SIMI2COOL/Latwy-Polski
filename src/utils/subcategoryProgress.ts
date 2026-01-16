@@ -16,7 +16,7 @@ export async function calculateSubcategoryProgress(
         .where('[category+subcategory]')
         .equals([categoryId, subcategoryId])
         .toArray();
-    } catch (error) {
+    } catch {
       // Fallback if compound index doesn't work
       const allCategoryWords = await db.vocabulary
         .where('category')
@@ -77,7 +77,7 @@ export async function isSubcategoryComplete(
         .where('[category+subcategory]')
         .equals([categoryId, subcategoryId])
         .toArray();
-    } catch (error) {
+    } catch {
       const allCategoryWords = await db.vocabulary
         .where('category')
         .equals(categoryId)
