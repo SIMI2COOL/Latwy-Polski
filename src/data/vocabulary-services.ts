@@ -12,6 +12,8 @@ export const servicesVocabulary: VocabularyWord[] = [
   { id: 'emergency_008', polish: 'pożar', english: 'fire', category: 'services', subcategory: 'emergency', difficulty: 'intermediate' },
   { id: 'emergency_009', polish: 'kradzież', english: 'theft', category: 'services', subcategory: 'emergency', difficulty: 'intermediate' },
   { id: 'emergency_010', polish: 'raport policyjny', english: 'police report', category: 'services', subcategory: 'emergency', difficulty: 'advanced' },
+  { id: 'emergency_011', polish: 'numer alarmowy', english: 'emergency number', category: 'services', subcategory: 'emergency', difficulty: 'intermediate' },
+  { id: 'emergency_012', polish: 'ratownik', english: 'paramedic', category: 'services', subcategory: 'emergency', difficulty: 'intermediate' },
 
   // BANK (Bank)
   { id: 'bank_001', polish: 'bank', english: 'bank', category: 'services', subcategory: 'bank', difficulty: 'beginner' },
@@ -42,6 +44,7 @@ export const servicesVocabulary: VocabularyWord[] = [
   { id: 'post_010', polish: 'skrzynka pocztowa', english: 'mailbox', category: 'services', subcategory: 'post', difficulty: 'intermediate' },
   { id: 'post_011', polish: 'poczta lotnicza', english: 'air mail', category: 'services', subcategory: 'post', difficulty: 'intermediate' },
   { id: 'post_012', polish: 'przesyłka polecona', english: 'registered mail', category: 'services', subcategory: 'post', difficulty: 'advanced' },
+  { id: 'post_013', polish: 'pocztówka', english: 'postcard', category: 'services', subcategory: 'post', difficulty: 'beginner' },
 
   // HOTEL (Hotel)
   { id: 'hotel_001', polish: 'hotel', english: 'hotel', category: 'services', subcategory: 'hotel', difficulty: 'beginner' },
@@ -56,6 +59,8 @@ export const servicesVocabulary: VocabularyWord[] = [
   { id: 'hotel_010', polish: 'winda', english: 'elevator', category: 'services', subcategory: 'hotel', difficulty: 'intermediate' },
   { id: 'hotel_011', polish: 'obsługa pokojowa', english: 'room service', category: 'services', subcategory: 'hotel', difficulty: 'advanced' },
   { id: 'hotel_012', polish: 'mini bar', english: 'mini bar', category: 'services', subcategory: 'hotel', difficulty: 'intermediate' },
+  { id: 'hotel_013', polish: 'śniadanie', english: 'breakfast', category: 'services', subcategory: 'hotel', difficulty: 'beginner' },
+  { id: 'hotel_014', polish: 'parking', english: 'parking', category: 'services', subcategory: 'hotel', difficulty: 'beginner' },
 ];
 
 export async function seedServicesVocabulary() {
@@ -74,10 +79,11 @@ export async function seedServicesVocabulary() {
       console.log(`✅ Added ${newWords.length} new services words`);
     }
     
-    // Always update total word count
-    const totalCount = await db.vocabulary.where('category').equals('services').count();
-    await db.categories.update('services', { totalWords: totalCount });
-    console.log(`✅ Services vocabulary: ${totalCount} total words (${servicesVocabulary.length} in file)`);
+    // Always update total word count - use the actual array length, not database count
+    // This ensures consistency across devices
+    await db.categories.update('services', { totalWords: servicesVocabulary.length });
+    const dbCount = await db.vocabulary.where('category').equals('services').count();
+    console.log(`✅ Services vocabulary: ${servicesVocabulary.length} words (${dbCount} in database)`);
     return true;
   } catch (error) {
     if (error instanceof Error && error.name === 'ConstraintError') {
@@ -94,10 +100,11 @@ export async function seedServicesVocabulary() {
         }
       }
       
-      // Always update total word count
-      const totalCount = await db.vocabulary.where('category').equals('services').count();
-      await db.categories.update('services', { totalWords: totalCount });
-      console.log(`✅ Services vocabulary: ${totalCount} total words`);
+      // Always update total word count - use the actual array length, not database count
+      // This ensures consistency across devices
+      await db.categories.update('services', { totalWords: servicesVocabulary.length });
+      const dbCount = await db.vocabulary.where('category').equals('services').count();
+      console.log(`✅ Services vocabulary: ${servicesVocabulary.length} words (${dbCount} in database)`);
       return true;
     }
     console.error('Error seeding services vocabulary:', error);

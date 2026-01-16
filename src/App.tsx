@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { initializeDatabase } from '@/utils/database';
+import { initializeDatabase, removeDuplicateVocabulary } from '@/utils/database';
 import { seedPeopleVocabulary } from '@/data/vocabulary-people';
 import { seedFoodVocabulary } from '@/data/vocabulary-food';
 import { seedHomeVocabulary } from '@/data/vocabulary-home';
@@ -72,7 +72,10 @@ function App() {
           console.warn('Database initialization returned false, but continuing...');
         }
 
-        console.log('Database initialized, seeding vocabulary...');
+        console.log('Database initialized, removing duplicates and seeding vocabulary...');
+        // Remove any duplicate vocabulary entries first
+        await removeDuplicateVocabulary();
+        
         // Poblar vocabulario (solo la primera vez) - non-blocking
         seedPeopleVocabulary().catch(err => {
           console.warn('People vocabulary seeding failed (non-critical):', err);

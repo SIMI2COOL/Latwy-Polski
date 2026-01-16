@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db, updateUserProgress } from '@/utils/database';
 import { VocabularyWord, QuizResult } from '@/types';
@@ -7,6 +7,7 @@ import confetti from 'canvas-confetti';
 import { calculatePoints, updateProgressAfterSession } from '@/utils/gamification';
 import { calculateNextReview, mapResultToQuality } from '@/utils/spaced-repetition';
 import { useUser } from '@/contexts/UserContext';
+import { comparePolishText } from '@/utils/polishTextUtils';
 
 function StudyPage() {
   const { categoryId, subcategoryId } = useParams();
@@ -25,6 +26,13 @@ function StudyPage() {
   const [streak, setStreak] = useState(0);
   const [sessionPoints, setSessionPoints] = useState(0);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
+  const [viewedWords, setViewedWords] = useState<Set<string>>(new Set()); // Track words viewed in flashcard mode
+  const [flashcardComplete, setFlashcardComplete] = useState(false); // Track if flashcards are finished
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null); // Track if current answer is correct
+  const [autoAdvanceTimeout, setAutoAdvanceTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
+
+  // Use ref to store the latest handleNext function
+  const handleNextRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     async function loadWords() {
@@ -67,9 +75,22 @@ function StudyPage() {
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
+    // Mark word as viewed when flipped
+    if (currentWord && !isFlipped) {
+      setViewedWords(prev => new Set(prev).add(currentWord.id));
+    }
   };
 
   const handleNext = () => {
+    // Clear any pending auto-advance timeout
+    if (autoAdvanceTimeout) {
+      clearTimeout(autoAdvanceTimeout);
+      setAutoAdvanceTimeout(null);
+    }
+    
+    // Reset answer state
+    setIsAnswerCorrect(null);
+    
     if (currentIndex < words.length - 1) {
       setCurrentIndex(currentIndex + 1);
       setIsFlipped(false);
@@ -77,11 +98,29 @@ function StudyPage() {
       setQuizAnswer('');
       setQuestionStartTime(Date.now());
     } else {
-      completeSession();
+      // Mark current word as viewed
+      if (currentWord) {
+        setViewedWords(prev => new Set(prev).add(currentWord.id));
+      }
+      // If in flashcard mode, mark as complete
+      if (mode === 'flashcard') {
+        setFlashcardComplete(true);
+      } else {
+        completeSession();
+      }
     }
   };
 
   const handlePrevious = () => {
+    // Clear any pending auto-advance timeout
+    if (autoAdvanceTimeout) {
+      clearTimeout(autoAdvanceTimeout);
+      setAutoAdvanceTimeout(null);
+    }
+    
+    // Reset answer state
+    setIsAnswerCorrect(null);
+    
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
       setIsFlipped(false);
@@ -91,9 +130,117 @@ function StudyPage() {
     }
   };
 
+  // Handle mode switch to quiz
+  const handleSwitchToQuiz = () => {
+    // Reorganize words: viewed words first (randomized), then unseen words
+    const viewed = words.filter(w => viewedWords.has(w.id));
+    const unseen = words.filter(w => !viewedWords.has(w.id));
+    
+    // Shuffle viewed words
+    const shuffledViewed = viewed.sort(() => Math.random() - 0.5);
+    // Shuffle unseen words
+    const shuffledUnseen = unseen.sort(() => Math.random() - 0.5);
+    
+    // Combine: viewed first, then unseen
+    const reorganizedWords = [...shuffledViewed, ...shuffledUnseen];
+    setWords(reorganizedWords);
+    setCurrentIndex(0);
+    setMode('quiz');
+    setShowResult(false);
+    setQuizAnswer('');
+    setQuestionStartTime(Date.now());
+    setFlashcardComplete(false);
+  };
+
+  // Check answer in real-time as user types
+  const checkAnswerRealTime = async (answer: string) => {
+    if (!answer.trim() || !currentWord) return;
+
+    const correct = comparePolishText(answer, currentWord.polish);
+    setIsAnswerCorrect(correct);
+
+    // If correct, set up auto-advance
+    if (correct) {
+      // Clear any existing timeout
+      if (autoAdvanceTimeout) {
+        clearTimeout(autoAdvanceTimeout);
+      }
+
+      // Wait a moment to show green highlight, then advance
+      const timeout = setTimeout(async () => {
+        await processCorrectAnswer();
+      }, 800); // 800ms to show green highlight
+      
+      setAutoAdvanceTimeout(timeout);
+    } else {
+      // Clear timeout if answer becomes incorrect
+      if (autoAdvanceTimeout) {
+        clearTimeout(autoAdvanceTimeout);
+        setAutoAdvanceTimeout(null);
+      }
+    }
+  };
+
+  // Process correct answer and move to next word
+  const processCorrectAnswer = async () => {
+    if (!user || !userProgress || !currentWord) return;
+
+    const timeSpent = (Date.now() - questionStartTime) / 1000;
+
+    // Calculate points
+    const currentStreak = streak + 1;
+    const points = calculatePoints(true, timeSpent, currentStreak);
+    
+    setStreak(currentStreak);
+    setSessionPoints(sessionPoints + points);
+
+    // Save result
+    const result: QuizResult = {
+      questionId: `q_${currentIndex}`,
+      wordId: currentWord.id,
+      isCorrect: true,
+      timeSpent,
+      attempts: 1,
+    };
+    setSessionResults([...sessionResults, result]);
+
+    // Update SRS
+    const quality = mapResultToQuality(true, 1, timeSpent);
+    const flashcardState = await db.flashcardStates.get(currentWord.id);
+    
+    if (flashcardState) {
+      const newState = calculateNextReview(flashcardState, quality);
+      await db.flashcardStates.update(currentWord.id, newState);
+    } else {
+      const newState = calculateNextReview(
+        {
+          wordId: currentWord.id,
+          easeFactor: 2.5,
+          interval: 1,
+          repetitions: 0,
+          nextReview: new Date(),
+        },
+        quality
+      );
+      await db.flashcardStates.add(newState);
+    }
+
+    // Celebrate if on a streak milestone
+    if (currentStreak > 0 && currentStreak % 5 === 0) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // Move to next word
+    handleNext();
+  };
+
   const handleSubmitAnswer = async () => {
+    // If result is already shown (incorrect answer), pressing Enter should move to next word
     if (showResult) {
-      // Si ya se mostró el resultado, pasar a la siguiente palabra
       handleNext();
       return;
     }
@@ -103,10 +250,13 @@ function StudyPage() {
     }
 
     const timeSpent = (Date.now() - questionStartTime) / 1000;
-    const correct = quizAnswer.trim().toLowerCase() === currentWord.english.toLowerCase();
-    
-    setIsCorrect(correct);
-    setShowResult(true);
+    // Compare user's Polish answer with correct Polish word
+    const correct = comparePolishText(quizAnswer, currentWord.polish);
+
+    // If already correct and auto-advancing, don't process again
+    if (correct && isAnswerCorrect) {
+      return;
+    }
 
     // Calculate points
     const currentStreak = correct ? streak + 1 : 0;
@@ -115,7 +265,7 @@ function StudyPage() {
     setStreak(currentStreak);
     setSessionPoints(sessionPoints + points);
 
-    // Guardar resultado
+    // Save result
     const result: QuizResult = {
       questionId: `q_${currentIndex}`,
       wordId: currentWord.id,
@@ -125,7 +275,7 @@ function StudyPage() {
     };
     setSessionResults([...sessionResults, result]);
 
-    // Actualizar SRS
+    // Update SRS
     const quality = mapResultToQuality(correct, 1, timeSpent);
     const flashcardState = await db.flashcardStates.get(currentWord.id);
     
@@ -146,15 +296,50 @@ function StudyPage() {
       await db.flashcardStates.add(newState);
     }
 
-    // Celebrate if correct
-    if (correct && currentStreak > 0 && currentStreak % 5 === 0) {
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
+    // If incorrect, show the result and wait for user to press Enter
+    if (!correct) {
+      setIsCorrect(false);
+      setShowResult(true);
+      setIsAnswerCorrect(false);
+      // Blur the input field when showing result so Enter key works globally
+      const inputElement = document.activeElement as HTMLElement;
+      if (inputElement && inputElement.tagName === 'INPUT') {
+        inputElement.blur();
+      }
     }
   };
+
+  // Update ref when handleNext changes
+  useEffect(() => {
+    handleNextRef.current = handleNext;
+  }, [handleNext]);
+
+  // Cleanup timeout on unmount or when it changes
+  useEffect(() => {
+    return () => {
+      if (autoAdvanceTimeout) {
+        clearTimeout(autoAdvanceTimeout);
+      }
+    };
+  }, [autoAdvanceTimeout]);
+
+  // Handle Enter key globally when result is shown in quiz mode
+  useEffect(() => {
+    if (mode !== 'quiz') return;
+
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Only handle Enter when result is shown
+      if (e.key === 'Enter' && showResult) {
+        e.preventDefault();
+        e.stopPropagation();
+        handleNextRef.current();
+      }
+    };
+
+    // Use capture phase to catch the event early
+    window.addEventListener('keydown', handleKeyPress, true);
+    return () => window.removeEventListener('keydown', handleKeyPress, true);
+  }, [showResult, mode]);
 
   const completeSession = async () => {
     const correctAnswers = sessionResults.filter(r => r.isCorrect).length;
@@ -185,10 +370,18 @@ function StudyPage() {
   };
 
   const playAudio = () => {
-    // Implementar síntesis de voz
-    const utterance = new SpeechSynthesisUtterance(currentWord.polish);
-    utterance.lang = 'pl-PL';
-    speechSynthesis.speak(utterance);
+    // Play audio based on mode
+    if (mode === 'quiz') {
+      // In quiz mode, play the English word (the question)
+      const utterance = new SpeechSynthesisUtterance(currentWord.english);
+      utterance.lang = 'en-US';
+      speechSynthesis.speak(utterance);
+    } else {
+      // In flashcard mode, play the Polish word
+      const utterance = new SpeechSynthesisUtterance(currentWord.polish);
+      utterance.lang = 'pl-PL';
+      speechSynthesis.speak(utterance);
+    }
   };
 
   if (!user || !userProgress) {
@@ -217,6 +410,44 @@ function StudyPage() {
           >
             Go Back
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Show flashcard completion screen
+  if (flashcardComplete && mode === 'flashcard') {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-12 text-center">
+        <div className="card p-8">
+          <div className="text-6xl mb-4">📚</div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Flashcards Complete!
+          </h2>
+          <p className="text-gray-600 mb-8">
+            You've reviewed all {words.length} words. Ready to test yourself?
+          </p>
+
+          <div className="space-y-3">
+            <button
+              onClick={handleSwitchToQuiz}
+              className="w-full btn-primary"
+            >
+              Start Quiz
+            </button>
+            <button
+              onClick={() => window.location.reload()}
+              className="w-full btn-secondary"
+            >
+              Study Again
+            </button>
+            <button
+              onClick={() => navigate(`/category/${categoryId}`)}
+              className="w-full btn-secondary"
+            >
+              Back to Category
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -303,7 +534,13 @@ function StudyPage() {
               Flashcards
             </button>
             <button
-              onClick={() => setMode('quiz')}
+              onClick={() => {
+                if (mode === 'flashcard') {
+                  handleSwitchToQuiz();
+                } else {
+                  setMode('quiz');
+                }
+              }}
               className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
                 mode === 'quiz'
                   ? 'text-white'
@@ -391,8 +628,8 @@ function StudyPage() {
           </button>
 
           <div className="text-center mb-6">
-            <div className="text-4xl font-bold mb-2">{currentWord.polish}</div>
-            <div className="text-gray-500">How do you say this in English?</div>
+            <div className="text-4xl font-bold mb-2">{currentWord.english}</div>
+            <div className="text-gray-500">How do you say this in Polish?</div>
           </div>
 
           {!showResult ? (
@@ -400,15 +637,26 @@ function StudyPage() {
               <input
                 type="text"
                 value={quizAnswer}
-                onChange={(e) => setQuizAnswer(e.target.value)}
+                onChange={(e) => {
+                  setQuizAnswer(e.target.value);
+                  // Check answer in real-time
+                  checkAnswerRealTime(e.target.value);
+                }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && quizAnswer.trim()) {
                     e.preventDefault();
+                    e.stopPropagation();
                     handleSubmitAnswer();
                   }
                 }}
-                placeholder="Type your answer..."
-                className="input mb-4"
+                placeholder="Type the Polish word..."
+                className={`input mb-4 transition-all duration-300 ${
+                  isAnswerCorrect === true 
+                    ? 'border-green-500 bg-green-50 ring-2 ring-green-300' 
+                    : isAnswerCorrect === false
+                    ? 'border-red-300'
+                    : ''
+                }`}
                 autoFocus
               />
               <button
@@ -418,6 +666,9 @@ function StudyPage() {
               >
                 Check Answer (Enter)
               </button>
+              <p className="text-xs text-gray-500 text-center mt-2">
+                Correct answers are detected automatically
+              </p>
             </div>
           ) : (
             <div className="max-w-md mx-auto">
@@ -443,23 +694,20 @@ function StudyPage() {
                   </div>
                   {!isCorrect && (
                     <div className="text-gray-700">
-                      The correct answer is: <strong>{currentWord.english}</strong>
+                      The correct answer is: <strong>{currentWord.polish}</strong>
                     </div>
                   )}
                 </div>
               </div>
+              <div className="text-center mb-2 text-sm text-gray-500">
+                Press Enter to continue
+              </div>
               <button 
                 onClick={handleNext}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleNext();
-                  }
-                }}
                 className="w-full btn-primary"
                 autoFocus
               >
-                {currentIndex === words.length - 1 ? 'View Results (Enter)' : 'Continue (Enter)'}
+                {currentIndex === words.length - 1 ? 'View Results' : 'Continue'}
               </button>
             </div>
           )}

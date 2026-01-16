@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/utils/database';
@@ -6,16 +6,35 @@ import { Category } from '@/types';
 import { Flame, Award, Target } from 'lucide-react';
 import { getLevelTitle } from '@/utils/gamification';
 import { useUser } from '@/contexts/UserContext';
+import { CategoryCarousel } from '@/components/common/CategoryCarousel';
+import { calculateCategoryProgress } from '@/utils/categoryProgress';
 
 function HomePage() {
   const { user, userProgress, refreshProgress } = useUser();
   
   // Load categories from database
   const categories = useLiveQuery(() => db.categories.toArray());
+  const [categoryProgress, setCategoryProgress] = useState<Record<string, number>>({});
 
   useEffect(() => {
     refreshProgress();
   }, [refreshProgress]);
+
+  // Calculate progress for all categories
+  useEffect(() => {
+    async function loadProgress() {
+      if (!categories) return;
+
+      const progressMap: Record<string, number> = {};
+      for (const category of categories) {
+        const progress = await calculateCategoryProgress(category.id);
+        progressMap[category.id] = progress;
+      }
+      setCategoryProgress(progressMap);
+    }
+
+    loadProgress();
+  }, [categories]);
 
   if (!categories || !userProgress || !user) {
     return (
@@ -114,24 +133,17 @@ function HomePage() {
             key={category.id}
             category={category}
             isCompleted={userProgress.completedCategories.includes(category.id)}
+            progress={categoryProgress[category.id] || 0}
           />
         ))}
       </div>
 
-      {/* Quick Action */}
-      <div className="mt-8 card p-6 text-white" style={{ background: 'linear-gradient(to right, #0074bd, #004470)' }}>
-        <h3 className="text-xl font-bold mb-2">Ready to practice?</h3>
-        <p className="mb-4 opacity-90">
-          Continue where you left off or start a new lesson
-        </p>
-        <Link
-          to="/category/people"
-          className="inline-block bg-white px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
-          style={{ color: '#0074bd' }}
-        >
-          Start Now
-        </Link>
-      </div>
+      {/* Category Carousel */}
+      {categories && categories.length > 0 && (
+        <div className="mt-8">
+          <CategoryCarousel categories={categories} />
+        </div>
+      )}
     </div>
   );
 }
@@ -140,43 +152,72 @@ function HomePage() {
 interface CategoryCardProps {
   category: Category;
   isCompleted: boolean;
+  progress: number;
 }
 
-function CategoryCard({ category, isCompleted }: CategoryCardProps) {
+function CategoryCard({ category, isCompleted, progress }: CategoryCardProps) {
+  // Determine progress color
+  const isFullyComplete = progress >= 100;
+  const progressColor = isFullyComplete 
+    ? '#86efac' // light green
+    : category.color;
+
   return (
     <Link to={`/category/${category.id}`}>
       <div
-        className="card-hover h-full p-6 transition-all duration-200 hover:scale-105"
+        className="card-hover h-full p-6 transition-all duration-200 hover:scale-105 relative overflow-hidden"
         style={{
           borderTop: `4px solid ${category.color}`,
         }}
       >
-        <div className="flex items-start justify-between mb-3">
-          <span className="text-4xl">{category.icon}</span>
-          {isCompleted && (
-            <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">
-              ✓ Completed
-            </span>
+        {/* Progress Bar - fills from bottom to top */}
+        <div
+          className="absolute bottom-0 left-0 right-0 transition-all duration-500 ease-out"
+          style={{
+            height: `${progress}%`,
+            backgroundColor: isFullyComplete 
+              ? '#86efac' 
+              : `${progressColor}20`, // 20% opacity
+            opacity: progress > 0 ? 1 : 0,
+          }}
+        />
+
+        {/* Content */}
+        <div className="relative z-10">
+          <div className="flex items-start justify-between mb-3">
+            <span className="text-4xl">{category.icon}</span>
+            {isCompleted && (
+              <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">
+                ✓ Completed
+              </span>
+            )}
+          </div>
+          
+          <h3 className="text-lg font-bold text-gray-900 mb-1">
+            {category.titlePolish}
+          </h3>
+          <p className="text-sm text-gray-600 mb-3">
+            {category.titleEnglish}
+          </p>
+          <p className="text-sm text-gray-500">
+            {category.description}
+          </p>
+          
+          {category.totalWords > 0 && (
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-gray-500">
+                  {category.totalWords} words
+                </span>
+                {progress > 0 && (
+                  <span className="text-xs font-medium" style={{ color: progressColor }}>
+                    {progress}%
+                  </span>
+                )}
+              </div>
+            </div>
           )}
         </div>
-        
-        <h3 className="text-lg font-bold text-gray-900 mb-1">
-          {category.titlePolish}
-        </h3>
-        <p className="text-sm text-gray-600 mb-3">
-          {category.titleEnglish}
-        </p>
-        <p className="text-sm text-gray-500">
-          {category.description}
-        </p>
-        
-        {category.totalWords > 0 && (
-          <div className="mt-4 pt-4 border-t border-gray-100">
-            <span className="text-xs text-gray-500">
-              {category.totalWords} words
-            </span>
-          </div>
-        )}
       </div>
     </Link>
   );

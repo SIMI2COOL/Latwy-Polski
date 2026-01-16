@@ -60,6 +60,47 @@ export class PolishAppDatabase extends Dexie {
     }).upgrade(async () => {
       console.log('Database upgraded to version 3 - added compound index');
     });
+    
+    // Version 4: Update category descriptions from Spanish to English
+    this.version(4).stores({
+      vocabulary: 'id, polish, english, category, subcategory, difficulty, [category+subcategory]',
+      categories: 'id, titlePolish, titleEnglish',
+      subcategories: 'id, categoryId, titlePolish',
+      users: 'id, name, createdAt',
+      userProgress: 'userId, level, totalPoints',
+      studySessions: 'id, categoryId, startedAt, completedAt',
+      flashcardStates: 'wordId, nextReview, interval',
+      settings: '++id',
+    }).upgrade(async (trans) => {
+      console.log('Database upgraded to version 4 - updating category descriptions to English');
+      
+      // Update all category descriptions to English
+      const descriptionUpdates: Record<string, string> = {
+        'people': 'Body, family, emotions',
+        'appearance': 'Clothing, accessories, beauty',
+        'health': 'Medicine, hospital, therapies',
+        'home': 'House, kitchen, garden',
+        'services': 'Emergency, bank, hotel',
+        'shopping': 'Stores, supermarket',
+        'food': 'Food and drinks',
+        'eating-out': 'Restaurants, cafes',
+        'study': 'School, sciences',
+        'work': 'Office, professions',
+        'transport': 'Vehicles, travel',
+        'sports': 'Sports and fitness',
+        'leisure': 'Theater, music, art',
+        'environment': 'Nature, animals',
+        'reference': 'Time, numbers, maps',
+      };
+      
+      for (const [categoryId, description] of Object.entries(descriptionUpdates)) {
+        try {
+          await trans.table('categories').update(categoryId, { description });
+        } catch (error) {
+          console.warn(`Failed to update description for category ${categoryId}:`, error);
+        }
+      }
+    });
   }
 }
 
@@ -106,7 +147,7 @@ async function seedInitialData() {
       id: 'people',
       titlePolish: 'LUDZIE',
       titleEnglish: 'People',
-      description: 'Cuerpo, familia, emociones',
+      description: 'Body, family, emotions',
       icon: '👥',
       color: '#3B82F6',
       subcategories: [],
@@ -116,7 +157,7 @@ async function seedInitialData() {
       id: 'appearance',
       titlePolish: 'WYGLĄD',
       titleEnglish: 'Appearance',
-      description: 'Ropa, accesorios, belleza',
+      description: 'Clothing, accessories, beauty',
       icon: '👔',
       color: '#8B5CF6',
       subcategories: [],
@@ -126,7 +167,7 @@ async function seedInitialData() {
       id: 'health',
       titlePolish: 'ZDROWIE',
       titleEnglish: 'Health',
-      description: 'Medicina, hospital, terapias',
+      description: 'Medicine, hospital, therapies',
       icon: '🏥',
       color: '#EF4444',
       subcategories: [],
@@ -136,7 +177,7 @@ async function seedInitialData() {
       id: 'home',
       titlePolish: 'DOM',
       titleEnglish: 'Home',
-      description: 'Casa, cocina, jardín',
+      description: 'House, kitchen, garden',
       icon: '🏠',
       color: '#F59E0B',
       subcategories: [],
@@ -146,7 +187,7 @@ async function seedInitialData() {
       id: 'services',
       titlePolish: 'USŁUGI',
       titleEnglish: 'Services',
-      description: 'Emergencias, banco, hotel',
+      description: 'Emergency, bank, hotel',
       icon: '🔧',
       color: '#10B981',
       subcategories: [],
@@ -156,7 +197,7 @@ async function seedInitialData() {
       id: 'shopping',
       titlePolish: 'ZAKUPY',
       titleEnglish: 'Shopping',
-      description: 'Tiendas, supermercado',
+      description: 'Stores, supermarket',
       icon: '🛒',
       color: '#EC4899',
       subcategories: [],
@@ -166,7 +207,7 @@ async function seedInitialData() {
       id: 'food',
       titlePolish: 'ŻYWNOŚĆ',
       titleEnglish: 'Food',
-      description: 'Alimentos y bebidas',
+      description: 'Food and drinks',
       icon: '🍎',
       color: '#F97316',
       subcategories: [],
@@ -176,7 +217,7 @@ async function seedInitialData() {
       id: 'eating-out',
       titlePolish: 'JADANIE POZA DOMEM',
       titleEnglish: 'Eating Out',
-      description: 'Restaurantes, cafés',
+      description: 'Restaurants, cafes',
       icon: '🍽️',
       color: '#06B6D4',
       subcategories: [],
@@ -186,7 +227,7 @@ async function seedInitialData() {
       id: 'study',
       titlePolish: 'NAUKA',
       titleEnglish: 'Study',
-      description: 'Escuela, ciencias',
+      description: 'School, sciences',
       icon: '📚',
       color: '#6366F1',
       subcategories: [],
@@ -196,7 +237,7 @@ async function seedInitialData() {
       id: 'work',
       titlePolish: 'PRACA',
       titleEnglish: 'Work',
-      description: 'Oficina, profesiones',
+      description: 'Office, professions',
       icon: '💼',
       color: '#14B8A6',
       subcategories: [],
@@ -206,7 +247,7 @@ async function seedInitialData() {
       id: 'transport',
       titlePolish: 'TRANSPORT',
       titleEnglish: 'Transport',
-      description: 'Vehículos, viajes',
+      description: 'Vehicles, travel',
       icon: '🚗',
       color: '#84CC16',
       subcategories: [],
@@ -216,7 +257,7 @@ async function seedInitialData() {
       id: 'sports',
       titlePolish: 'SPORT',
       titleEnglish: 'Sports',
-      description: 'Deportes y fitness',
+      description: 'Sports and fitness',
       icon: '⚽',
       color: '#22C55E',
       subcategories: [],
@@ -226,7 +267,7 @@ async function seedInitialData() {
       id: 'leisure',
       titlePolish: 'CZAS WOLNY',
       titleEnglish: 'Leisure',
-      description: 'Teatro, música, arte',
+      description: 'Theater, music, art',
       icon: '🎭',
       color: '#A855F7',
       subcategories: [],
@@ -236,7 +277,7 @@ async function seedInitialData() {
       id: 'environment',
       titlePolish: 'ŚRODOWISKO',
       titleEnglish: 'Environment',
-      description: 'Naturaleza, animales',
+      description: 'Nature, animals',
       icon: '🌍',
       color: '#059669',
       subcategories: [],
@@ -246,7 +287,7 @@ async function seedInitialData() {
       id: 'reference',
       titlePolish: 'INFORMACJE',
       titleEnglish: 'Reference',
-      description: 'Tiempo, números, mapas',
+      description: 'Time, numbers, maps',
       icon: '📋',
       color: '#64748B',
       subcategories: [],
@@ -363,4 +404,46 @@ export async function updateFlashcardState(wordId: string, state: Partial<Flashc
 export async function getDueFlashcards(): Promise<FlashcardState[]> {
   const now = new Date();
   return await db.flashcardStates.where('nextReview').belowOrEqual(now).toArray();
+}
+
+/**
+ * Removes duplicate vocabulary entries within the same subcategory
+ * Keeps the first occurrence of each unique Polish word per subcategory
+ * @returns Number of duplicates removed
+ */
+export async function removeDuplicateVocabulary(): Promise<number> {
+  try {
+    const allWords = await db.vocabulary.toArray();
+    const seen = new Map<string, VocabularyWord>(); // key: category_subcategory_polish (lowercase)
+    const duplicatesToDelete: string[] = [];
+
+    for (const word of allWords) {
+      // Create a unique key: category_subcategory_polish (normalized to lowercase)
+      const key = `${word.category}_${word.subcategory}_${word.polish.toLowerCase().trim()}`;
+      
+      if (seen.has(key)) {
+        // This is a duplicate - mark for deletion
+        duplicatesToDelete.push(word.id);
+        console.log(`Found duplicate: "${word.polish}" in ${word.category}/${word.subcategory} (ID: ${word.id})`);
+      } else {
+        // First occurrence - keep it
+        seen.set(key, word);
+      }
+    }
+
+    if (duplicatesToDelete.length > 0) {
+      // Delete all duplicates
+      await db.vocabulary.bulkDelete(duplicatesToDelete);
+      console.log(`✅ Removed ${duplicatesToDelete.length} duplicate vocabulary entries`);
+      
+      // Also clean up any flashcard states for deleted words
+      await db.flashcardStates.where('wordId').anyOf(duplicatesToDelete).delete();
+      console.log(`✅ Cleaned up flashcard states for ${duplicatesToDelete.length} deleted words`);
+    }
+
+    return duplicatesToDelete.length;
+  } catch (error) {
+    console.error('Error removing duplicate vocabulary:', error);
+    return 0;
+  }
 }

@@ -1,7 +1,7 @@
 {
   "name": "polish-learning-app",
   "version": "1.0.0",
-  "description": "Aplicación de aprendizaje de polaco basada en diccionario visual",
+  "description": "Polish learning app based on visual dictionary",
   "private": true,
   "type": "module",
   "scripts": {

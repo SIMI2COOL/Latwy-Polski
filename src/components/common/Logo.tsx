@@ -6,6 +6,23 @@ interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = ({ className = '', size = 32 }) => {
+  // Shield path - classic shield/coat of arms shape with smooth rounded edges
+  // Using curves (Q command) for smoother, rounder edges
+  const shieldPath = `
+    M 50 8 
+    Q 75 10 82 18 
+    Q 88 25 90 40 
+    Q 92 55 88 70 
+    Q 85 82 75 88 
+    Q 65 94 50 97 
+    Q 35 94 25 88 
+    Q 15 82 12 70 
+    Q 8 55 10 40 
+    Q 12 25 18 18 
+    Q 25 10 50 8 
+    Z
+  `;
+  
   return (
     <div 
       className={`inline-flex items-center justify-center ${className}`}
@@ -21,36 +38,39 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 32 }) => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          {/* Main red gradient for embossed effect - light from top-left */}
+          {/* Red gradient for shield body */}
           <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ff4444" />
-            <stop offset="20%" stopColor="#ff0000" />
+            <stop offset="0%" stopColor="#ff3333" />
             <stop offset="50%" stopColor="#cc0000" />
-            <stop offset="80%" stopColor="#990000" />
-            <stop offset="100%" stopColor="#660000" />
+            <stop offset="100%" stopColor="#990000" />
           </linearGradient>
           
-          {/* Bright highlight for top-left (light source) */}
-          <radialGradient id="topHighlight" cx="30%" cy="30%">
-            <stop offset="0%" stopColor="#ff8888" stopOpacity="0.9" />
-            <stop offset="40%" stopColor="#ff4444" stopOpacity="0.6" />
-            <stop offset="70%" stopColor="#ff0000" stopOpacity="0.3" />
+          {/* Light highlight from top-left for embossed effect */}
+          <radialGradient id="lightHighlight" cx="30%" cy="30%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
+            <stop offset="50%" stopColor="#ff6666" stopOpacity="0.2" />
             <stop offset="100%" stopColor="transparent" stopOpacity="0" />
           </radialGradient>
           
-          {/* Dark shadow for bottom-right */}
-          <radialGradient id="bottomShadow" cx="70%" cy="70%">
+          {/* Shadow for bottom-right depth */}
+          <radialGradient id="shadowGradient" cx="70%" cy="70%">
             <stop offset="0%" stopColor="transparent" stopOpacity="0" />
-            <stop offset="50%" stopColor="#660000" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#330000" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#660000" stopOpacity="0.6" />
           </radialGradient>
           
-          {/* Drop shadow filter for depth */}
-          <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="2.5"/>
-            <feOffset dx="2.5" dy="2.5" result="offsetblur"/>
+          {/* Embossed effect for letters */}
+          <linearGradient id="letterGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="50%" stopColor="#ffffff" />
+            <stop offset="100%" stopColor="#e0e0e0" />
+          </linearGradient>
+          
+          {/* Letter shadow for depth */}
+          <filter id="letterShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
+            <feOffset dx="1" dy="1" result="offsetblur"/>
             <feComponentTransfer>
-              <feFuncA type="linear" slope="0.5"/>
+              <feFuncA type="linear" slope="0.3"/>
             </feComponentTransfer>
             <feMerge>
               <feMergeNode/>
@@ -59,65 +79,86 @@ export const Logo: React.FC<LogoProps> = ({ className = '', size = 32 }) => {
           </filter>
         </defs>
         
-        {/* Shadow layer behind text for depth */}
+        {/* Shield border (dark blue) */}
+        <path
+          d={shieldPath}
+          fill="none"
+          stroke="#003366"
+          strokeWidth="3"
+          strokeLinejoin="round"
+        />
+        
+        {/* Shield body (red) */}
+        <path
+          d={shieldPath}
+          fill="url(#redGradient)"
+          stroke="#003366"
+          strokeWidth="2.5"
+          strokeLinejoin="round"
+        />
+        
+        {/* Light highlight overlay */}
+        <path
+          d={shieldPath}
+          fill="url(#lightHighlight)"
+          stroke="none"
+        />
+        
+        {/* Shadow overlay for depth */}
+        <path
+          d={shieldPath}
+          fill="url(#shadowGradient)"
+          stroke="none"
+        />
+        
+        {/* Letter shadow for embossed effect */}
         <text
           x="50"
-          y="60"
-          fontSize="56"
+          y="58"
+          fontSize="40"
           fontWeight="900"
-          fill="#330000"
+          fill="#000000"
+          fillOpacity="0.2"
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontFamily="Arial, sans-serif"
+          letterSpacing="-4"
+          transform="translate(1.5, 1.5)"
+        >
+          ŁP
+        </text>
+        
+        {/* Main letters - white with embossed effect */}
+        <text
+          x="50"
+          y="58"
+          fontSize="40"
+          fontWeight="900"
+          fill="url(#letterGradient)"
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontFamily="Arial, sans-serif"
+          letterSpacing="-4"
+          filter="url(#letterShadow)"
+        >
+          ŁP
+        </text>
+        
+        {/* Top highlight on letters for embossed look */}
+        <text
+          x="50"
+          y="58"
+          fontSize="40"
+          fontWeight="900"
+          fill="#ffffff"
           fillOpacity="0.6"
           textAnchor="middle"
           dominantBaseline="middle"
           fontFamily="Arial, sans-serif"
-          transform="translate(3, 3)"
+          letterSpacing="-4"
+          transform="translate(-1, -1)"
         >
-          Ł P
-        </text>
-        
-        {/* Main text - embossed base */}
-        <text
-          x="50"
-          y="60"
-          fontSize="56"
-          fontWeight="900"
-          fill="url(#redGradient)"
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontFamily="Arial, sans-serif"
-          filter="url(#dropShadow)"
-        >
-          Ł P
-        </text>
-        
-        {/* Top highlight overlay (light source from top-left) */}
-        <text
-          x="50"
-          y="60"
-          fontSize="56"
-          fontWeight="900"
-          fill="url(#topHighlight)"
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontFamily="Arial, sans-serif"
-          opacity="0.8"
-        >
-          Ł P
-        </text>
-        
-        {/* Bottom shadow overlay (shadow from bottom-right) */}
-        <text
-          x="50"
-          y="60"
-          fontSize="56"
-          fontWeight="900"
-          fill="url(#bottomShadow)"
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontFamily="Arial, sans-serif"
-          opacity="0.6"
-        >
-          Ł P
+          ŁP
         </text>
       </svg>
     </div>

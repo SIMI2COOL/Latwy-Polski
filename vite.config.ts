@@ -60,9 +60,14 @@ export default defineConfig({
     }
   },
   server: {
-    host: '0.0.0.0',
+    host: '0.0.0.0', // Listen on all network interfaces
     port: 3000,
     strictPort: false,
-    open: true
+    open: true,
+    // Show both localhost and network URLs
+    hmr: {
+      protocol: 'ws',
+      host: 'localhost'
+    }
   }
 })

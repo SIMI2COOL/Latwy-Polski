@@ -104,20 +104,39 @@ export const environmentVocabulary: VocabularyWord[] = [
 ];
 
 export async function seedEnvironmentVocabulary() {
-  const { db } = await import('@/utils/database');
+  const { db, removeDuplicateVocabulary } = await import('@/utils/database');
   
   try {
-    // Get existing environment vocabulary IDs
+    // First, remove any existing duplicates in the environment category
+    await removeDuplicateVocabulary();
+    
+    // Get existing environment vocabulary
     const existingEnvironment = await db.vocabulary.where('category').equals('environment').toArray();
     const existingIds = new Set(existingEnvironment.map(w => w.id));
     
-    // Filter out words that already exist
-    const newWords = environmentVocabulary.filter(word => !existingIds.has(word.id));
+    // Also check for duplicates by Polish word + subcategory (case-insensitive)
+    const existingByPolish = new Map<string, VocabularyWord>();
+    for (const word of existingEnvironment) {
+      const key = `${word.subcategory}_${word.polish.toLowerCase().trim()}`;
+      if (!existingByPolish.has(key)) {
+        existingByPolish.set(key, word);
+      }
+    }
+    
+    // Filter out words that already exist (by ID or by Polish word + subcategory)
+    const newWords = environmentVocabulary.filter(word => {
+      if (existingIds.has(word.id)) return false;
+      const key = `${word.subcategory}_${word.polish.toLowerCase().trim()}`;
+      return !existingByPolish.has(key);
+    });
     
     if (newWords.length > 0) {
       await db.vocabulary.bulkAdd(newWords);
       console.log(`✅ Added ${newWords.length} new environment words`);
     }
+    
+    // Remove duplicates again after adding (in case of any edge cases)
+    await removeDuplicateVocabulary();
     
     // Update total word count
     const totalCount = await db.vocabulary.where('category').equals('environment').count();
@@ -127,13 +146,26 @@ export async function seedEnvironmentVocabulary() {
   } catch (error) {
     if (error instanceof Error && error.name === 'ConstraintError') {
       // Some words might already exist, try to add the rest
+      await removeDuplicateVocabulary();
       const existingEnvironment = await db.vocabulary.where('category').equals('environment').toArray();
       const existingIds = new Set(existingEnvironment.map(w => w.id));
-      const newWords = environmentVocabulary.filter(word => !existingIds.has(word.id));
+      const existingByPolish = new Map<string, VocabularyWord>();
+      for (const word of existingEnvironment) {
+        const key = `${word.subcategory}_${word.polish.toLowerCase().trim()}`;
+        if (!existingByPolish.has(key)) {
+          existingByPolish.set(key, word);
+        }
+      }
+      const newWords = environmentVocabulary.filter(word => {
+        if (existingIds.has(word.id)) return false;
+        const key = `${word.subcategory}_${word.polish.toLowerCase().trim()}`;
+        return !existingByPolish.has(key);
+      });
       
       if (newWords.length > 0) {
         try {
           await db.vocabulary.bulkAdd(newWords);
+          await removeDuplicateVocabulary();
           const totalCount = await db.vocabulary.where('category').equals('environment').count();
           await db.categories.update('environment', { totalWords: totalCount });
           console.log(`✅ Added ${newWords.length} new environment words. Total: ${totalCount}`);

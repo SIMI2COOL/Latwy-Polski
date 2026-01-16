@@ -4,11 +4,13 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/utils/database';
 import { Category, VocabularyWord } from '@/types';
 import { ArrowLeft, Play, BookOpen } from 'lucide-react';
+import { isSubcategoryComplete } from '@/utils/subcategoryProgress';
 
 function CategoryPage() {
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigate = useNavigate();
   const [category, setCategory] = useState<Category | null>(null);
+  const [completedSubcategories, setCompletedSubcategories] = useState<Set<string>>(new Set());
 
   // Load words from this category
   const words = useLiveQuery(
@@ -27,6 +29,41 @@ function CategoryPage() {
     }
     loadCategory();
   }, [categoryId]);
+
+  // Check completion status for all subcategories
+  // Also listen to flashcardStates changes to update completion in real-time
+  const flashcardStates = useLiveQuery(
+    () => categoryId ? db.flashcardStates.toArray() : [],
+    [categoryId]
+  );
+
+  useEffect(() => {
+    async function checkSubcategoryCompletion() {
+      if (!categoryId || !words) return;
+
+      const wordsBySubcategory = words.reduce((acc, word) => {
+        if (!acc[word.subcategory]) {
+          acc[word.subcategory] = [];
+        }
+        acc[word.subcategory].push(word);
+        return acc;
+      }, {} as Record<string, VocabularyWord[]>);
+
+      const subcategoryIds = Object.keys(wordsBySubcategory);
+      const completed = new Set<string>();
+
+      for (const subcategoryId of subcategoryIds) {
+        const isComplete = await isSubcategoryComplete(categoryId, subcategoryId);
+        if (isComplete) {
+          completed.add(subcategoryId);
+        }
+      }
+
+      setCompletedSubcategories(completed);
+    }
+
+    checkSubcategoryCompletion();
+  }, [categoryId, words, flashcardStates]);
 
   if (!category) {
     return (
@@ -111,13 +148,19 @@ function CategoryPage() {
                 .split('-')
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ');
+              const isComplete = completedSubcategories.has(subcategory);
 
               return (
                 <Link
                   key={subcategory}
                   to={`/study/${categoryId}/${subcategory}`}
                 >
-                  <div className="card-hover p-6">
+                  <div 
+                    className="card-hover p-6 relative overflow-hidden"
+                    style={{
+                      backgroundColor: isComplete ? '#dcfce7' : undefined, // Soft green when complete
+                    }}
+                  >
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
                         <h3 className="text-lg font-semibold text-gray-900 mb-1">
@@ -150,7 +193,7 @@ function CategoryPage() {
                         ))}
                         {subcategoryWords.length > 3 && (
                           <span className="text-xs text-gray-400 px-2 py-1">
-                            +{subcategoryWords.length - 3} más
+                            +{subcategoryWords.length - 3} more
                           </span>
                         )}
                       </div>
