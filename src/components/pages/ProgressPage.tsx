@@ -1,14 +1,30 @@
-import { useEffect } from 'react';
-import { Award, TrendingUp, Target, Calendar, Flame } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { Award, TrendingUp, Target, Calendar, Flame, BookOpen } from 'lucide-react';
 import { getLevelTitle, getLevelProgress, getPointsToNextLevel } from '@/utils/gamification';
 import { useUser } from '@/contexts/UserContext';
+import { db } from '@/utils/database';
+import { StudySession } from '@/types';
 
 function ProgressPage() {
   const { userProgress, refreshProgress } = useUser();
+  const [recentSessions, setRecentSessions] = useState<StudySession[]>([]);
+
+  // Auto-update study sessions using live query
+  const allSessions = useLiveQuery(
+    () => db.studySessions.orderBy('startedAt').reverse().limit(10).toArray(),
+    []
+  );
 
   useEffect(() => {
     refreshProgress();
   }, [refreshProgress]);
+
+  useEffect(() => {
+    if (allSessions) {
+      setRecentSessions(allSessions);
+    }
+  }, [allSessions]);
 
   if (!userProgress) {
     return (
@@ -114,16 +130,54 @@ function ProgressPage() {
         </div>
       )}
 
-      {/* Activity Calendar */}
+      {/* Recent Activity */}
       <div className="card p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
           <Calendar className="w-6 h-6 mr-2" style={{ color: '#0074bd' }} />
           Recent Activity
         </h2>
-        <div className="text-center py-8 text-gray-500">
-          <Calendar className="w-12 h-12 mx-auto mb-2 opacity-50" />
-          <p>Activity calendar will be available soon</p>
-        </div>
+        {recentSessions.length > 0 ? (
+          <div className="space-y-3">
+            {recentSessions.map((session) => (
+              <div
+                key={session.id}
+                className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
+                    <BookOpen className="w-5 h-5 text-primary-600" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900">
+                      {session.categoryId.charAt(0).toUpperCase() + session.categoryId.slice(1)}
+                      {session.subcategoryId && ` - ${session.subcategoryId}`}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {new Date(session.startedAt).toLocaleDateString()} at{' '}
+                      {new Date(session.startedAt).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="font-semibold text-gray-900">
+                    {session.correctAnswers}/{session.totalQuestions}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    {session.pointsEarned} pts
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8 text-gray-500">
+            <Calendar className="w-12 h-12 mx-auto mb-2 opacity-50" />
+            <p>No study sessions yet. Start studying to see your activity here!</p>
+          </div>
+        )}
       </div>
 
       {/* Motivational Message */}

@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '@/utils/database';
+import { db, getUserSettings } from '@/utils/database';
 import { Category } from '@/types';
-import { Flame, Award, Target } from 'lucide-react';
+import { Flame, Award, Target, CheckCircle } from 'lucide-react';
 import { getLevelTitle } from '@/utils/gamification';
 import { useUser } from '@/contexts/UserContext';
 import { CategoryCarousel } from '@/components/common/CategoryCarousel';
 import { calculateCategoryProgress } from '@/utils/categoryProgress';
+import { getWordsStudiedToday, getDailyProgress } from '@/utils/dailyLimit';
 
 function HomePage() {
   const { user, userProgress, refreshProgress } = useUser();
@@ -15,10 +16,34 @@ function HomePage() {
   // Load categories from database
   const categories = useLiveQuery(() => db.categories.toArray());
   const [categoryProgress, setCategoryProgress] = useState<Record<string, number>>({});
+  const [dailyWords, setDailyWords] = useState(0);
+  const [dailyGoal, setDailyGoal] = useState(20);
+  const [dailyProgress, setDailyProgress] = useState(0);
 
   useEffect(() => {
     refreshProgress();
   }, [refreshProgress]);
+
+  // Load daily progress
+  useEffect(() => {
+    async function loadDailyProgress() {
+      if (!user) return;
+      
+      const words = await getWordsStudiedToday(user.id);
+      const settings = await getUserSettings();
+      const goal = settings?.dailyGoal || 20;
+      const progress = await getDailyProgress(user.id);
+      
+      setDailyWords(words);
+      setDailyGoal(goal);
+      setDailyProgress(progress);
+    }
+    
+    loadDailyProgress();
+    // Refresh every minute to update daily progress
+    const interval = setInterval(loadDailyProgress, 60000);
+    return () => clearInterval(interval);
+  }, [user]);
 
   // Calculate progress for all categories
   useEffect(() => {
@@ -54,6 +79,38 @@ function HomePage() {
         <p className="text-gray-600">
           Continue your Polish learning journey
         </p>
+      </div>
+
+      {/* Daily Goal Progress */}
+      <div className="card p-6 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-lg font-bold text-gray-900 mb-1">Daily Goal</h2>
+            <p className="text-sm text-gray-600">
+              {dailyWords} of {dailyGoal} words studied today
+            </p>
+          </div>
+          {dailyProgress >= 100 && (
+            <CheckCircle className="w-8 h-8 text-green-600" />
+          )}
+        </div>
+        <div className="space-y-2">
+          <div className="h-4 bg-blue-100 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-500"
+              style={{ width: `${Math.min(dailyProgress, 100)}%` }}
+            ></div>
+          </div>
+          {dailyProgress >= 100 ? (
+            <p className="text-sm font-semibold text-green-700">
+              🎉 Congratulations! You've reached your daily goal!
+            </p>
+          ) : (
+            <p className="text-sm text-gray-600">
+              {dailyGoal - dailyWords} more words to reach your goal
+            </p>
+          )}
+        </div>
       </div>
 
       {/* User Stats Cards */}

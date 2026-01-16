@@ -101,6 +101,21 @@ export class PolishAppDatabase extends Dexie {
         }
       }
     });
+    
+    // Version 5: Add email and passwordHash to users table for authentication
+    this.version(5).stores({
+      vocabulary: 'id, polish, english, category, subcategory, difficulty, [category+subcategory]',
+      categories: 'id, titlePolish, titleEnglish',
+      subcategories: 'id, categoryId, titlePolish',
+      users: 'id, name, email, createdAt',
+      userProgress: 'userId, level, totalPoints',
+      studySessions: 'id, categoryId, startedAt, completedAt',
+      flashcardStates: 'wordId, nextReview, interval',
+      settings: '++id',
+    }).upgrade(async () => {
+      console.log('Database upgraded to version 5 - added email/password authentication support');
+      // No data migration needed - email and passwordHash are optional fields
+    });
   }
 }
 
@@ -305,10 +320,31 @@ async function seedInitialData() {
 export async function getCurrentUser(): Promise<User | null> {
   try {
     const users = await db.users.toArray();
-    return users.length > 0 ? users[0] : null;
+    if (users.length === 0) return null;
+    
+    // Prioritize authenticated users (with email) over quick-start users
+    const authenticatedUser = users.find(u => u.email);
+    return authenticatedUser || users[0];
   } catch (error) {
     console.error('Error getting current user:', error);
     return null;
+  }
+}
+
+/**
+ * Logout current user (delete user data)
+ */
+export async function logoutUser(userId: string): Promise<void> {
+  try {
+    // Delete user and all associated data
+    await db.users.where('id').equals(userId).delete();
+    await db.userProgress.where('userId').equals(userId).delete();
+    await db.studySessions.clear();
+    await db.flashcardStates.clear();
+    await db.settings.clear();
+  } catch (error) {
+    console.error('Error logging out user:', error);
+    throw error;
   }
 }
 
@@ -333,6 +369,76 @@ export async function createUser(name: string): Promise<User> {
   });
   
   return user;
+}
+
+/**
+ * Register a new user with email and password
+ */
+export async function registerUser(
+  name: string,
+  email: string,
+  password: string
+): Promise<User> {
+  // Check if email already exists
+  const existingUser = await db.users.where('email').equals(email.toLowerCase().trim()).first();
+  if (existingUser) {
+    throw new Error('An account with this email already exists');
+  }
+
+  const { hashPassword } = await import('@/utils/auth');
+  const passwordHash = await hashPassword(password);
+  
+  const userId = `user_${Date.now()}`;
+  const user: User = {
+    id: userId,
+    name: name.trim(),
+    email: email.toLowerCase().trim(),
+    passwordHash,
+    createdAt: new Date(),
+  };
+  
+  await db.users.add(user);
+  
+  // Create initial progress for the user
+  await db.userProgress.add({
+    userId: userId,
+    totalPoints: 0,
+    level: 1,
+    streak: 0,
+    lastStudyDate: new Date(),
+    completedCategories: [],
+    achievements: [],
+  });
+  
+  return user;
+}
+
+/**
+ * Login with email and password
+ */
+export async function loginUser(email: string, password: string): Promise<User> {
+  const user = await db.users.where('email').equals(email.toLowerCase().trim()).first();
+  
+  if (!user || !user.passwordHash) {
+    throw new Error('Invalid email or password');
+  }
+
+  const { verifyPassword } = await import('@/utils/auth');
+  const isValid = await verifyPassword(password, user.passwordHash);
+  
+  if (!isValid) {
+    throw new Error('Invalid email or password');
+  }
+  
+  return user;
+}
+
+/**
+ * Check if email exists
+ */
+export async function emailExists(email: string): Promise<boolean> {
+  const user = await db.users.where('email').equals(email.toLowerCase().trim()).first();
+  return !!user;
 }
 
 export async function getUserProgress(userId?: string): Promise<UserProgress | undefined> {

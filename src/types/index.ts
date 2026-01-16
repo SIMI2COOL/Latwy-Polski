@@ -34,6 +34,8 @@ export interface Subcategory {
 export interface User {
   id: string;
   name: string;
+  email?: string; // Optional for backward compatibility
+  passwordHash?: string; // Optional for backward compatibility
   createdAt: Date;
 }
 
