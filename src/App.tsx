@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { initializeDatabase, removeDuplicateVocabulary } from '@/utils/database';
 import { seedPeopleVocabulary } from '@/data/vocabulary-people';
 import { seedFoodVocabulary } from '@/data/vocabulary-food';
@@ -54,6 +55,7 @@ function AppRoutes() {
           </>
         )}
       </Routes>
+      <Analytics />
     </Router>
   );
 }
