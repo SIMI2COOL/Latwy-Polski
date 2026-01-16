@@ -5,6 +5,13 @@ import { VocabularyWord, QuizResult } from '@/types';
 import { ArrowLeft, Volume2, CheckCircle, XCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { calculatePoints, updateProgressAfterSession } from '@/utils/gamification';
+import {
+  sendAchievementNotification,
+  sendStreakNotification,
+  sendGoalCompletionNotification,
+  canSendNotifications,
+} from '@/utils/notifications';
+import { hasReachedDailyGoal } from '@/utils/dailyLimit';
 import { calculateNextReview, mapResultToQuality } from '@/utils/spaced-repetition';
 import { useUser } from '@/contexts/UserContext';
 import { comparePolishText } from '@/utils/polishTextUtils';
@@ -373,7 +380,7 @@ function StudyPage() {
 
     // Actualizar progreso del usuario
     if (userProgress && user) {
-      const { newProgress, leveledUp } = updateProgressAfterSession(
+      const { newProgress, leveledUp, achievements } = updateProgressAfterSession(
         userProgress,
         sessionPoints,
         correctAnswers,
@@ -382,6 +389,32 @@ function StudyPage() {
 
       await updateUserProgress(newProgress, user.id);
       await refreshProgress();
+
+      // Send notifications for achievements
+      if (canSendNotifications() && achievements.length > 0) {
+        for (const achievementId of achievements) {
+          const achievement = newProgress.achievements.find(a => a.id === achievementId);
+          if (achievement) {
+            await sendAchievementNotification(achievement.title, achievement.icon);
+          }
+        }
+      }
+
+      // Send notification for streak milestones
+      if (canSendNotifications() && newProgress.streak > userProgress.streak) {
+        if (newProgress.streak === 7 || newProgress.streak === 30 || newProgress.streak % 10 === 0) {
+          await sendStreakNotification(newProgress.streak);
+        }
+      }
+
+      // Check if daily goal was reached
+      if (canSendNotifications()) {
+        const reachedGoal = await hasReachedDailyGoal(user.id);
+        // If we just reached the goal, send notification
+        if (reachedGoal) {
+          await sendGoalCompletionNotification();
+        }
+      }
 
       if (leveledUp) {
         confetti({

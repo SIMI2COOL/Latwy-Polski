@@ -4,6 +4,14 @@ import { getUserSettings, updateSettings, db, logoutUser } from '@/utils/databas
 import { UserSettings } from '@/types';
 import { useUser } from '@/contexts/UserContext';
 import { Volume2, Bell, Target, Trash2, Download, User, Image as ImageIcon, LogOut } from 'lucide-react';
+import {
+  requestNotificationPermission,
+  canSendNotifications,
+  scheduleDailyReminder,
+  cancelDailyReminder,
+  getDailyReminderTime,
+  sendNotification,
+} from '@/utils/notifications';
 
 function SettingsPage() {
   const navigate = useNavigate();
@@ -11,6 +19,8 @@ function SettingsPage() {
   const [settings, setSettings] = useState<UserSettings | null>(null);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
+  const [reminderTime, setReminderTime] = useState<{ hour: number; minute: number } | null>(null);
 
   useEffect(() => {
     async function loadSettings() {
@@ -18,12 +28,57 @@ function SettingsPage() {
       if (userSettings) {
         setSettings(userSettings);
       }
+
+      // Check notification permission
+      if ('Notification' in window) {
+        setNotificationPermission(Notification.permission);
+      }
+
+      // Load reminder time
+      const time = getDailyReminderTime();
+      setReminderTime(time);
     }
     loadSettings();
   }, []);
 
   const handleToggle = async (key: keyof UserSettings) => {
     if (!settings) return;
+
+    // Special handling for notifications
+    if (key === 'notifications') {
+      if (!settings.notifications) {
+        // Enabling notifications - request permission
+        const permission = await requestNotificationPermission();
+        setNotificationPermission(permission);
+
+        if (permission === 'granted') {
+          const newSettings = {
+            ...settings,
+            notifications: true,
+          };
+          setSettings(newSettings);
+          await updateSettings({ notifications: true });
+          
+          // Schedule default reminder (6 PM)
+          await scheduleDailyReminder(18, 0);
+          setReminderTime({ hour: 18, minute: 0 });
+        } else {
+          alert('Notification permission is required to enable study reminders. Please allow notifications in your browser settings.');
+          return;
+        }
+      } else {
+        // Disabling notifications
+        cancelDailyReminder();
+        const newSettings = {
+          ...settings,
+          notifications: false,
+        };
+        setSettings(newSettings);
+        await updateSettings({ notifications: false });
+        setReminderTime(null);
+      }
+      return;
+    }
 
     const newSettings = {
       ...settings,
@@ -32,6 +87,35 @@ function SettingsPage() {
 
     setSettings(newSettings);
     await updateSettings({ [key]: newSettings[key] });
+  };
+
+  const handleRequestPermission = async () => {
+    const permission = await requestNotificationPermission();
+    setNotificationPermission(permission);
+
+    if (permission === 'granted') {
+      if (settings && !settings.notifications) {
+        await handleToggle('notifications');
+      }
+      
+      // Test notification
+      await sendNotification('Notifications enabled!', {
+        body: 'You will now receive study reminders.',
+      });
+    } else if (permission === 'denied') {
+      alert('Notification permission was denied. Please enable it in your browser settings to receive study reminders.');
+    }
+  };
+
+  const handleTestNotification = async () => {
+    if (!canSendNotifications()) {
+      await handleRequestPermission();
+      return;
+    }
+
+    await sendNotification('Test Notification', {
+      body: 'If you see this, notifications are working correctly!',
+    });
   };
 
   const handleDailyGoalChange = async (value: number) => {
@@ -325,12 +409,50 @@ function SettingsPage() {
         </h2>
 
         <div className="space-y-4">
+          {notificationPermission !== 'granted' && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+              <p className="text-sm text-yellow-800 mb-3">
+                Enable browser notifications to receive study reminders and achievement alerts.
+              </p>
+              <button
+                onClick={handleRequestPermission}
+                className="btn-primary text-sm"
+              >
+                Enable Notifications
+              </button>
+            </div>
+          )}
+
           <SettingToggle
             label="Study reminders"
-            description="Receive notifications to maintain your streak"
-            checked={settings.notifications}
+            description="Receive daily notifications to maintain your streak"
+            checked={settings.notifications && notificationPermission === 'granted'}
             onChange={() => handleToggle('notifications')}
+            disabled={notificationPermission !== 'granted'}
           />
+
+          {settings.notifications && notificationPermission === 'granted' && reminderTime && (
+            <div className="pt-4 border-t border-gray-200">
+              <p className="text-sm text-gray-600 mb-2">
+                Daily reminder scheduled for {reminderTime.hour.toString().padStart(2, '0')}:
+                {reminderTime.minute.toString().padStart(2, '0')}
+              </p>
+              <button
+                onClick={handleTestNotification}
+                className="btn-secondary text-sm"
+              >
+                Test Notification
+              </button>
+            </div>
+          )}
+
+          {notificationPermission === 'denied' && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <p className="text-sm text-red-800">
+                Notifications are blocked. Please enable them in your browser settings to receive study reminders.
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -477,9 +599,10 @@ interface SettingToggleProps {
   description: string;
   checked: boolean;
   onChange: () => void;
+  disabled?: boolean;
 }
 
-function SettingToggle({ label, description, checked, onChange }: SettingToggleProps) {
+function SettingToggle({ label, description, checked, onChange, disabled }: SettingToggleProps) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex-1">
@@ -488,9 +611,10 @@ function SettingToggle({ label, description, checked, onChange }: SettingToggleP
       </div>
       <button
         onClick={onChange}
+        disabled={disabled}
         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
           checked ? 'bg-primary-600' : 'bg-gray-300'
-        }`}
+        } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
         <span
           className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${

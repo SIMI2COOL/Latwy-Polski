@@ -30,6 +30,7 @@ import LoginPage from '@/components/pages/LoginPage';
 // Layout
 import Layout from '@/components/layout/Layout';
 import LoadingScreen from '@/components/common/LoadingScreen';
+import { NotificationManager } from '@/components/common/NotificationManager';
 
 function AppRoutes() {
   const { user } = useUser();
@@ -163,6 +164,7 @@ function App() {
 
   return (
     <UserProvider>
+      <NotificationManager />
       <AppRoutes />
     </UserProvider>
   );
