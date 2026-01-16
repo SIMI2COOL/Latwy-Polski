@@ -49,7 +49,7 @@ export const appearanceVocabulary: VocabularyWord[] = [
   { id: 'accessories_003', polish: 'rękawiczki', english: 'gloves', category: 'appearance', subcategory: 'accessories', difficulty: 'beginner' },
   { id: 'accessories_004', polish: 'parasol', english: 'umbrella', category: 'appearance', subcategory: 'accessories', difficulty: 'beginner' },
   { id: 'accessories_005', polish: 'okulary', english: 'glasses', category: 'appearance', subcategory: 'accessories', difficulty: 'beginner' },
-  { id: 'accessories_006', polish: 'okulary słoneczne', english: 'sunglasses', category: 'appearance', subcategory: 'accessories', difficulty: 'intermediate' },
+  { id: 'accessories_006', polish: 'okulary przeciwsłoneczne', english: 'sunglasses', category: 'appearance', subcategory: 'accessories', difficulty: 'intermediate' },
   { id: 'accessories_007', polish: 'zegarek', english: 'watch', category: 'appearance', subcategory: 'accessories', difficulty: 'beginner' },
   { id: 'accessories_008', polish: 'bransoletka', english: 'bracelet', category: 'appearance', subcategory: 'accessories', difficulty: 'intermediate' },
   { id: 'accessories_009', polish: 'naszyjnik', english: 'necklace', category: 'appearance', subcategory: 'accessories', difficulty: 'intermediate' },

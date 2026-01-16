@@ -395,6 +395,39 @@ function StudyPage() {
     setSessionComplete(true);
   };
 
+  // Helper function to check if a voice is female
+  const isFemaleVoice = (voice: SpeechSynthesisVoice): boolean => {
+    const nameLower = voice.name.toLowerCase();
+    // Check if voice has gender property (some browsers support this)
+    if ('gender' in voice && (voice as any).gender === 'female') {
+      return true;
+    }
+    // Check for common female voice indicators in the name
+    return nameLower.includes('female') || 
+           nameLower.includes('zira') || 
+           nameLower.includes('hazel') ||
+           nameLower.includes('karen') ||
+           nameLower.includes('samantha') ||
+           nameLower.includes('victoria') ||
+           nameLower.includes('kobieta') || // Polish for "woman"
+           nameLower.includes('żeńska'); // Polish for "feminine"
+  };
+
+  // Helper function to find a female voice for a given language
+  const findFemaleVoice = (voices: SpeechSynthesisVoice[], langPrefix: string): SpeechSynthesisVoice | null => {
+    // First, try to find a female voice with the language, prioritizing local voices
+    let femaleVoice = voices.find(voice => 
+      voice.lang.startsWith(langPrefix) && 
+      voice.localService && 
+      isFemaleVoice(voice)
+    ) || voices.find(voice => 
+      voice.lang.startsWith(langPrefix) && 
+      isFemaleVoice(voice)
+    );
+    
+    return femaleVoice || null;
+  };
+
   const playAudio = () => {
     // Stop any currently playing speech
     speechSynthesis.cancel();
@@ -408,10 +441,15 @@ function StudyPage() {
       const utterance = new SpeechSynthesisUtterance(currentWord.english);
       utterance.lang = 'en-US';
       
-      // Try to find an English voice
-      const englishVoice = voices.find(voice => 
-        voice.lang.startsWith('en') && voice.localService
-      ) || voices.find(voice => voice.lang.startsWith('en'));
+      // Try to find a female English voice, prioritizing local voices
+      let englishVoice = findFemaleVoice(voices, 'en');
+      
+      // Fallback to any English voice if no female voice found
+      if (!englishVoice) {
+        englishVoice = voices.find(voice => 
+          voice.lang.startsWith('en') && voice.localService
+        ) || voices.find(voice => voice.lang.startsWith('en'));
+      }
       
       if (englishVoice) {
         utterance.voice = englishVoice;
@@ -424,12 +462,17 @@ function StudyPage() {
       const utterance = new SpeechSynthesisUtterance(currentWord.polish);
       utterance.lang = 'pl-PL';
       
-      // Try to find a Polish voice - prioritize local voices
-      let polishVoice = voices.find(voice => 
-        voice.lang.startsWith('pl') && voice.localService
-      ) || voices.find(voice => voice.lang.startsWith('pl'));
+      // Try to find a female Polish voice, prioritizing local voices
+      let polishVoice = findFemaleVoice(voices, 'pl');
       
-      // If no Polish voice found, try to find any voice that supports Polish
+      // Fallback to any Polish voice if no female voice found
+      if (!polishVoice) {
+        polishVoice = voices.find(voice => 
+          voice.lang.startsWith('pl') && voice.localService
+        ) || voices.find(voice => voice.lang.startsWith('pl'));
+      }
+      
+      // If still no Polish voice found, try to find any voice that supports Polish
       if (!polishVoice) {
         polishVoice = voices.find(voice => 
           voice.lang.includes('pl') || voice.name.toLowerCase().includes('polish')
