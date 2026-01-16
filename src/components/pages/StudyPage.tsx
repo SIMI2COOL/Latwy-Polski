@@ -34,6 +34,32 @@ function StudyPage() {
   // Use ref to store the latest handleNext function
   const handleNextRef = useRef<() => void>(() => {});
 
+  // Load voices when component mounts (some browsers load voices asynchronously)
+  useEffect(() => {
+    const loadVoices = () => {
+      // Trigger voice loading by calling getVoices()
+      speechSynthesis.getVoices();
+    };
+
+    // Try to load voices immediately
+    loadVoices();
+
+    // Some browsers fire this event when voices are loaded
+    if ('onvoiceschanged' in speechSynthesis) {
+      speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    // Fallback: try again after a short delay
+    const timeout = setTimeout(loadVoices, 100);
+
+    return () => {
+      clearTimeout(timeout);
+      if ('onvoiceschanged' in speechSynthesis) {
+        speechSynthesis.onvoiceschanged = null;
+      }
+    };
+  }, []);
+
   useEffect(() => {
     async function loadWords() {
       let wordsToStudy: VocabularyWord[];
@@ -370,16 +396,58 @@ function StudyPage() {
   };
 
   const playAudio = () => {
+    // Stop any currently playing speech
+    speechSynthesis.cancel();
+
+    // Get available voices
+    const voices = speechSynthesis.getVoices();
+    
     // Play audio based on mode
     if (mode === 'quiz') {
       // In quiz mode, play the English word (the question)
       const utterance = new SpeechSynthesisUtterance(currentWord.english);
       utterance.lang = 'en-US';
+      
+      // Try to find an English voice
+      const englishVoice = voices.find(voice => 
+        voice.lang.startsWith('en') && voice.localService
+      ) || voices.find(voice => voice.lang.startsWith('en'));
+      
+      if (englishVoice) {
+        utterance.voice = englishVoice;
+      }
+      
+      utterance.rate = 0.9; // Slightly slower for clarity
       speechSynthesis.speak(utterance);
     } else {
       // In flashcard mode, play the Polish word
       const utterance = new SpeechSynthesisUtterance(currentWord.polish);
       utterance.lang = 'pl-PL';
+      
+      // Try to find a Polish voice - prioritize local voices
+      let polishVoice = voices.find(voice => 
+        voice.lang.startsWith('pl') && voice.localService
+      ) || voices.find(voice => voice.lang.startsWith('pl'));
+      
+      // If no Polish voice found, try to find any voice that supports Polish
+      if (!polishVoice) {
+        polishVoice = voices.find(voice => 
+          voice.lang.includes('pl') || voice.name.toLowerCase().includes('polish')
+        );
+      }
+      
+      if (polishVoice) {
+        utterance.voice = polishVoice;
+        utterance.lang = polishVoice.lang; // Use the voice's language
+      } else {
+        // Fallback: explicitly set Polish locale even if no Polish voice is available
+        utterance.lang = 'pl-PL';
+        console.warn('No Polish voice found, using default voice with pl-PL locale');
+      }
+      
+      utterance.rate = 0.85; // Slightly slower for Polish pronunciation
+      utterance.pitch = 1.0;
+      
       speechSynthesis.speak(utterance);
     }
   };
