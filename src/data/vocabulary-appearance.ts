@@ -94,12 +94,20 @@ export async function seedAppearanceVocabulary() {
     const existingAppearance = await db.vocabulary.where('category').equals('appearance').toArray();
     const existingIds = new Set(existingAppearance.map(w => w.id));
     
-    // Filter out words that already exist
+    // Separate new words and words that need updating
     const newWords = appearanceVocabulary.filter(word => !existingIds.has(word.id));
+    const wordsToUpdate = appearanceVocabulary.filter(word => existingIds.has(word.id));
     
+    // Add new words
     if (newWords.length > 0) {
       await db.vocabulary.bulkAdd(newWords);
       console.log(`✅ Added ${newWords.length} new appearance words`);
+    }
+    
+    // Update existing words (in case their data changed)
+    if (wordsToUpdate.length > 0) {
+      await db.vocabulary.bulkPut(wordsToUpdate);
+      console.log(`✅ Updated ${wordsToUpdate.length} existing appearance words`);
     }
     
     // Update total word count
@@ -109,21 +117,31 @@ export async function seedAppearanceVocabulary() {
     return true;
   } catch (error) {
     if (error instanceof Error && error.name === 'ConstraintError') {
-      // Some words might already exist, try to add the rest
+      // Some words might already exist, try to add/update the rest
       const existingAppearance = await db.vocabulary.where('category').equals('appearance').toArray();
       const existingIds = new Set(existingAppearance.map(w => w.id));
       const newWords = appearanceVocabulary.filter(word => !existingIds.has(word.id));
+      const wordsToUpdate = appearanceVocabulary.filter(word => existingIds.has(word.id));
       
       if (newWords.length > 0) {
         try {
           await db.vocabulary.bulkAdd(newWords);
-          const totalCount = await db.vocabulary.where('category').equals('appearance').count();
-          await db.categories.update('appearance', { totalWords: totalCount });
-          console.log(`✅ Added ${newWords.length} new appearance words. Total: ${totalCount}`);
         } catch (e) {
           console.error('Error adding remaining appearance words:', e);
         }
       }
+      
+      if (wordsToUpdate.length > 0) {
+        try {
+          await db.vocabulary.bulkPut(wordsToUpdate);
+        } catch (e) {
+          console.error('Error updating appearance words:', e);
+        }
+      }
+      
+      const totalCount = await db.vocabulary.where('category').equals('appearance').count();
+      await db.categories.update('appearance', { totalWords: totalCount });
+      console.log(`✅ Added ${newWords.length} new appearance words. Total: ${totalCount}`);
       return true;
     }
     console.error('Error seeding appearance vocabulary:', error);
