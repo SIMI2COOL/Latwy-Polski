@@ -468,7 +468,7 @@ function StudyPage() {
   };
 
   // Helper function to find a female voice for a given language
-  const findFemaleVoice = (voices: SpeechSynthesisVoice[], langPrefix: string): SpeechSynthesisVoice | null => {
+  const findFemaleVoice = (voices: SpeechSynthesisVoice[], langPrefix: string, strict: boolean = false): SpeechSynthesisVoice | null => {
     // First, try to find a female voice with the language, prioritizing local voices
     let femaleVoice = voices.find(voice => 
       voice.lang.startsWith(langPrefix) && 
@@ -479,8 +479,13 @@ function StudyPage() {
       isFemaleVoice(voice)
     );
     
+    // If strict mode, don't fall back to other languages
+    if (strict) {
+      return femaleVoice || null;
+    }
+    
     // If no female voice found in the language, try to find any female voice
-    // (better than using a male voice)
+    // (better than using a male voice) - but only for non-strict mode
     if (!femaleVoice) {
       femaleVoice = voices.find(voice => 
         voice.localService && isFemaleVoice(voice)
@@ -517,17 +522,19 @@ function StudyPage() {
         utterance.voice = englishVoice;
       }
       
-      utterance.rate = 0.9; // Slightly slower for clarity
+      utterance.rate = 1.0; // Normal speed for clarity
+      utterance.pitch = 1.1; // Slightly higher pitch for clearer sound
+      utterance.volume = 1.0; // Maximum volume
       speechSynthesis.speak(utterance);
     } else {
       // In flashcard mode, play the Polish word
       const utterance = new SpeechSynthesisUtterance(currentWord.polish);
       utterance.lang = 'pl-PL';
       
-      // Try to find a female Polish voice, prioritizing local voices
-      let polishVoice = findFemaleVoice(voices, 'pl');
+      // STRICTLY find a female Polish voice - don't fall back to other languages
+      let polishVoice = findFemaleVoice(voices, 'pl', true);
       
-      // Fallback to any Polish voice if no female voice found
+      // If no female Polish voice, try any Polish voice (but still Polish)
       if (!polishVoice) {
         polishVoice = voices.find(voice => 
           voice.lang.startsWith('pl') && voice.localService
@@ -550,8 +557,10 @@ function StudyPage() {
         console.warn('No Polish voice found, using default voice with pl-PL locale');
       }
       
-      utterance.rate = 0.85; // Slightly slower for Polish pronunciation
-      utterance.pitch = 1.0;
+      // Improve clarity: faster rate, higher pitch, higher volume
+      utterance.rate = 1.0; // Normal speed for clarity
+      utterance.pitch = 1.1; // Slightly higher pitch for clearer sound
+      utterance.volume = 1.0; // Maximum volume
       
       speechSynthesis.speak(utterance);
     }

@@ -475,13 +475,58 @@ export async function updateUserProgress(updates: Partial<UserProgress>, userId?
 }
 
 export async function getUserSettings(): Promise<UserSettings | undefined> {
-  return await db.settings.toCollection().first();
+  let settings = await db.settings.toCollection().first();
+  
+  // If no settings exist, create default settings
+  if (!settings) {
+    const defaultSettings: UserSettings = {
+      soundEnabled: true,
+      autoPlayAudio: true,
+      dailyGoal: 20,
+      theme: 'light',
+      notifications: false,
+    };
+    await db.settings.add(defaultSettings);
+    settings = await db.settings.toCollection().first();
+  }
+  
+  return settings;
 }
 
 export async function updateSettings(updates: Partial<UserSettings>) {
-  const settings = await getUserSettings();
-  if (settings) {
-    await db.settings.update(1, updates);
+  let settings = await getUserSettings();
+  
+  if (!settings) {
+    // Create settings if they don't exist
+    const defaultSettings: UserSettings = {
+      soundEnabled: true,
+      autoPlayAudio: true,
+      dailyGoal: 20,
+      theme: 'light',
+      notifications: false,
+      ...updates,
+    };
+    await db.settings.add(defaultSettings);
+  } else {
+    // Update existing settings - get the first (and only) settings record
+    const settingsRecord = await db.settings.toCollection().first();
+    if (settingsRecord) {
+      // Use the auto-increment id from the record
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const recordId = (settingsRecord as any).id;
+      await db.settings.update(recordId, updates);
+    } else {
+      // If somehow no record exists, create it
+      const defaultSettings: UserSettings = {
+        soundEnabled: true,
+        autoPlayAudio: true,
+        dailyGoal: 20,
+        theme: 'light',
+        notifications: false,
+        ...updates,
+      };
+      await db.settings.add(defaultSettings);
+    }
   }
 }
 

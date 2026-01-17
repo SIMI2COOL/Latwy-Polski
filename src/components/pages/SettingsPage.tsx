@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserSettings, updateSettings, db, logoutUser } from '@/utils/database';
-import { UserSettings } from '@/types';
+import type { UserSettings } from '@/types';
 import { useUser } from '@/contexts/UserContext';
 import { Volume2, Bell, Target, Trash2, Download, User, LogOut, Save, Upload, Upload as UploadIcon } from 'lucide-react';
 import {
@@ -145,15 +145,30 @@ function SettingsPage() {
   const handleSaveSettings = async () => {
     if (!settings) return;
     try {
-      // Save all settings
-      await updateSettings(settings);
+      console.log('Saving settings:', settings);
+      
+      // Save all settings - explicitly pass all fields
+      await updateSettings({
+        soundEnabled: settings.soundEnabled,
+        autoPlayAudio: settings.autoPlayAudio,
+        dailyGoal: settings.dailyGoal,
+        theme: settings.theme,
+        notifications: settings.notifications,
+      });
+      
+      // Reload settings to ensure they're saved
+      const updatedSettings = await getUserSettings();
+      console.log('Reloaded settings:', updatedSettings);
+      if (updatedSettings) {
+        setSettings(updatedSettings);
+      }
       
       // Handle notifications separately if changed
       if (settings.notifications && notificationPermission !== 'granted') {
         await handleNotificationToggle();
       }
       
-      alert('Settings saved successfully!');
+      alert(`Settings saved successfully! Daily goal: ${settings.dailyGoal}`);
     } catch (error) {
       console.error('Error saving settings:', error);
       alert('Error saving settings');
