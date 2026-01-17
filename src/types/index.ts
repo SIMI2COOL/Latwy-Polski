@@ -36,6 +36,7 @@ export interface User {
   name: string;
   email?: string; // Optional for backward compatibility
   passwordHash?: string; // Optional for backward compatibility
+  profilePicture?: string; // Base64 encoded image or URL
   createdAt: Date;
 }
 

@@ -72,13 +72,26 @@ function HomePage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 md:pb-8">
       {/* Stats Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Hello, {user.name}! 👋
-        </h1>
-        <p className="text-gray-600">
-          Continue your Polish learning journey
-        </p>
+      <div className="mb-8 flex items-center gap-4">
+        {user.profilePicture ? (
+          <img
+            src={user.profilePicture}
+            alt={user.name}
+            className="w-16 h-16 rounded-full object-cover border-2 border-primary-200"
+          />
+        ) : (
+          <div className="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center text-2xl font-bold text-primary-600 border-2 border-primary-200">
+            {user.name.charAt(0).toUpperCase()}
+          </div>
+        )}
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Hello, {user.name}! 👋
+          </h1>
+          <p className="text-gray-600">
+            Continue your Polish learning journey
+          </p>
+        </div>
       </div>
 
       {/* Daily Goal Progress */}

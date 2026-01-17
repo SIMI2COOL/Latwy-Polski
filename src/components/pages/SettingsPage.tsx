@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUserSettings, updateSettings, db, logoutUser } from '@/utils/database';
 import { UserSettings } from '@/types';
 import { useUser } from '@/contexts/UserContext';
-import { Volume2, Bell, Target, Trash2, Download, User, Image as ImageIcon, LogOut } from 'lucide-react';
+import { Volume2, Bell, Target, Trash2, Download, User, LogOut, Save, Upload, Upload as UploadIcon } from 'lucide-react';
 import {
   requestNotificationPermission,
   canSendNotifications,
@@ -19,7 +19,7 @@ function SettingsPage() {
   const [settings, setSettings] = useState<UserSettings | null>(null);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
+  const [notificationPermission, setNotificationPermission] = useState<'granted' | 'denied' | 'default'>('default');
   const [reminderTime, setReminderTime] = useState<{ hour: number; minute: number } | null>(null);
 
   useEffect(() => {
@@ -41,42 +41,18 @@ function SettingsPage() {
     loadSettings();
   }, []);
 
-  const handleToggle = async (key: keyof UserSettings) => {
+  const handleToggle = (key: keyof UserSettings) => {
     if (!settings) return;
 
     // Special handling for notifications
     if (key === 'notifications') {
-      if (!settings.notifications) {
-        // Enabling notifications - request permission
-        const permission = await requestNotificationPermission();
-        setNotificationPermission(permission);
-
-        if (permission === 'granted') {
-          const newSettings = {
-            ...settings,
-            notifications: true,
-          };
-          setSettings(newSettings);
-          await updateSettings({ notifications: true });
-          
-          // Schedule default reminder (6 PM)
-          await scheduleDailyReminder(18, 0);
-          setReminderTime({ hour: 18, minute: 0 });
-        } else {
-          alert('Notification permission is required to enable study reminders. Please allow notifications in your browser settings.');
-          return;
-        }
-      } else {
-        // Disabling notifications
-        cancelDailyReminder();
-        const newSettings = {
-          ...settings,
-          notifications: false,
-        };
-        setSettings(newSettings);
-        await updateSettings({ notifications: false });
-        setReminderTime(null);
-      }
+      const newValue = !settings.notifications;
+      const newSettings = {
+        ...settings,
+        notifications: newValue,
+      };
+      setSettings(newSettings);
+      // Don't save immediately - wait for save button
       return;
     }
 
@@ -86,7 +62,41 @@ function SettingsPage() {
     };
 
     setSettings(newSettings);
-    await updateSettings({ [key]: newSettings[key] });
+    // Don't save immediately - wait for save button
+  };
+
+  const handleNotificationToggle = async () => {
+    if (!settings) return;
+
+    if (!settings.notifications) {
+      // Enabling notifications - request permission
+      const permission = await requestNotificationPermission();
+      setNotificationPermission(permission);
+
+      if (permission === 'granted') {
+        const newSettings = {
+          ...settings,
+          notifications: true,
+        };
+        setSettings(newSettings);
+        
+        // Schedule default reminder (6 PM)
+        await scheduleDailyReminder(18, 0);
+        setReminderTime({ hour: 18, minute: 0 });
+      } else {
+        alert('Notification permission is required to enable study reminders. Please allow notifications in your browser settings.');
+        return;
+      }
+    } else {
+      // Disabling notifications
+      cancelDailyReminder();
+      const newSettings = {
+        ...settings,
+        notifications: false,
+      };
+      setSettings(newSettings);
+      setReminderTime(null);
+    }
   };
 
   const handleRequestPermission = async () => {
@@ -118,16 +128,36 @@ function SettingsPage() {
     });
   };
 
-  const handleDailyGoalChange = async (value: number) => {
+  const handleDailyGoalChange = (value: string) => {
     if (!settings) return;
+    const numValue = parseInt(value, 10);
+    if (isNaN(numValue) || numValue < 5 || numValue > 100) return;
 
     const newSettings = {
       ...settings,
-      dailyGoal: value,
+      dailyGoal: numValue,
     };
 
     setSettings(newSettings);
-    await updateSettings({ dailyGoal: value });
+    // Don't save immediately - wait for save button
+  };
+
+  const handleSaveSettings = async () => {
+    if (!settings) return;
+    try {
+      // Save all settings
+      await updateSettings(settings);
+      
+      // Handle notifications separately if changed
+      if (settings.notifications && notificationPermission !== 'granted') {
+        await handleNotificationToggle();
+      }
+      
+      alert('Settings saved successfully!');
+    } catch (error) {
+      console.error('Error saving settings:', error);
+      alert('Error saving settings');
+    }
   };
 
   const handleResetProgress = async () => {
@@ -204,9 +234,12 @@ function SettingsPage() {
       
       const allData = {
         exportDate: new Date().toISOString(),
+        version: '1.0.0',
         user: {
           id: user.id,
           name: user.name,
+          email: user.email,
+          profilePicture: user.profilePicture,
           createdAt: user.createdAt,
         },
         progress: await db.userProgress.where('userId').equals(user.id).toArray(),
@@ -225,24 +258,146 @@ function SettingsPage() {
       link.click();
       
       URL.revokeObjectURL(url);
+      alert('Data exported successfully! You can import this file on another device.');
     } catch (error) {
       console.error('Error exporting data:', error);
       alert('Error exporting data');
     }
   };
 
-  const handleUpdateName = async (newName: string) => {
-    try {
-      if (!user || !newName.trim()) return;
-      
-      await db.users.update(user.id, { name: newName.trim() });
-      const updatedUser = await db.users.get(user.id);
-      if (updatedUser) {
+  const handleImportData = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    
+    reader.onload = async (event) => {
+      try {
+        const text = event.target?.result as string;
+        const importedData = JSON.parse(text);
+        
+        if (!importedData.user || !importedData.progress) {
+          alert('Invalid data file. Please export data from the app first.');
+          return;
+        }
+
+        // Confirm import
+        const confirmed = window.confirm(
+          'This will replace all your current data with the imported data. This cannot be undone. Continue?'
+        );
+        
+        if (!confirmed) return;
+
+        // Import user data (update current user or create new)
+        if (user && user.email === importedData.user.email) {
+          // Same user - update data
+          await db.users.update(user.id, {
+            name: importedData.user.name,
+            profilePicture: importedData.user.profilePicture,
+          });
+          
+          // Update progress
+          if (importedData.progress && importedData.progress.length > 0) {
+            await db.userProgress.put(importedData.progress[0]);
+          }
+        } else {
+          // Different user or no email - create new user
+          const newUser = await db.users.add({
+            id: importedData.user.id || `user_${Date.now()}`,
+            name: importedData.user.name,
+            email: importedData.user.email,
+            profilePicture: importedData.user.profilePicture,
+            createdAt: new Date(importedData.user.createdAt),
+          });
+          
+          if (importedData.progress && importedData.progress.length > 0) {
+            await db.userProgress.put(importedData.progress[0]);
+          }
+          
+          const importedUser = await db.users.get(newUser);
+          if (importedUser) {
+            setUser(importedUser);
+          }
+        }
+
+        // Import sessions
+        if (importedData.sessions && Array.isArray(importedData.sessions)) {
+          await db.studySessions.clear();
+          await db.studySessions.bulkAdd(importedData.sessions);
+        }
+
+        // Import flashcards
+        if (importedData.flashcards && Array.isArray(importedData.flashcards)) {
+          await db.flashcardStates.clear();
+          await db.flashcardStates.bulkAdd(importedData.flashcards);
+        }
+
+        // Import settings
+        if (importedData.settings && Array.isArray(importedData.settings) && importedData.settings.length > 0) {
+          await db.settings.clear();
+          await db.settings.add(importedData.settings[0]);
+          const newSettings = await getUserSettings();
+          if (newSettings) {
+            setSettings(newSettings);
+          }
+        }
+
+        alert('Data imported successfully! The page will reload.');
+        window.location.reload();
+      } catch (error) {
+        console.error('Error importing data:', error);
+        alert('Error importing data. Please check the file format.');
+      }
+    };
+    
+    reader.readAsText(file);
+    // Reset input
+    e.target.value = '';
+  };
+
+  const handleUpdateName = (newName: string) => {
+    if (!user || !newName.trim()) return;
+    // Update local state, save on save button click
+    const updatedUser = { ...user, name: newName.trim() };
+    setUser(updatedUser);
+  };
+
+  const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!user || !e.target.files || e.target.files.length === 0) return;
+
+    const file = e.target.files[0];
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file');
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) { // 2MB limit
+      alert('Image size must be less than 2MB');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result;
+      if (typeof result === 'string') {
+        const updatedUser = { ...user, profilePicture: result };
         setUser(updatedUser);
       }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleSaveProfile = async () => {
+    if (!user) return;
+    try {
+      await db.users.update(user.id, {
+        name: user.name,
+        profilePicture: user.profilePicture,
+      });
+      alert('Profile saved successfully!');
     } catch (error) {
-      console.error('Error updating name:', error);
-      alert('Error updating name');
+      console.error('Error saving profile:', error);
+      alert('Error saving profile');
     }
   };
 
@@ -282,28 +437,13 @@ function SettingsPage() {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Name
               </label>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  defaultValue={user.name}
-                  onBlur={(e) => {
-                    const newName = e.target.value.trim();
-                    if (newName && newName !== user.name && newName.length >= 2) {
-                      handleUpdateName(newName);
-                    }
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.currentTarget.blur();
-                    }
-                  }}
-                  className="input flex-1"
-                  maxLength={50}
-                />
-              </div>
-              <p className="mt-1 text-sm text-gray-500">
-                Press Enter or click outside to save
-              </p>
+              <input
+                type="text"
+                value={user.name}
+                onChange={(e) => handleUpdateName(e.target.value)}
+                className="input"
+                maxLength={50}
+              />
             </div>
 
             {user.email && (
@@ -328,22 +468,61 @@ function SettingsPage() {
                 Profile Picture
               </label>
               <div className="flex items-center gap-4">
-                <div className="w-20 h-20 rounded-full bg-primary-100 flex items-center justify-center text-2xl font-bold text-primary-600">
-                  {user.name.charAt(0).toUpperCase()}
+                <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-gray-200">
+                  {user.profilePicture ? (
+                    <img
+                      src={user.profilePicture}
+                      alt={user.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-primary-100 flex items-center justify-center text-2xl font-bold text-primary-600">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
                 </div>
-                <div>
-                  <p className="text-sm text-gray-600 mb-2">
-                    Profile picture feature coming soon
-                  </p>
-                  <button
-                    disabled
-                    className="btn-secondary text-sm opacity-50 cursor-not-allowed"
+                <div className="flex-1">
+                  <input
+                    type="file"
+                    id="profile-picture-input"
+                    accept="image/*"
+                    onChange={handleProfilePictureChange}
+                    className="hidden"
+                  />
+                  <label
+                    htmlFor="profile-picture-input"
+                    className="btn-secondary text-sm cursor-pointer inline-flex items-center"
                   >
-                    <ImageIcon className="w-4 h-4 inline mr-2" />
-                    Change Picture
-                  </button>
+                    <Upload className="w-4 h-4 inline mr-2" />
+                    {user.profilePicture ? 'Change Picture' : 'Upload Picture'}
+                  </label>
+                  {user.profilePicture && (
+                    <button
+                      onClick={() => {
+                        const updatedUser = { ...user };
+                        delete updatedUser.profilePicture;
+                        setUser(updatedUser);
+                      }}
+                      className="btn-secondary text-sm ml-2"
+                    >
+                      Remove
+                    </button>
+                  )}
+                  <p className="mt-1 text-xs text-gray-500">
+                    Max 2MB. JPG, PNG, or GIF
+                  </p>
                 </div>
               </div>
+            </div>
+
+            <div className="pt-4 border-t border-gray-200">
+              <button
+                onClick={handleSaveProfile}
+                className="btn-primary"
+              >
+                <Save className="w-4 h-4 inline mr-2" />
+                Save Profile
+              </button>
             </div>
           </div>
         </div>
@@ -359,7 +538,7 @@ function SettingsPage() {
         <div className="space-y-4">
           <SettingToggle
             label="Sound enabled"
-            description="Play sound effects"
+            description="Play sound effects for correct/incorrect answers"
             checked={settings.soundEnabled}
             onChange={() => handleToggle('soundEnabled')}
           />
@@ -391,7 +570,7 @@ function SettingsPage() {
               max="100"
               step="5"
               value={settings.dailyGoal}
-              onChange={(e) => handleDailyGoalChange(parseInt(e.target.value))}
+              onChange={(e) => handleDailyGoalChange(e.target.value)}
               className="input max-w-xs"
             />
             <p className="mt-1 text-sm text-gray-500">
@@ -427,7 +606,7 @@ function SettingsPage() {
             label="Study reminders"
             description="Receive daily notifications to maintain your streak"
             checked={settings.notifications && notificationPermission === 'granted'}
-            onChange={() => handleToggle('notifications')}
+            onChange={handleNotificationToggle}
             disabled={notificationPermission !== 'granted'}
           />
 
@@ -465,15 +644,27 @@ function SettingsPage() {
 
         <div className="space-y-4">
           <div>
-            <button
-              onClick={handleExportData}
-              className="btn-secondary w-full sm:w-auto"
-            >
-              <Download className="w-4 h-4 inline mr-2" />
-              Export My Data
-            </button>
+            <div className="flex gap-2 flex-wrap">
+              <button
+                onClick={handleExportData}
+                className="btn-secondary"
+              >
+                <Download className="w-4 h-4 inline mr-2" />
+                Export My Data
+              </button>
+              <label className="btn-secondary cursor-pointer">
+                <UploadIcon className="w-4 h-4 inline mr-2" />
+                Import Data
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={handleImportData}
+                  className="hidden"
+                />
+              </label>
+            </div>
             <p className="mt-2 text-sm text-gray-500">
-              Download a copy of your progress and settings
+              Export your data to continue on another device, or import previously exported data
             </p>
           </div>
 
@@ -501,6 +692,20 @@ function SettingsPage() {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Save All Settings Button */}
+      <div className="card p-6 mb-6 bg-blue-50 border-2 border-blue-200">
+        <button
+          onClick={handleSaveSettings}
+          className="w-full btn-primary flex items-center justify-center"
+        >
+          <Save className="w-5 h-5 mr-2" />
+          Save All Settings
+        </button>
+        <p className="text-sm text-gray-600 text-center mt-2">
+          Save all changes including daily goal and profile updates
+        </p>
       </div>
 
       {/* About */}

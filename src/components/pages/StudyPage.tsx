@@ -15,6 +15,8 @@ import { hasReachedDailyGoal } from '@/utils/dailyLimit';
 import { calculateNextReview, mapResultToQuality } from '@/utils/spaced-repetition';
 import { useUser } from '@/contexts/UserContext';
 import { comparePolishText } from '@/utils/polishTextUtils';
+import { playSuccessSound, playErrorSound, playLevelUpSound, playAchievementSound, playSoundIfEnabled } from '@/utils/soundEffects';
+import { getUserSettings } from '@/utils/database';
 
 function StudyPage() {
   const { categoryId, subcategoryId } = useParams();
@@ -329,6 +331,14 @@ function StudyPage() {
       await db.flashcardStates.add(newState);
     }
 
+    // Play sound effects
+    const settings = await getUserSettings();
+    if (correct) {
+      await playSoundIfEnabled(playSuccessSound, settings);
+    } else {
+      await playSoundIfEnabled(playErrorSound, settings);
+    }
+
     // If incorrect, show the result and wait for user to press Enter
     if (!correct) {
       setIsCorrect(false);
@@ -390,12 +400,18 @@ function StudyPage() {
       await updateUserProgress(newProgress, user.id);
       await refreshProgress();
 
-      // Send notifications for achievements
-      if (canSendNotifications() && achievements.length > 0) {
-        for (const achievementId of achievements) {
-          const achievement = newProgress.achievements.find(a => a.id === achievementId);
-          if (achievement) {
-            await sendAchievementNotification(achievement.title, achievement.icon);
+      const settings = await getUserSettings();
+
+      // Send notifications and play sounds for achievements
+      if (achievements.length > 0) {
+        await playSoundIfEnabled(playAchievementSound, settings);
+        
+        if (canSendNotifications()) {
+          for (const achievementId of achievements) {
+            const achievement = newProgress.achievements.find(a => a.id === achievementId);
+            if (achievement) {
+              await sendAchievementNotification(achievement.title, achievement.icon);
+            }
           }
         }
       }
@@ -417,6 +433,7 @@ function StudyPage() {
       }
 
       if (leveledUp) {
+        await playSoundIfEnabled(playLevelUpSound, settings);
         confetti({
           particleCount: 200,
           spread: 100,
@@ -437,14 +454,17 @@ function StudyPage() {
       return true;
     }
     // Check for common female voice indicators in the name
-    return nameLower.includes('female') || 
-           nameLower.includes('zira') || 
-           nameLower.includes('hazel') ||
-           nameLower.includes('karen') ||
-           nameLower.includes('samantha') ||
-           nameLower.includes('victoria') ||
-           nameLower.includes('kobieta') || // Polish for "woman"
-           nameLower.includes('żeńska'); // Polish for "feminine"
+    const femaleIndicators = [
+      'female', 'zira', 'hazel', 'karen', 'samantha', 'victoria', 'susan', 'linda',
+      'kobieta', 'żeńska', 'żeński', 'feminine', 'woman', 'girl',
+      // iOS voices
+      'samantha', 'karen', 'moira', 'tessa', 'veena', 'fiona',
+      // Android voices
+      'female', 'woman',
+      // Windows voices
+      'zira', 'hazel'
+    ];
+    return femaleIndicators.some(indicator => nameLower.includes(indicator));
   };
 
   // Helper function to find a female voice for a given language
@@ -458,6 +478,14 @@ function StudyPage() {
       voice.lang.startsWith(langPrefix) && 
       isFemaleVoice(voice)
     );
+    
+    // If no female voice found in the language, try to find any female voice
+    // (better than using a male voice)
+    if (!femaleVoice) {
+      femaleVoice = voices.find(voice => 
+        voice.localService && isFemaleVoice(voice)
+      ) || voices.find(voice => isFemaleVoice(voice));
+    }
     
     return femaleVoice || null;
   };

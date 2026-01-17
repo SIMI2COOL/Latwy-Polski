@@ -116,6 +116,21 @@ export class PolishAppDatabase extends Dexie {
       console.log('Database upgraded to version 5 - added email/password authentication support');
       // No data migration needed - email and passwordHash are optional fields
     });
+    
+    // Version 6: Add profilePicture to users table
+    this.version(6).stores({
+      vocabulary: 'id, polish, english, category, subcategory, difficulty, [category+subcategory]',
+      categories: 'id, titlePolish, titleEnglish',
+      subcategories: 'id, categoryId, titlePolish',
+      users: 'id, name, email, createdAt',
+      userProgress: 'userId, level, totalPoints',
+      studySessions: 'id, categoryId, startedAt, completedAt',
+      flashcardStates: 'wordId, nextReview, interval',
+      settings: '++id',
+    }).upgrade(async () => {
+      console.log('Database upgraded to version 6 - added profilePicture support');
+      // No data migration needed - profilePicture is optional
+    });
   }
 }
 

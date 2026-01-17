@@ -12,15 +12,21 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['favicon.svg', 'favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
         name: 'Łatwy Polski',
         short_name: 'Łatwy Polski',
-        description: 'Aprende polaco con flashcards interactivas',
-        theme_color: '#2563eb',
+        description: 'Learn Polish with interactive flashcards and gamification',
+        theme_color: '#8B0000',
         background_color: '#ffffff',
         display: 'standalone',
         icons: [
+          {
+            src: 'favicon.svg',
+            sizes: 'any',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
+          },
           {
             src: 'pwa-192x192.png',
             sizes: '192x192',

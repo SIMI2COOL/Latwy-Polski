@@ -6,7 +6,7 @@
 /**
  * Request notification permission from the user
  */
-export async function requestNotificationPermission(): Promise<NotificationPermission> {
+export async function requestNotificationPermission(): Promise<'granted' | 'denied' | 'default'> {
   if (!('Notification' in window)) {
     console.warn('This browser does not support notifications');
     return 'denied';
@@ -18,10 +18,10 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
 
   if (Notification.permission !== 'denied') {
     const permission = await Notification.requestPermission();
-    return permission;
+    return permission as 'granted' | 'denied' | 'default';
   }
 
-  return Notification.permission;
+  return Notification.permission as 'granted' | 'denied' | 'default';
 }
 
 /**
@@ -39,7 +39,13 @@ export function canSendNotifications(): boolean {
  */
 export async function sendNotification(
   title: string,
-  options?: NotificationOptions
+  options?: {
+    body?: string;
+    icon?: string;
+    badge?: string;
+    tag?: string;
+    requireInteraction?: boolean;
+  }
 ): Promise<void> {
   if (!canSendNotifications()) {
     console.warn('Cannot send notification: permission not granted');
