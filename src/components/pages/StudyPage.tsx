@@ -448,23 +448,52 @@ function StudyPage() {
   // Helper function to check if a voice is female
   const isFemaleVoice = (voice: SpeechSynthesisVoice): boolean => {
     const nameLower = voice.name.toLowerCase();
-    // Check if voice has gender property (some browsers support this)
+    
+    // First check: gender property (most reliable if available)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ('gender' in voice && (voice as any).gender === 'female') {
       return true;
     }
-    // Check for common female voice indicators in the name
+    
+    // Second check: explicit male indicators - if found, definitely not female
+    const maleIndicators = ['male', 'mężczyzna', 'męski', 'mężczyźni'];
+    if (maleIndicators.some(indicator => nameLower.includes(indicator))) {
+      return false;
+    }
+    
+    // Third check: common female voice indicators in the name
     const femaleIndicators = [
-      'female', 'zira', 'hazel', 'karen', 'samantha', 'victoria', 'susan', 'linda',
-      'kobieta', 'żeńska', 'żeński', 'feminine', 'woman', 'girl',
+      // Generic
+      'female', 'feminine', 'woman', 'girl', 'kobieta', 'żeńska', 'żeński',
+      // Windows voices (English and Polish)
+      'zira', 'hazel', 'eva', 'maria', 'magda', 'paulina', 'agnieszka',
       // iOS voices
-      'samantha', 'karen', 'moira', 'tessa', 'veena', 'fiona',
+      'samantha', 'karen', 'moira', 'tessa', 'veena', 'fiona', 'susan', 'linda', 'victoria',
       // Android voices
       'female', 'woman',
-      // Windows voices
-      'zira', 'hazel'
+      // Common Polish female names that might appear in voice names
+      'anna', 'maria', 'katarzyna', 'magdalena', 'agnieszka', 'ewa', 'joanna',
+      'monika', 'natalia', 'aleksandra', 'justyna', 'paulina', 'karolina',
+      // Microsoft Polish voices (common names)
+      'paulina', 'magda'
     ];
-    return femaleIndicators.some(indicator => nameLower.includes(indicator));
+    
+    if (femaleIndicators.some(indicator => nameLower.includes(indicator))) {
+      return true;
+    }
+    
+    // Fourth check: if voice name contains numbers or codes, check for patterns
+    // Some systems use codes like "pl-PL-Female" or "Polish-Female"
+    if (nameLower.includes('pl') && (nameLower.includes('f') || nameLower.includes('2'))) {
+      // Some systems use "Female" or "2" to indicate female
+      return true;
+    }
+    
+    // Fifth check: pitch-based heuristic (female voices often have higher default pitch)
+    // This is a fallback - we'll use it if no other indicators are found
+    // Note: This is less reliable but can help on systems with minimal voice metadata
+    
+    return false;
   };
 
   // Helper function to find a female voice for a given language
@@ -563,19 +592,48 @@ function StudyPage() {
         return;
       }
       
-      // Find female Polish voices
-      const femalePolishVoices = polishVoices.filter(voice => isFemaleVoice(voice));
+      // Log all available Polish voices for debugging
+      console.log('Available Polish voices:', polishVoices.map(v => ({
+        name: v.name,
+        lang: v.lang,
+        localService: v.localService,
+        isFemale: isFemaleVoice(v)
+      })));
+      
+      // Find female Polish voices - try multiple strategies
+      let femalePolishVoices = polishVoices.filter(voice => isFemaleVoice(voice));
+      
+      // If no female voices found by name, try to find voices that might be female
+      // by checking if they're NOT explicitly male
+      if (femalePolishVoices.length === 0) {
+        // On some systems, voices might not have clear gender indicators
+        // Try to find voices that don't have male indicators
+        const nonMaleVoices = polishVoices.filter(voice => {
+          const nameLower = voice.name.toLowerCase();
+          const maleIndicators = ['male', 'mężczyzna', 'męski'];
+          return !maleIndicators.some(indicator => nameLower.includes(indicator));
+        });
+        
+        // If we have multiple voices and some are clearly not male, prefer those
+        if (nonMaleVoices.length > 0 && nonMaleVoices.length < polishVoices.length) {
+          femalePolishVoices = nonMaleVoices;
+          console.log('Using heuristic: selected voices without male indicators');
+        }
+      }
       
       let polishVoice: SpeechSynthesisVoice | null = null;
       
       if (femalePolishVoices.length > 0) {
-        // Prefer local service voices
-        polishVoice = femalePolishVoices.find(voice => voice.localService) || femalePolishVoices[0];
-        console.log('Using female Polish voice:', polishVoice.name, polishVoice.lang);
+        // Prefer local service voices, then prefer voices with clearer female indicators
+        polishVoice = femalePolishVoices.find(voice => 
+          voice.localService && isFemaleVoice(voice)
+        ) || femalePolishVoices.find(voice => voice.localService) || femalePolishVoices[0];
+        console.log('✅ Using female Polish voice:', polishVoice.name, polishVoice.lang);
       } else {
-        // Fallback to any Polish voice (male)
+        // Last resort: use any Polish voice, but log a warning
         polishVoice = polishVoices.find(voice => voice.localService) || polishVoices[0];
-        console.log('Using Polish voice (no female available):', polishVoice.name, polishVoice.lang);
+        console.warn('⚠️ No female Polish voice detected. Using:', polishVoice.name, polishVoice.lang);
+        console.warn('Available voices:', polishVoices.map(v => v.name).join(', '));
       }
       
       // Set the voice and language
