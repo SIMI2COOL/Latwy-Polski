@@ -35,6 +35,14 @@ export const subcategoryNames: Record<string, { spanish: string; polish: string 
   'work-activities': { spanish: 'ACTIVIDADES LABORALES', polish: 'PRACA' },
   'professions': { spanish: 'PROFESIONES', polish: 'ZAWODY' },
   
+  // Eating Out
+  'cafe': { spanish: 'CAFÉ', polish: 'KAWIARNIA' },
+  'bar': { spanish: 'BAR', polish: 'BAR' },
+  'restaurant': { spanish: 'RESTAURANTE', polish: 'RESTAURACJA' },
+  'fastfood': { spanish: 'COMIDA RÁPIDA', polish: 'FAST FOOD' },
+  'breakfast': { spanish: 'DESAYUNO', polish: 'ŚNIADANIE' },
+  'dinner': { spanish: 'CENA', polish: 'OBIAD' },
+  
   // Add more as needed...
 };
 
