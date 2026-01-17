@@ -31,7 +31,7 @@ export const servicesVocabulary: VocabularyWord[] = [
   { id: 'bank_013', polish: 'odsetki', spanish: 'interés', category: 'services', subcategory: 'bank', difficulty: 'advanced' },
   { id: 'bank_014', polish: 'saldo', spanish: 'saldo', category: 'services', subcategory: 'bank', difficulty: 'intermediate' },
 
-  // POCZTA (Correos)
+  // CORREO (Poczta)
   { id: 'post_001', polish: 'poczta', spanish: 'correos', category: 'services', subcategory: 'post-office', difficulty: 'beginner' },
   { id: 'post_002', polish: 'list', spanish: 'carta', category: 'services', subcategory: 'post-office', difficulty: 'beginner' },
   { id: 'post_003', polish: 'paczka', spanish: 'paquete', category: 'services', subcategory: 'post-office', difficulty: 'beginner' },

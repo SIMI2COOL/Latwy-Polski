@@ -16,7 +16,6 @@ export const foodVocabulary: VocabularyWord[] = [
   { id: 'meat_012', polish: 'cielęcina', spanish: 'ternera', category: 'food', subcategory: 'meat', difficulty: 'advanced' },
 
   // WARZYWA (Verduras)
-  { id: 'veg_001', polish: 'pomidor', spanish: 'tomate', category: 'food', subcategory: 'vegetables', difficulty: 'beginner' },
   { id: 'veg_002', polish: 'ogórek', spanish: 'pepino', category: 'food', subcategory: 'vegetables', difficulty: 'beginner' },
   { id: 'veg_003', polish: 'sałata', spanish: 'lechuga', category: 'food', subcategory: 'vegetables', difficulty: 'beginner' },
   { id: 'veg_004', polish: 'brokuł', spanish: 'brócoli', category: 'food', subcategory: 'vegetables', difficulty: 'intermediate' },
@@ -38,6 +37,7 @@ export const foodVocabulary: VocabularyWord[] = [
   { id: 'veg_020', polish: 'pieczarka', spanish: 'champiñón', category: 'food', subcategory: 'vegetables', difficulty: 'intermediate' },
 
   // OWOCE (Frutas)
+  { id: 'fruit_000', polish: 'pomidor', spanish: 'tomate', category: 'food', subcategory: 'fruits', difficulty: 'beginner' },
   { id: 'fruit_001', polish: 'jabłko', spanish: 'manzana', category: 'food', subcategory: 'fruits', difficulty: 'beginner' },
   { id: 'fruit_002', polish: 'gruszka', spanish: 'pera', category: 'food', subcategory: 'fruits', difficulty: 'beginner' },
   { id: 'fruit_003', polish: 'pomarańcza', spanish: 'naranja', category: 'food', subcategory: 'fruits', difficulty: 'beginner' },
