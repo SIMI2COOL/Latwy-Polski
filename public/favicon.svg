@@ -1,0 +1,23 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circle border -->
+  <circle 
+    cx="100" 
+    cy="100" 
+    r="92" 
+    fill="none" 
+    stroke="#c8102e" 
+    stroke-width="16"/>
+
+  <!-- Text ŁP -->
+  <text 
+    x="107" 
+    y="101" 
+    font-family="Arial, Helvetica, sans-serif" 
+    font-size="96" 
+    font-weight="bold" 
+    fill="#c8102e" 
+    text-anchor="middle" 
+    dominant-baseline="central">
+    ŁP
+  </text>
+</svg>

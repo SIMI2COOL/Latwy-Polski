@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  /* Botones */
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg font-medium 
+           transition-colors duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    background-color: #0074bd;
+    color: #ffffff;
+  }
+  .btn-primary:hover {
+    background-color: #005c96;
+  }
+  .btn-primary:active {
+    background-color: #004470;
+  }
+
+  .btn-secondary {
+    background-color: #b5b5b5;
+    color: #ffffff;
+    @apply px-4 py-2 rounded-lg font-medium 
+           transition-colors duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary:hover {
+    background-color: #9a9a9a;
+  }
+  .btn-secondary:active {
+    background-color: #808080;
+  }
+
+  .btn-success {
+    background-color: #0074bd;
+    color: #ffffff;
+    @apply px-4 py-2 rounded-lg font-medium 
+           transition-colors duration-200;
+  }
+  .btn-success:hover {
+    background-color: #005c96;
+  }
+  .btn-success:active {
+    background-color: #004470;
+  }
+
+  .btn-danger {
+    background-color: #d24141;
+    color: #ffffff;
+    @apply px-4 py-2 rounded-lg font-medium 
+           transition-colors duration-200;
+  }
+  .btn-danger:hover {
+    background-color: #b83535;
+  }
+  .btn-danger:active {
+    background-color: #9e2a2a;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-xl shadow-md overflow-hidden;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-lg transition-shadow duration-200 cursor-pointer;
+  }
+
+  /* Input */
+  .input {
+    @apply w-full px-4 py-2 border rounded-lg
+           focus:outline-none focus:ring-2 focus:border-transparent
+           disabled:cursor-not-allowed;
+    border-color: #b5b5b5;
+    background-color: #ffffff;
+  }
+  .input:focus {
+    border-color: #0074bd;
+    box-shadow: 0 0 0 2px rgba(0, 116, 189, 0.2);
+  }
+  .input:disabled {
+    background-color: #f5f5f5;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply badge;
+    background-color: rgba(0, 116, 189, 0.1);
+    color: #0074bd;
+  }
+
+  .badge-success {
+    @apply badge bg-green-100 text-green-800;
+  }
+
+  .badge-warning {
+    @apply badge bg-yellow-100 text-yellow-800;
+  }
+
+  .badge-danger {
+    @apply badge bg-red-100 text-red-800;
+  }
+}
+
+@layer utilities {
+  /* Animaciones personalizadas */
+  .animate-flash {
+    animation: flash 0.5s ease-in-out;
+  }
+
+  @keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Gradientes */
+  .gradient-primary {
+    background: linear-gradient(to bottom right, #0074bd, #004470);
+  }
+
+  .gradient-success {
+    background: linear-gradient(to bottom right, #0074bd, #004470);
+  }
+
+  .gradient-danger {
+    background: linear-gradient(to bottom right, #d24141, #9e2a2a);
+  }
+
+  /* Textos */
+  .text-gradient {
+    color: #DC143C;
+  }
+
+  /* Sombras */
+  .shadow-primary {
+    box-shadow: 0 10px 25px -5px rgba(0, 116, 189, 0.1), 0 8px 10px -6px rgba(0, 116, 189, 0.1);
+  }
+
+  /* Scrollbar personalizado */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 #f7fafc;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #f7fafc;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #cbd5e0;
+    border-radius: 3px;
+  }
+}
+
+/* Loading spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-left-color: currentColor;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 0.6s linear infinite;
+}
+
+/* Flashcard flip animation */
+.flashcard {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.flashcard.flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+/* Pulse animation para streak */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
