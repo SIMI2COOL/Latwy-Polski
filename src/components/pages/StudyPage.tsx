@@ -499,8 +499,18 @@ function StudyPage() {
     // Stop any currently playing speech
     speechSynthesis.cancel();
 
-    // Get available voices
-    const voices = speechSynthesis.getVoices();
+    // Get available voices - wait for voices to load if needed
+    let voices = speechSynthesis.getVoices();
+    if (voices.length === 0) {
+      // Voices might not be loaded yet, wait a bit
+      setTimeout(() => {
+        voices = speechSynthesis.getVoices();
+        if (voices.length > 0) {
+          playAudio();
+        }
+      }, 100);
+      return;
+    }
     
     // Play audio based on mode
     if (mode === 'quiz') {
@@ -531,35 +541,52 @@ function StudyPage() {
       const utterance = new SpeechSynthesisUtterance(currentWord.polish);
       utterance.lang = 'pl-PL';
       
-      // STRICTLY find a female Polish voice - don't fall back to other languages
-      let polishVoice = findFemaleVoice(voices, 'pl', true);
+      // CRITICAL: Find ONLY Polish voices - filter out any English voices
+      const polishVoices = voices.filter(voice => {
+        const lang = voice.lang.toLowerCase();
+        const name = voice.name.toLowerCase();
+        // Must be Polish language code, NOT English
+        return (lang.startsWith('pl') || lang.includes('pl-')) && 
+               !lang.startsWith('en') && 
+               !name.includes('english') &&
+               !name.includes('en-');
+      });
       
-      // If no female Polish voice, try any Polish voice (but still Polish)
-      if (!polishVoice) {
-        polishVoice = voices.find(voice => 
-          voice.lang.startsWith('pl') && voice.localService
-        ) || voices.find(voice => voice.lang.startsWith('pl')) || null;
+      if (polishVoices.length === 0) {
+        console.warn('No Polish voices available. Available voices:', voices.map(v => `${v.name} (${v.lang})`));
+        // Use default with Polish locale - browser will try to use Polish if available
+        utterance.lang = 'pl-PL';
+        utterance.rate = 0.95;
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0;
+        speechSynthesis.speak(utterance);
+        return;
       }
       
-      // If still no Polish voice found, try to find any voice that supports Polish
-      if (!polishVoice) {
-        polishVoice = voices.find(voice => 
-          voice.lang.includes('pl') || voice.name.toLowerCase().includes('polish')
-        ) || null;
+      // Find female Polish voices
+      const femalePolishVoices = polishVoices.filter(voice => isFemaleVoice(voice));
+      
+      let polishVoice: SpeechSynthesisVoice | null = null;
+      
+      if (femalePolishVoices.length > 0) {
+        // Prefer local service voices
+        polishVoice = femalePolishVoices.find(voice => voice.localService) || femalePolishVoices[0];
+        console.log('Using female Polish voice:', polishVoice.name, polishVoice.lang);
+      } else {
+        // Fallback to any Polish voice (male)
+        polishVoice = polishVoices.find(voice => voice.localService) || polishVoices[0];
+        console.log('Using Polish voice (no female available):', polishVoice.name, polishVoice.lang);
       }
       
+      // Set the voice and language
       if (polishVoice) {
         utterance.voice = polishVoice;
         utterance.lang = polishVoice.lang; // Use the voice's language
-      } else {
-        // Fallback: explicitly set Polish locale even if no Polish voice is available
-        utterance.lang = 'pl-PL';
-        console.warn('No Polish voice found, using default voice with pl-PL locale');
       }
       
-      // Improve clarity: faster rate, higher pitch, higher volume
-      utterance.rate = 1.0; // Normal speed for clarity
-      utterance.pitch = 1.1; // Slightly higher pitch for clearer sound
+      // Audio settings for clarity
+      utterance.rate = 0.95; // Slightly slower for better pronunciation
+      utterance.pitch = 1.0; // Normal pitch
       utterance.volume = 1.0; // Maximum volume
       
       speechSynthesis.speak(utterance);

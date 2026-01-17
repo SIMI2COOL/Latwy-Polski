@@ -24,14 +24,16 @@ function HomePage() {
     refreshProgress();
   }, [refreshProgress]);
 
-  // Load daily progress
+  // Load daily progress - use useLiveQuery to reactively update when settings change
+  const settings = useLiveQuery(() => db.settings.toCollection().first());
+  
   useEffect(() => {
     async function loadDailyProgress() {
       if (!user) return;
       
       const words = await getWordsStudiedToday(user.id);
-      const settings = await getUserSettings();
-      const goal = settings?.dailyGoal || 20;
+      const currentSettings = settings || await getUserSettings();
+      const goal = currentSettings?.dailyGoal || 20;
       const progress = await getDailyProgress(user.id);
       
       setDailyWords(words);
@@ -43,7 +45,7 @@ function HomePage() {
     // Refresh every minute to update daily progress
     const interval = setInterval(loadDailyProgress, 60000);
     return () => clearInterval(interval);
-  }, [user]);
+  }, [user, settings]);
 
   // Calculate progress for all categories
   useEffect(() => {
