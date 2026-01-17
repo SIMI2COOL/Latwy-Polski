@@ -6,9 +6,9 @@ function Layout() {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', icon: Home, label: 'Home' },
-    { path: '/progress', icon: TrendingUp, label: 'Progress' },
-    { path: '/settings', icon: Settings, label: 'Settings' },
+    { path: '/', icon: Home, label: 'Główna' },
+    { path: '/progress', icon: TrendingUp, label: 'Postęp' },
+    { path: '/settings', icon: Settings, label: 'Ustawienia' },
   ];
 
   return (
