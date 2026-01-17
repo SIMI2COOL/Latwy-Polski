@@ -133,10 +133,10 @@ function LoginPage() {
               <BookOpen className="w-16 h-16" style={{ color: '#0074bd' }} />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Łatwy Polski
+              Łatwy Hiszpański
             </h1>
             <p className="text-gray-600">
-              Welcome to your Polish learning journey
+              Witaj w swojej podróży z nauką hiszpańskiego
             </p>
           </div>
 
@@ -154,7 +154,7 @@ function LoginPage() {
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              Login
+              Logowanie
             </button>
             <button
               type="button"
@@ -168,7 +168,7 @@ function LoginPage() {
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              Register
+              Rejestracja
             </button>
             <button
               type="button"
@@ -182,7 +182,7 @@ function LoginPage() {
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              Quick Start
+              Szybki start
             </button>
           </div>
 
@@ -206,7 +206,7 @@ function LoginPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
+                    placeholder="twoj@email.com"
                     className="input pl-10"
                     autoFocus
                     disabled={loading}
@@ -225,7 +225,7 @@ function LoginPage() {
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
+                    placeholder="Wpisz hasło"
                     className="input pl-10 pr-10"
                     disabled={loading}
                   />
@@ -244,7 +244,7 @@ function LoginPage() {
                 disabled={loading || !email.trim() || !password}
                 className="w-full btn-primary"
               >
-                {loading ? 'Logging in...' : 'Login'}
+                {loading ? 'Logowanie...' : 'Zaloguj się'}
               </button>
             </form>
           )}
@@ -263,7 +263,7 @@ function LoginPage() {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Your name"
+                    placeholder="Twoje imię"
                     className="input pl-10"
                     autoFocus
                     disabled={loading}
@@ -283,7 +283,7 @@ function LoginPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
+                    placeholder="twoj@email.com"
                     className="input pl-10"
                     disabled={loading}
                   />
@@ -301,7 +301,7 @@ function LoginPage() {
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Create a password"
+                    placeholder="Utwórz hasło"
                     className="input pl-10 pr-10"
                     disabled={loading}
                   />
@@ -314,7 +314,7 @@ function LoginPage() {
                   </button>
                 </div>
                 <p className="mt-1 text-xs text-gray-500">
-                  At least 8 characters with uppercase, lowercase, and number
+                  Co najmniej 8 znaków z wielką literą, małą literą i cyfrą
                 </p>
               </div>
 
@@ -323,7 +323,7 @@ function LoginPage() {
                 disabled={loading || !name.trim() || !email.trim() || !password}
                 className="w-full btn-primary"
               >
-                {loading ? 'Creating account...' : 'Create Account'}
+                {loading ? 'Tworzenie konta...' : 'Utwórz konto'}
               </button>
             </form>
           )}
@@ -342,7 +342,7 @@ function LoginPage() {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name"
+                    placeholder="Wpisz swoje imię"
                     className="input pl-10"
                     autoFocus
                     disabled={loading}
@@ -356,19 +356,19 @@ function LoginPage() {
                 disabled={loading || !name.trim()}
                 className="w-full btn-primary"
               >
-                {loading ? 'Getting started...' : 'Get Started'}
+                {loading ? 'Rozpoczynanie...' : 'Rozpocznij'}
               </button>
 
               <p className="text-xs text-gray-500 text-center">
-                Quick Start saves your progress locally without an account
+                Szybki start zapisuje postęp lokalnie bez konta
               </p>
             </form>
           )}
 
           <p className="mt-6 text-center text-sm text-gray-500">
             {mode === 'quick'
-              ? 'Your progress will be saved locally on your device'
-              : 'Your progress will be saved securely with your account'}
+              ? 'Twój postęp będzie zapisany lokalnie na urządzeniu'
+              : 'Twój postęp będzie bezpiecznie zapisany z Twoim kontem'}
           </p>
         </div>
       </div>

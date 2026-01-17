@@ -89,13 +89,13 @@ function CategoryPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 md:pb-8">
       {/* Header */}
       <div className="mb-8">
-        <button
-          onClick={() => navigate('/')}
-          className="flex items-center text-gray-600 hover:text-gray-900 mb-4 transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5 mr-2" />
-          Back to Home
-        </button>
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center text-gray-600 hover:text-gray-900 mb-4 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Powrót do strony głównej
+          </button>
 
         <div className="flex items-start space-x-4">
           <span className="text-6xl">{category.icon}</span>
@@ -104,17 +104,17 @@ function CategoryPage() {
               {category.titlePolish}
             </h1>
             <p className="text-xl text-gray-600 mb-2">
-              {category.titleEnglish}
+              {category.titleSpanish}
             </p>
             <p className="text-gray-500">{category.description}</p>
             
             <div className="mt-4 flex items-center space-x-4">
               <span className="text-sm text-gray-500">
                 <BookOpen className="w-4 h-4 inline mr-1" />
-                {totalWords} words
+                {totalWords} słów
               </span>
               <span className="text-sm text-gray-500">
-                {subcategories.length} themes
+                {subcategories.length} tematów
               </span>
             </div>
           </div>
@@ -130,7 +130,7 @@ function CategoryPage() {
             style={{ backgroundColor: category.color }}
           >
             <Play className="w-5 h-5 mr-2" />
-            Start Studying Entire Category
+            Rozpocznij naukę całej kategorii
           </Link>
         </div>
       )}
@@ -139,7 +139,7 @@ function CategoryPage() {
       {totalWords > 0 ? (
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Themes in this Category
+            Tematy w tej kategorii
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {subcategories.map((subcategory) => {
@@ -167,7 +167,7 @@ function CategoryPage() {
                           {subcategoryName}
                         </h3>
                         <p className="text-sm text-gray-500">
-                          {subcategoryWords.length} words
+                          {subcategoryWords.length} słów
                         </p>
                       </div>
                       <Play
@@ -208,10 +208,10 @@ function CategoryPage() {
         <div className="text-center py-12">
           <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-gray-700 mb-2">
-            Content in Development
+            Treść w przygotowaniu
           </h3>
           <p className="text-gray-500">
-            This category will be available soon with complete vocabulary.
+            Ta kategoria będzie wkrótce dostępna z pełnym słownictwem.
           </p>
         </div>
       )}

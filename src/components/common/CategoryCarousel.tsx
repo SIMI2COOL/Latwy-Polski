@@ -101,7 +101,7 @@ export function CategoryCarousel({ categories }: CategoryCarouselProps) {
               <span className="text-4xl">{currentCategory.icon}</span>
               <div>
                 <h3 className="text-2xl font-bold">{currentCategory.titlePolish}</h3>
-                <p className="text-lg opacity-90">{currentCategory.titleEnglish}</p>
+                <p className="text-lg opacity-90">{currentCategory.titleSpanish}</p>
               </div>
             </div>
             <p className="text-sm opacity-80 mb-4">{currentCategory.description}</p>
@@ -111,7 +111,7 @@ export function CategoryCarousel({ categories }: CategoryCarouselProps) {
         {/* Subcategories */}
         {currentSubcategories.length > 0 && (
           <div className="mb-6">
-            <p className="text-sm font-medium mb-2 opacity-90">Themes:</p>
+            <p className="text-sm font-medium mb-2 opacity-90">Tematy:</p>
             <div className="flex flex-wrap gap-2">
               {currentSubcategories.slice(0, 6).map((sub, idx) => (
                 <span
@@ -137,7 +137,7 @@ export function CategoryCarousel({ categories }: CategoryCarouselProps) {
           style={{ color: '#d24141' }}
         >
           <Play className="w-5 h-5" />
-          Start Studying
+          Rozpocznij naukę
         </Link>
       </div>
 

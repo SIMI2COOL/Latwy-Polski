@@ -1,10 +1,10 @@
-# 🎓 New Learning App
+# 🎓 Łatwy Hiszpański
 
-A new learning application template based on the Polish Learning App architecture.
+Aplikacja do nauki hiszpańskiego dla Polaków.
 
-## 📋 Project Overview
+## 📋 Przegląd projektu
 
-This is a fresh clone of the Polish Learning App, ready to be customized for your new learning project.
+Aplikacja do nauki słownictwa hiszpańskiego z interfejsem w języku polskim. Wszystkie kategorie i podkategorie mają nazwy w języku hiszpańskim, a interfejs użytkownika jest w języku polskim.
 
 ## 🚀 Getting Started
 

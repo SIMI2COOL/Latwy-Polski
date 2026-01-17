@@ -3,7 +3,7 @@
 export interface VocabularyWord {
   id: string;
   polish: string;
-  english: string;
+  spanish: string;
   category: string;
   subcategory: string;
   imageUrl?: string;
@@ -15,7 +15,7 @@ export interface VocabularyWord {
 export interface Category {
   id: string;
   titlePolish: string;
-  titleEnglish: string;
+  titleSpanish: string;
   description: string;
   icon: string;
   color: string;
@@ -26,7 +26,7 @@ export interface Category {
 export interface Subcategory {
   id: string;
   titlePolish: string;
-  titleEnglish: string;
+  titleSpanish: string;
   categoryId: string;
   wordCount: number;
 }

@@ -543,22 +543,22 @@ function StudyPage() {
     
     // Play audio based on mode
     if (mode === 'quiz') {
-      // In quiz mode, play the English word (the question)
-      const utterance = new SpeechSynthesisUtterance(currentWord.english);
-      utterance.lang = 'en-US';
+      // In quiz mode, play the Spanish word (the question)
+      const utterance = new SpeechSynthesisUtterance(currentWord.spanish);
+      utterance.lang = 'es-ES';
       
-      // Try to find a female English voice, prioritizing local voices
-      let englishVoice = findFemaleVoice(voices, 'en');
+      // Try to find a female Spanish voice, prioritizing local voices
+      let spanishVoice = findFemaleVoice(voices, 'es');
       
-      // Fallback to any English voice if no female voice found
-      if (!englishVoice) {
-        englishVoice = voices.find(voice => 
-          voice.lang.startsWith('en') && voice.localService
-        ) || voices.find(voice => voice.lang.startsWith('en')) || null;
+      // Fallback to any Spanish voice if no female voice found
+      if (!spanishVoice) {
+        spanishVoice = voices.find(voice => 
+          voice.lang.startsWith('es') && voice.localService
+        ) || voices.find(voice => voice.lang.startsWith('es')) || null;
       }
       
-      if (englishVoice) {
-        utterance.voice = englishVoice;
+      if (spanishVoice) {
+        utterance.voice = spanishVoice;
       }
       
       utterance.rate = 1.0; // Normal speed for clarity
@@ -664,18 +664,18 @@ function StudyPage() {
       <div className="max-w-2xl mx-auto px-4 py-12 text-center">
         <div className="card p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            No Words Available
+            Brak dostępnych słów
           </h2>
           <p className="text-gray-600 mb-6">
             {subcategoryId 
-              ? 'This subcategory does not have vocabulary available yet.'
-              : 'This category does not have vocabulary available yet.'}
+              ? 'Ta podkategoria nie ma jeszcze dostępnego słownictwa.'
+              : 'Ta kategoria nie ma jeszcze dostępnego słownictwa.'}
           </p>
           <button
             onClick={() => navigate(-1)}
             className="btn-primary"
           >
-            Go Back
+            Wstecz
           </button>
         </div>
       </div>
@@ -689,10 +689,10 @@ function StudyPage() {
         <div className="card p-8">
           <div className="text-6xl mb-4">📚</div>
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Flashcards Complete!
+            Fiszki zakończone!
           </h2>
           <p className="text-gray-600 mb-8">
-            You've reviewed all {words.length} words. Ready to test yourself?
+            Przejrzałeś wszystkie {words.length} słów. Gotowy na test?
           </p>
 
           <div className="space-y-3">
@@ -700,19 +700,19 @@ function StudyPage() {
               onClick={handleSwitchToQuiz}
               className="w-full btn-primary"
             >
-              Start Quiz
+              Rozpocznij quiz
             </button>
             <button
               onClick={() => window.location.reload()}
               className="w-full btn-secondary"
             >
-              Study Again
+              Ucz się ponownie
             </button>
             <button
               onClick={() => navigate(`/category/${categoryId}`)}
               className="w-full btn-secondary"
             >
-              Back to Category
+              Powrót do kategorii
             </button>
           </div>
         </div>
@@ -729,7 +729,7 @@ function StudyPage() {
         <div className="card p-8">
           <div className="text-6xl mb-4">🎉</div>
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Session Completed!
+            Sesja zakończona!
           </h2>
           
           <div className="grid grid-cols-3 gap-4 mb-8">
@@ -737,19 +737,19 @@ function StudyPage() {
               <div className="text-3xl font-bold" style={{ color: '#0074bd' }}>
                 {sessionPoints}
               </div>
-              <div className="text-sm text-gray-600">Points</div>
+              <div className="text-sm text-gray-600">Punkty</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <div className="text-3xl font-bold text-green-600">
                 {accuracy}%
               </div>
-              <div className="text-sm text-gray-600">Accuracy</div>
+              <div className="text-sm text-gray-600">Dokładność</div>
             </div>
             <div className="p-4 bg-orange-50 rounded-lg">
               <div className="text-3xl font-bold text-orange-600">
                 {streak}
               </div>
-              <div className="text-sm text-gray-600">Max Streak</div>
+              <div className="text-sm text-gray-600">Maks. seria</div>
             </div>
           </div>
 
@@ -758,13 +758,13 @@ function StudyPage() {
               onClick={() => window.location.reload()}
               className="w-full btn-primary"
             >
-              Study Again
+              Ucz się ponownie
             </button>
             <button
               onClick={() => navigate(`/category/${categoryId}`)}
               className="w-full btn-secondary"
             >
-              Back to Category
+              Powrót do kategorii
             </button>
           </div>
         </div>
@@ -776,13 +776,13 @@ function StudyPage() {
     <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-gray-600 hover:text-gray-900"
-        >
-          <ArrowLeft className="w-5 h-5 mr-2" />
-          Back
-        </button>
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center text-gray-600 hover:text-gray-900"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Wstecz
+          </button>
 
         <div className="flex items-center space-x-4">
           <div className="text-sm text-gray-600">
@@ -798,7 +798,7 @@ function StudyPage() {
               }`}
               style={mode === 'flashcard' ? { backgroundColor: '#0074bd' } : {}}
             >
-              Flashcards
+              Fiszki
             </button>
             <button
               onClick={() => {
@@ -859,10 +859,10 @@ function StudyPage() {
             onClick={handleFlip}
           >
             <div className="text-5xl font-bold mb-4">
-              {isFlipped ? currentWord.english : currentWord.polish}
+              {isFlipped ? currentWord.spanish : currentWord.polish}
             </div>
             <div className="text-gray-500 text-sm">
-              {isFlipped ? 'English' : 'Polish'} - Click to flip
+              {isFlipped ? 'Hiszpański' : 'Polski'} - Kliknij, aby odwrócić
             </div>
           </div>
 
@@ -872,13 +872,13 @@ function StudyPage() {
               disabled={currentIndex === 0}
               className="btn-secondary"
             >
-              Previous
+              Poprzednie
             </button>
             <button
               onClick={handleNext}
               className="btn-primary"
             >
-              {currentIndex === words.length - 1 ? 'Finish' : 'Next'}
+              {currentIndex === words.length - 1 ? 'Zakończ' : 'Następne'}
             </button>
           </div>
         </div>
@@ -895,8 +895,8 @@ function StudyPage() {
           </button>
 
           <div className="text-center mb-6">
-            <div className="text-4xl font-bold mb-2">{currentWord.english}</div>
-            <div className="text-gray-500">How do you say this in Polish?</div>
+            <div className="text-4xl font-bold mb-2">{currentWord.spanish}</div>
+            <div className="text-gray-500">Jak to powiesz po polsku?</div>
           </div>
 
           {!showResult ? (
@@ -916,7 +916,7 @@ function StudyPage() {
                     handleSubmitAnswer();
                   }
                 }}
-                placeholder="Type the Polish word..."
+                placeholder="Wpisz polskie słowo..."
                 className={`input mb-4 transition-all duration-300 ${
                   isAnswerCorrect === true 
                     ? 'border-green-500 bg-green-50 ring-2 ring-green-300' 
@@ -931,10 +931,10 @@ function StudyPage() {
                 disabled={!quizAnswer.trim()}
                 className="w-full btn-primary"
               >
-                Check Answer (Enter)
+                Sprawdź odpowiedź (Enter)
               </button>
               <p className="text-xs text-gray-500 text-center mt-2">
-                Correct answers are detected automatically
+                Poprawne odpowiedzi są wykrywane automatycznie
               </p>
             </div>
           ) : (
@@ -957,24 +957,24 @@ function StudyPage() {
                       isCorrect ? 'text-green-800' : 'text-red-800'
                     }`}
                   >
-                    {isCorrect ? 'Correct!' : 'Incorrect'}
+                    {isCorrect ? 'Poprawnie!' : 'Niepoprawnie'}
                   </div>
                   {!isCorrect && (
                     <div className="text-gray-700">
-                      The correct answer is: <strong>{currentWord.polish}</strong>
+                      Poprawna odpowiedź to: <strong>{currentWord.polish}</strong>
                     </div>
                   )}
                 </div>
               </div>
               <div className="text-center mb-2 text-sm text-gray-500">
-                Press Enter to continue
+                Naciśnij Enter, aby kontynuować
               </div>
               <button 
                 onClick={handleNext}
                 className="w-full btn-primary"
                 autoFocus
               >
-                {currentIndex === words.length - 1 ? 'View Results' : 'Continue'}
+                {currentIndex === words.length - 1 ? 'Zobacz wyniki' : 'Kontynuuj'}
               </button>
             </div>
           )}

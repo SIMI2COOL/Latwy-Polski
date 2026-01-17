@@ -1,7 +1,7 @@
 {
-  "name": "new-learning-app",
+  "name": "latwy-hiszpanski",
   "version": "1.0.0",
-  "description": "A new learning app based on the Polish learning app template",
+  "description": "Łatwy Hiszpański - Aplikacja do nauki hiszpańskiego dla Polaków",
   "private": true,
   "type": "module",
   "scripts": {

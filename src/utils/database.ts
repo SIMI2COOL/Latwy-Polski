@@ -10,7 +10,7 @@ import {
   User,
 } from '@/types';
 
-export class PolishAppDatabase extends Dexie {
+export class SpanishAppDatabase extends Dexie {
   vocabulary!: Table<VocabularyWord, string>;
   categories!: Table<Category, string>;
   subcategories!: Table<Subcategory, string>;
@@ -21,7 +21,7 @@ export class PolishAppDatabase extends Dexie {
   settings!: Table<UserSettings, number>;
 
   constructor() {
-    super('PolishAppDB');
+    super('SpanishAppDB');
     
     this.version(1).stores({
       vocabulary: 'id, polish, english, category, subcategory, difficulty',
@@ -131,10 +131,50 @@ export class PolishAppDatabase extends Dexie {
       console.log('Database upgraded to version 6 - added profilePicture support');
       // No data migration needed - profilePicture is optional
     });
+    
+    // Version 7: Migrate from English to Spanish (Spanish vocabulary app)
+    this.version(7).stores({
+      vocabulary: 'id, polish, spanish, category, subcategory, difficulty, [category+subcategory]',
+      categories: 'id, titlePolish, titleSpanish',
+      subcategories: 'id, categoryId, titlePolish, titleSpanish',
+      users: 'id, name, email, createdAt',
+      userProgress: 'userId, level, totalPoints',
+      studySessions: 'id, categoryId, startedAt, completedAt',
+      flashcardStates: 'wordId, nextReview, interval',
+      settings: '++id',
+    }).upgrade(async (trans) => {
+      console.log('Database upgraded to version 7 - migrating from English to Spanish');
+      
+      // Migrate vocabulary: english -> spanish
+      const allWords = await trans.table('vocabulary').toArray();
+      for (const word of allWords) {
+        if ('english' in word && !('spanish' in word)) {
+          // For now, keep the english value as spanish (will be updated by vocabulary files)
+          await trans.table('vocabulary').update(word.id, { spanish: (word as any).english });
+        }
+      }
+      
+      // Migrate categories: titleEnglish -> titleSpanish
+      const allCategories = await trans.table('categories').toArray();
+      for (const category of allCategories) {
+        if ('titleEnglish' in category && !('titleSpanish' in category)) {
+          // Will be updated by seedInitialData with proper Spanish names
+          await trans.table('categories').update(category.id, { titleSpanish: (category as any).titleEnglish });
+        }
+      }
+      
+      // Migrate subcategories: titleEnglish -> titleSpanish
+      const allSubcategories = await trans.table('subcategories').toArray();
+      for (const subcategory of allSubcategories) {
+        if ('titleEnglish' in subcategory && !('titleSpanish' in subcategory)) {
+          await trans.table('subcategories').update(subcategory.id, { titleSpanish: (subcategory as any).titleEnglish });
+        }
+      }
+    });
   }
 }
 
-export const db = new PolishAppDatabase();
+export const db = new SpanishAppDatabase();
 
 // Funciones helper para inicializar la base de datos
 export async function initializeDatabase() {
@@ -171,13 +211,13 @@ export async function initializeDatabase() {
 
 // Función para poblar datos iniciales
 async function seedInitialData() {
-  // Estas son las 16 categorías del diccionario
+  // Estas son las 16 categorías del diccionario - nombres en español
   const categories: Category[] = [
     {
       id: 'people',
       titlePolish: 'LUDZIE',
-      titleEnglish: 'People',
-      description: 'Body, family, emotions',
+      titleSpanish: 'GENTE',
+      description: 'Cuerpo, familia, emociones',
       icon: '👥',
       color: '#3B82F6',
       subcategories: [],
@@ -186,8 +226,8 @@ async function seedInitialData() {
     {
       id: 'appearance',
       titlePolish: 'WYGLĄD',
-      titleEnglish: 'Appearance',
-      description: 'Clothing, accessories, beauty',
+      titleSpanish: 'APARIENCIA',
+      description: 'Ropa, accesorios, belleza',
       icon: '👔',
       color: '#8B5CF6',
       subcategories: [],
@@ -196,8 +236,8 @@ async function seedInitialData() {
     {
       id: 'health',
       titlePolish: 'ZDROWIE',
-      titleEnglish: 'Health',
-      description: 'Medicine, hospital, therapies',
+      titleSpanish: 'SALUD',
+      description: 'Medicina, hospital, terapias',
       icon: '🏥',
       color: '#EF4444',
       subcategories: [],
@@ -206,8 +246,8 @@ async function seedInitialData() {
     {
       id: 'home',
       titlePolish: 'DOM',
-      titleEnglish: 'Home',
-      description: 'House, kitchen, garden',
+      titleSpanish: 'HOGAR',
+      description: 'Casa, cocina, jardín',
       icon: '🏠',
       color: '#F59E0B',
       subcategories: [],
@@ -216,8 +256,8 @@ async function seedInitialData() {
     {
       id: 'services',
       titlePolish: 'USŁUGI',
-      titleEnglish: 'Services',
-      description: 'Emergency, bank, hotel',
+      titleSpanish: 'SERVICIOS',
+      description: 'Emergencias, banco, hotel',
       icon: '🔧',
       color: '#10B981',
       subcategories: [],
@@ -226,8 +266,8 @@ async function seedInitialData() {
     {
       id: 'shopping',
       titlePolish: 'ZAKUPY',
-      titleEnglish: 'Shopping',
-      description: 'Stores, supermarket',
+      titleSpanish: 'COMPRAS',
+      description: 'Tiendas, supermercado',
       icon: '🛒',
       color: '#EC4899',
       subcategories: [],
@@ -236,8 +276,8 @@ async function seedInitialData() {
     {
       id: 'food',
       titlePolish: 'ŻYWNOŚĆ',
-      titleEnglish: 'Food',
-      description: 'Food and drinks',
+      titleSpanish: 'COMIDA',
+      description: 'Comida y bebidas',
       icon: '🍎',
       color: '#F97316',
       subcategories: [],
@@ -246,8 +286,8 @@ async function seedInitialData() {
     {
       id: 'eating-out',
       titlePolish: 'JADANIE POZA DOMEM',
-      titleEnglish: 'Eating Out',
-      description: 'Restaurants, cafes',
+      titleSpanish: 'COMER FUERA',
+      description: 'Restaurantes, cafeterías',
       icon: '🍽️',
       color: '#06B6D4',
       subcategories: [],
@@ -256,8 +296,8 @@ async function seedInitialData() {
     {
       id: 'study',
       titlePolish: 'NAUKA',
-      titleEnglish: 'Study',
-      description: 'School, sciences',
+      titleSpanish: 'ESTUDIO',
+      description: 'Escuela, ciencias',
       icon: '📚',
       color: '#6366F1',
       subcategories: [],
@@ -266,8 +306,8 @@ async function seedInitialData() {
     {
       id: 'work',
       titlePolish: 'PRACA',
-      titleEnglish: 'Work',
-      description: 'Office, professions',
+      titleSpanish: 'TRABAJO',
+      description: 'Oficina, profesiones',
       icon: '💼',
       color: '#14B8A6',
       subcategories: [],
@@ -276,8 +316,8 @@ async function seedInitialData() {
     {
       id: 'transport',
       titlePolish: 'TRANSPORT',
-      titleEnglish: 'Transport',
-      description: 'Vehicles, travel',
+      titleSpanish: 'TRANSPORTE',
+      description: 'Vehículos, viajes',
       icon: '🚗',
       color: '#84CC16',
       subcategories: [],
@@ -286,8 +326,8 @@ async function seedInitialData() {
     {
       id: 'sports',
       titlePolish: 'SPORT',
-      titleEnglish: 'Sports',
-      description: 'Sports and fitness',
+      titleSpanish: 'DEPORTES',
+      description: 'Deportes y fitness',
       icon: '⚽',
       color: '#22C55E',
       subcategories: [],
@@ -296,8 +336,8 @@ async function seedInitialData() {
     {
       id: 'leisure',
       titlePolish: 'CZAS WOLNY',
-      titleEnglish: 'Leisure',
-      description: 'Theater, music, art',
+      titleSpanish: 'TIEMPO LIBRE',
+      description: 'Teatro, música, arte',
       icon: '🎭',
       color: '#A855F7',
       subcategories: [],
@@ -306,8 +346,8 @@ async function seedInitialData() {
     {
       id: 'environment',
       titlePolish: 'ŚRODOWISKO',
-      titleEnglish: 'Environment',
-      description: 'Nature, animals',
+      titleSpanish: 'MEDIO AMBIENTE',
+      description: 'Naturaleza, animales',
       icon: '🌍',
       color: '#059669',
       subcategories: [],
@@ -316,8 +356,8 @@ async function seedInitialData() {
     {
       id: 'reference',
       titlePolish: 'INFORMACJE',
-      titleEnglish: 'Reference',
-      description: 'Time, numbers, maps',
+      titleSpanish: 'REFERENCIA',
+      description: 'Tiempo, números, mapas',
       icon: '📋',
       color: '#64748B',
       subcategories: [],

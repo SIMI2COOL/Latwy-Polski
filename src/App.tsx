@@ -149,13 +149,13 @@ function App() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-red-100">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">Error de Inicialización</h1>
+          <h1 className="text-2xl font-bold text-red-600 mb-4">Błąd inicjalizacji</h1>
           <p className="text-gray-700 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
             className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"
           >
-            Reintentar
+            Spróbuj ponownie
           </button>
         </div>
       </div>

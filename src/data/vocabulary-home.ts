@@ -1,41 +1,41 @@
 import { VocabularyWord } from '@/types';
 
 export const homeVocabulary: VocabularyWord[] = [
-  // MEBLE (Furniture)
-  { id: 'furn_001', polish: 'stół', english: 'table', category: 'home', subcategory: 'furniture', difficulty: 'beginner' },
-  { id: 'furn_002', polish: 'krzesło', english: 'chair', category: 'home', subcategory: 'furniture', difficulty: 'beginner' },
-  { id: 'furn_003', polish: 'kanapa', english: 'sofa', category: 'home', subcategory: 'furniture', difficulty: 'beginner' },
-  { id: 'furn_004', polish: 'fotel', english: 'armchair', category: 'home', subcategory: 'furniture', difficulty: 'intermediate' },
-  { id: 'furn_005', polish: 'łóżko', english: 'bed', category: 'home', subcategory: 'furniture', difficulty: 'beginner' },
-  { id: 'furn_006', polish: 'szafa', english: 'wardrobe', category: 'home', subcategory: 'furniture', difficulty: 'intermediate' },
-  { id: 'furn_007', polish: 'komoda', english: 'chest of drawers', category: 'home', subcategory: 'furniture', difficulty: 'intermediate' },
-  { id: 'furn_008', polish: 'szafka nocna', english: 'nightstand', category: 'home', subcategory: 'furniture', difficulty: 'intermediate' },
-  { id: 'furn_009', polish: 'regał', english: 'bookshelf', category: 'home', subcategory: 'furniture', difficulty: 'intermediate' },
-  { id: 'furn_010', polish: 'biurko', english: 'desk', category: 'home', subcategory: 'furniture', difficulty: 'beginner' },
+  // MEBLE (Muebles)
+  { id: 'furn_001', polish: 'stół', spanish: 'mesa', category: 'home', subcategory: 'furniture', difficulty: 'beginner' },
+  { id: 'furn_002', polish: 'krzesło', spanish: 'silla', category: 'home', subcategory: 'furniture', difficulty: 'beginner' },
+  { id: 'furn_003', polish: 'kanapa', spanish: 'sofá', category: 'home', subcategory: 'furniture', difficulty: 'beginner' },
+  { id: 'furn_004', polish: 'fotel', spanish: 'sillón', category: 'home', subcategory: 'furniture', difficulty: 'intermediate' },
+  { id: 'furn_005', polish: 'łóżko', spanish: 'cama', category: 'home', subcategory: 'furniture', difficulty: 'beginner' },
+  { id: 'furn_006', polish: 'szafa', spanish: 'armario', category: 'home', subcategory: 'furniture', difficulty: 'intermediate' },
+  { id: 'furn_007', polish: 'komoda', spanish: 'cómoda', category: 'home', subcategory: 'furniture', difficulty: 'intermediate' },
+  { id: 'furn_008', polish: 'szafka nocna', spanish: 'mesita de noche', category: 'home', subcategory: 'furniture', difficulty: 'intermediate' },
+  { id: 'furn_009', polish: 'regał', spanish: 'estantería', category: 'home', subcategory: 'furniture', difficulty: 'intermediate' },
+  { id: 'furn_010', polish: 'biurko', spanish: 'escritorio', category: 'home', subcategory: 'furniture', difficulty: 'beginner' },
 
-  // KUCHNIA (Kitchen)
-  { id: 'kitchen_001', polish: 'kuchenka', english: 'stove', category: 'home', subcategory: 'kitchen', difficulty: 'beginner' },
-  { id: 'kitchen_002', polish: 'piekarnik', english: 'oven', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
-  { id: 'kitchen_003', polish: 'lodówka', english: 'refrigerator', category: 'home', subcategory: 'kitchen', difficulty: 'beginner' },
-  { id: 'kitchen_004', polish: 'zamrażarka', english: 'freezer', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
-  { id: 'kitchen_005', polish: 'zmywarka', english: 'dishwasher', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
-  { id: 'kitchen_006', polish: 'mikrofalówka', english: 'microwave', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
-  { id: 'kitchen_007', polish: 'zlew', english: 'sink', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
-  { id: 'kitchen_008', polish: 'kran', english: 'faucet', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
-  { id: 'kitchen_009', polish: 'blat', english: 'countertop', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
-  { id: 'kitchen_010', polish: 'szafka', english: 'cabinet', category: 'home', subcategory: 'kitchen', difficulty: 'beginner' },
+  // KUCHNIA (Cocina)
+  { id: 'kitchen_001', polish: 'kuchenka', spanish: 'cocina', category: 'home', subcategory: 'kitchen', difficulty: 'beginner' },
+  { id: 'kitchen_002', polish: 'piekarnik', spanish: 'horno', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
+  { id: 'kitchen_003', polish: 'lodówka', spanish: 'nevera', category: 'home', subcategory: 'kitchen', difficulty: 'beginner' },
+  { id: 'kitchen_004', polish: 'zamrażarka', spanish: 'congelador', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
+  { id: 'kitchen_005', polish: 'zmywarka', spanish: 'lavavajillas', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
+  { id: 'kitchen_006', polish: 'mikrofalówka', spanish: 'microondas', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
+  { id: 'kitchen_007', polish: 'zlew', spanish: 'fregadero', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
+  { id: 'kitchen_008', polish: 'kran', spanish: 'grifo', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
+  { id: 'kitchen_009', polish: 'blat', spanish: 'encimera', category: 'home', subcategory: 'kitchen', difficulty: 'intermediate' },
+  { id: 'kitchen_010', polish: 'szafka', spanish: 'armario', category: 'home', subcategory: 'kitchen', difficulty: 'beginner' },
 
-  // ŁAZIENKA (Bathroom)
-  { id: 'bath_001', polish: 'wanna', english: 'bathtub', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
-  { id: 'bath_002', polish: 'prysznic', english: 'shower', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
-  { id: 'bath_003', polish: 'toaleta', english: 'toilet', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
-  { id: 'bath_004', polish: 'umywalka', english: 'sink', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
-  { id: 'bath_005', polish: 'lustro', english: 'mirror', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
-  { id: 'bath_006', polish: 'mydło', english: 'soap', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
-  { id: 'bath_007', polish: 'szampon', english: 'shampoo', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
-  { id: 'bath_008', polish: 'ręcznik', english: 'towel', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
-  { id: 'bath_009', polish: 'szczoteczka do zębów', english: 'toothbrush', category: 'home', subcategory: 'bathroom', difficulty: 'intermediate' },
-  { id: 'bath_010', polish: 'pasta do zębów', english: 'toothpaste', category: 'home', subcategory: 'bathroom', difficulty: 'intermediate' },
+  // ŁAZIENKA (Baño)
+  { id: 'bath_001', polish: 'wanna', spanish: 'bañera', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
+  { id: 'bath_002', polish: 'prysznic', spanish: 'ducha', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
+  { id: 'bath_003', polish: 'toaleta', spanish: 'inodoro', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
+  { id: 'bath_004', polish: 'umywalka', spanish: 'lavabo', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
+  { id: 'bath_005', polish: 'lustro', spanish: 'espejo', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
+  { id: 'bath_006', polish: 'mydło', spanish: 'jabón', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
+  { id: 'bath_007', polish: 'szampon', spanish: 'champú', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
+  { id: 'bath_008', polish: 'ręcznik', spanish: 'toalla', category: 'home', subcategory: 'bathroom', difficulty: 'beginner' },
+  { id: 'bath_009', polish: 'szczoteczka do zębów', spanish: 'cepillo de dientes', category: 'home', subcategory: 'bathroom', difficulty: 'intermediate' },
+  { id: 'bath_010', polish: 'pasta do zębów', spanish: 'pasta de dientes', category: 'home', subcategory: 'bathroom', difficulty: 'intermediate' },
 ];
 
 export async function seedHomeVocabulary() {

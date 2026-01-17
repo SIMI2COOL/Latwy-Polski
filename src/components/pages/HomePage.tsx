@@ -88,10 +88,10 @@ function HomePage() {
         )}
         <div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Hello, {user.name}! 👋
+            Witaj, {user.name}! 👋
           </h1>
           <p className="text-gray-600">
-            Continue your Polish learning journey
+            Kontynuuj swoją podróż z nauką hiszpańskiego
           </p>
         </div>
       </div>
@@ -100,9 +100,9 @@ function HomePage() {
       <div className="card p-6 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-lg font-bold text-gray-900 mb-1">Daily Goal</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-1">Cel dzienny</h2>
             <p className="text-sm text-gray-600">
-              {dailyWords} of {dailyGoal} words studied today
+              {dailyWords} z {dailyGoal} słów przestudiowanych dzisiaj
             </p>
           </div>
           {dailyProgress >= 100 && (
@@ -118,11 +118,11 @@ function HomePage() {
           </div>
           {dailyProgress >= 100 ? (
             <p className="text-sm font-semibold text-green-700">
-              🎉 Congratulations! You've reached your daily goal!
+              🎉 Gratulacje! Osiągnąłeś swój dzienny cel!
             </p>
           ) : (
             <p className="text-sm text-gray-600">
-              {dailyGoal - dailyWords} more words to reach your goal
+              Pozostało {dailyGoal - dailyWords} słów do osiągnięcia celu
             </p>
           )}
         </div>
@@ -138,7 +138,7 @@ function HomePage() {
               {userProgress.streak}
             </span>
           </div>
-          <p className="text-sm text-gray-600">Day Streak</p>
+          <p className="text-sm text-gray-600">Seria dni</p>
           {userProgress.streak > 0 && (
             <div className="mt-2 h-2 bg-orange-100 rounded-full overflow-hidden">
               <div
@@ -175,7 +175,7 @@ function HomePage() {
               {userProgress.achievements.length}
             </span>
           </div>
-          <p className="text-sm text-gray-600">Achievements Unlocked</p>
+          <p className="text-sm text-gray-600">Odblokowane osiągnięcia</p>
           {userProgress.achievements.length > 0 && (
             <div className="mt-2 flex -space-x-2">
               {userProgress.achievements.slice(0, 3).map((achievement) => (
@@ -194,8 +194,8 @@ function HomePage() {
 
       {/* Categories Section */}
       <div className="mb-4">
-        <h2 className="text-2xl font-bold text-gray-900 mb-1">Categories</h2>
-        <p className="text-gray-600">Select a category to start studying</p>
+        <h2 className="text-2xl font-bold text-gray-900 mb-1">Kategorie</h2>
+        <p className="text-gray-600">Wybierz kategorię, aby rozpocząć naukę</p>
       </div>
 
       {/* Categories Grid */}
@@ -260,7 +260,7 @@ function CategoryCard({ category, isCompleted, progress }: CategoryCardProps) {
             <span className="text-4xl">{category.icon}</span>
             {isCompleted && (
               <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">
-                ✓ Completed
+                ✓ Ukończone
               </span>
             )}
           </div>
@@ -269,7 +269,7 @@ function CategoryCard({ category, isCompleted, progress }: CategoryCardProps) {
             {category.titlePolish}
           </h3>
           <p className="text-sm text-gray-600 mb-3">
-            {category.titleEnglish}
+            {category.titleSpanish}
           </p>
           <p className="text-sm text-gray-500">
             {category.description}
@@ -279,7 +279,7 @@ function CategoryCard({ category, isCompleted, progress }: CategoryCardProps) {
             <div className="mt-4 pt-4 border-t border-gray-100">
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">
-                  {category.totalWords} words
+                  {category.totalWords} słów
                 </span>
                 {progress > 0 && (
                   <span className="text-xs font-medium" style={{ color: progressColor }}>
