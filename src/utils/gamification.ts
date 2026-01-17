@@ -239,11 +239,11 @@ function getAchievementIcon(id: string): string {
  * Gets the level title
  */
 export function getLevelTitle(level: number): string {
-  if (level < 5) return 'Beginner';
-  if (level < 10) return 'Learner';
-  if (level < 15) return 'Intermediate';
-  if (level < 25) return 'Advanced';
-  if (level < 35) return 'Expert';
-  if (level < 45) return 'Master';
-  return 'Grand Master';
+  if (level < 5) return 'Początkujący';
+  if (level < 10) return 'Uczący się';
+  if (level < 15) return 'Średnio zaawansowany';
+  if (level < 25) return 'Zaawansowany';
+  if (level < 35) return 'Ekspert';
+  if (level < 45) return 'Mistrz';
+  return 'Wielki Mistrz';
 }

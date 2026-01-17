@@ -189,7 +189,7 @@ function CategoryPage() {
                               color: category.color,
                             }}
                           >
-                            {word.polish}
+                            {word.spanish}
                           </span>
                         ))}
                         {subcategoryWords.length > 3 && (
