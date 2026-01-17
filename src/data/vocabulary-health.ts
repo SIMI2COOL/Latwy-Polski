@@ -3,7 +3,7 @@ import { VocabularyWord } from '@/types';
 export const healthVocabulary: VocabularyWord[] = [
   // CHOROBY (Illnesses)
   { id: 'illness_001', polish: 'choroba', spanish: 'illness', category: 'health', subcategory: 'illnesses', difficulty: 'beginner' },
-  { id: 'illness_002', polish: 'przeziębienie', spanish: 'cold', category: 'health', subcategory: 'illnesses', difficulty: 'beginner' },
+  { id: 'illness_002', polish: 'przeziębienie', spanish: 'resfriado', category: 'health', subcategory: 'illnesses', difficulty: 'beginner' },
   { id: 'illness_003', polish: 'grypa', spanish: 'flu', category: 'health', subcategory: 'illnesses', difficulty: 'beginner' },
   { id: 'illness_004', polish: 'gorączka', spanish: 'fever', category: 'health', subcategory: 'illnesses', difficulty: 'beginner' },
   { id: 'illness_005', polish: 'kaszel', spanish: 'cough', category: 'health', subcategory: 'illnesses', difficulty: 'beginner' },

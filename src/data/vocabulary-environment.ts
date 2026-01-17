@@ -51,8 +51,8 @@ export const environmentVocabulary: VocabularyWord[] = [
   { id: 'weather_011', polish: 'chmura', spanish: 'cloud', category: 'environment', subcategory: 'weather', difficulty: 'beginner' },
   { id: 'weather_012', polish: 'tęcza', spanish: 'rainbow', category: 'environment', subcategory: 'weather', difficulty: 'intermediate' },
   { id: 'weather_013', polish: 'temperatura', spanish: 'temperature', category: 'environment', subcategory: 'weather', difficulty: 'intermediate' },
-  { id: 'weather_014', polish: 'gorąco', spanish: 'hot', category: 'environment', subcategory: 'weather', difficulty: 'beginner' },
-  { id: 'weather_015', polish: 'zimno', spanish: 'cold', category: 'environment', subcategory: 'weather', difficulty: 'beginner' },
+  { id: 'weather_014', polish: 'gorąco', spanish: 'calor', category: 'environment', subcategory: 'weather', difficulty: 'beginner' },
+  { id: 'weather_015', polish: 'zimno', spanish: 'frío', category: 'environment', subcategory: 'weather', difficulty: 'beginner' },
 
   // ZWIERZĘTA (Animals)
   { id: 'animals_001', polish: 'pies', spanish: 'dog', category: 'environment', subcategory: 'animals', difficulty: 'beginner' },
