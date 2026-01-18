@@ -144,6 +144,34 @@ function SettingsPage() {
 
   const handleSaveSettings = async () => {
     if (!settings) return;
+    
+    // Validate and save profile first if user exists
+    if (user) {
+      const trimmedName = user.name.trim();
+      if (!trimmedName) {
+        alert('Imię nie może być puste');
+        return;
+      }
+      
+      if (trimmedName.length < 2) {
+        alert('Imię musi mieć co najmniej 2 znaki');
+        return;
+      }
+      
+      try {
+        await db.users.update(user.id, {
+          name: trimmedName,
+          profilePicture: user.profilePicture,
+        });
+        // Update local state with trimmed name
+        setUser({ ...user, name: trimmedName });
+      } catch (error) {
+        console.error('Error saving profile:', error);
+        alert('Błąd podczas zapisywania profilu');
+        return;
+      }
+    }
+    
     try {
       console.log('Saving settings:', settings);
       
