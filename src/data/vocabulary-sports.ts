@@ -179,6 +179,18 @@ export const sportsVocabulary: VocabularyWord[] = [
   { id: 'actions_008', polish: 'zdobywać', english: 'to score', category: 'sports', subcategory: 'sports-actions', difficulty: 'intermediate' },
   { id: 'actions_009', polish: 'bronić', english: 'to defend', category: 'sports', subcategory: 'sports-actions', difficulty: 'intermediate' },
   { id: 'actions_010', polish: 'atakować', english: 'to attack', category: 'sports', subcategory: 'sports-actions', difficulty: 'intermediate' },
+
+  // PRZYDATNE ZWROTY (Useful Phrases)
+  { id: 'sports_phrases_001', polish: 'zagramy?', english: 'shall we play?', category: 'sports', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'sports_phrases_002', polish: 'jaki jest wynik?', english: 'what is the score?', category: 'sports', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'sports_phrases_003', polish: 'kiedy jest trening?', english: 'when is training?', category: 'sports', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'sports_phrases_004', polish: 'ile setów gramy?', english: 'how many sets are we playing?', category: 'sports', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'sports_phrases_005', polish: 'zróbmy przerwę', english: 'let’s take a break', category: 'sports', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'sports_phrases_006', polish: 'świetna gra!', english: 'great game!', category: 'sports', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'sports_phrases_007', polish: 'dobra robota!', english: 'good job!', category: 'sports', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'sports_phrases_008', polish: 'uważaj!', english: 'watch out!', category: 'sports', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'sports_phrases_009', polish: 'jestem zmęczony', english: 'I am tired', category: 'sports', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'sports_phrases_010', polish: 'masz kontuzję?', english: 'are you injured?', category: 'sports', subcategory: 'useful-phrases', difficulty: 'beginner' },
 ];
 
 export async function seedSportsVocabulary() {

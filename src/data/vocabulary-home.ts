@@ -133,6 +133,18 @@ export const homeVocabulary: VocabularyWord[] = [
   { id: 'rooms_006', polish: 'weranda', english: 'veranda', category: 'home', subcategory: 'rooms', difficulty: 'intermediate' },
   { id: 'rooms_007', polish: 'korytarz', english: 'hallway', category: 'home', subcategory: 'rooms', difficulty: 'intermediate' },
   { id: 'rooms_008', polish: 'przedsionek', english: 'entrance hall', category: 'home', subcategory: 'rooms', difficulty: 'intermediate' },
+
+  // PRZYDATNE ZWROTY (Useful Phrases)
+  { id: 'home_phrases_001', polish: 'gdzie jest łazienka?', english: 'where is the bathroom?', category: 'home', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'home_phrases_002', polish: 'czy mogę wejść?', english: 'may I come in?', category: 'home', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'home_phrases_003', polish: 'proszę zdjąć buty', english: 'please take off your shoes', category: 'home', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'home_phrases_004', polish: 'zamknij drzwi, proszę', english: 'close the door, please', category: 'home', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'home_phrases_005', polish: 'otwórz okno, proszę', english: 'open the window, please', category: 'home', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'home_phrases_006', polish: 'czy możesz mi pomóc?', english: 'can you help me?', category: 'home', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'home_phrases_007', polish: 'gdzie są klucze?', english: 'where are the keys?', category: 'home', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'home_phrases_008', polish: 'jest zimno/gorąco', english: 'it is cold/hot', category: 'home', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'home_phrases_009', polish: 'włącz/wyłącz światło', english: 'turn the light on/off', category: 'home', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'home_phrases_010', polish: 'czy masz wi-fi?', english: 'do you have Wi‑Fi?', category: 'home', subcategory: 'useful-phrases', difficulty: 'beginner' },
 ];
 
 export async function seedHomeVocabulary() {

@@ -82,6 +82,23 @@ export const healthVocabulary: VocabularyWord[] = [
   { id: 'pharmacy_011', polish: 'witaminy', english: 'vitamins', category: 'health', subcategory: 'pharmacy', difficulty: 'beginner' },
   { id: 'pharmacy_012', polish: 'suplement diety', english: 'dietary supplement', category: 'health', subcategory: 'pharmacy', difficulty: 'intermediate' },
 
+  // PRZYDATNE ZWROTY (Useful Phrases)
+  { id: 'health_phrases_001', polish: 'co pana/panią boli?', english: 'what hurts?', category: 'health', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'health_phrases_002', polish: 'od kiedy ma pan/pani objawy?', english: 'since when have you had symptoms?', category: 'health', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'health_phrases_003', polish: 'gdzie dokładnie boli?', english: 'where exactly does it hurt?', category: 'health', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'health_phrases_004', polish: 'jak silny jest ból?', english: 'how strong is the pain?', category: 'health', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'health_phrases_005', polish: 'mam gorączkę', english: 'I have a fever', category: 'health', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'health_phrases_006', polish: 'mam kaszel', english: 'I have a cough', category: 'health', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'health_phrases_007', polish: 'mam ból gardła', english: 'I have a sore throat', category: 'health', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'health_phrases_008', polish: 'mam alergię na', english: 'I am allergic to', category: 'health', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'health_phrases_009', polish: 'czy potrzebuję recepty?', english: 'do I need a prescription?', category: 'health', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'health_phrases_010', polish: 'poproszę coś na ból', english: 'I would like something for pain', category: 'health', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'health_phrases_011', polish: 'poproszę coś na przeziębienie', english: 'I would like something for a cold', category: 'health', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'health_phrases_012', polish: 'jak to dawkować?', english: 'how should I dose it?', category: 'health', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'health_phrases_013', polish: 'jak często mam to brać?', english: 'how often should I take it?', category: 'health', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'health_phrases_014', polish: 'czy są skutki uboczne?', english: 'are there side effects?', category: 'health', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'health_phrases_015', polish: 'potrzebuję pomocy medycznej', english: 'I need medical help', category: 'health', subcategory: 'useful-phrases', difficulty: 'beginner' },
+
   // OBJAWY I CHOROBY (Symptoms & Conditions)
   { id: 'symptoms_001', polish: 'katar', english: 'runny nose', category: 'health', subcategory: 'symptoms', difficulty: 'beginner' },
   { id: 'symptoms_002', polish: 'ból', english: 'pain', category: 'health', subcategory: 'symptoms', difficulty: 'beginner' },

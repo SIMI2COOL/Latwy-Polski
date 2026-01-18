@@ -140,18 +140,18 @@ export const referenceVocabulary: VocabularyWord[] = [
   { id: 'colors_012', polish: 'szary', english: 'gray', category: 'reference', subcategory: 'colors', difficulty: 'beginner' },
 
   // PRZYDATNE ZWROTY (Useful Phrases)
-  { id: 'phrases_001', polish: 'dziękuję', english: 'thank you', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_002', polish: 'proszę', english: 'please', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_003', polish: 'przepraszam', english: 'excuse me', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_004', polish: 'tak', english: 'yes', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_005', polish: 'nie', english: 'no', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_006', polish: 'dzień dobry', english: 'good morning', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_007', polish: 'dobry wieczór', english: 'good evening', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_008', polish: 'dobranoc', english: 'good night', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_009', polish: 'do widzenia', english: 'goodbye', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_010', polish: 'cześć', english: 'hi', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_011', polish: 'jak się masz', english: 'how are you', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
-  { id: 'phrases_012', polish: 'ile to kosztuje', english: 'how much is this', category: 'reference', subcategory: 'phrases', difficulty: 'intermediate' },
+  { id: 'phrases_001', polish: 'dziękuję', english: 'thank you', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_002', polish: 'proszę', english: 'please', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_003', polish: 'przepraszam', english: 'excuse me', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_004', polish: 'tak', english: 'yes', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_005', polish: 'nie', english: 'no', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_006', polish: 'dzień dobry', english: 'good morning', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_007', polish: 'dobry wieczór', english: 'good evening', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_008', polish: 'dobranoc', english: 'good night', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_009', polish: 'do widzenia', english: 'goodbye', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_010', polish: 'cześć', english: 'hi', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_011', polish: 'jak się masz', english: 'how are you', category: 'reference', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'phrases_012', polish: 'ile to kosztuje', english: 'how much is this', category: 'reference', subcategory: 'useful-phrases', difficulty: 'intermediate' },
 
   // KSZTAŁTY (Shapes)
   { id: 'shapes_001', polish: 'koło', english: 'circle', category: 'reference', subcategory: 'shapes', difficulty: 'beginner' },
@@ -223,13 +223,32 @@ export async function seedReferenceVocabulary() {
     // Get existing reference vocabulary IDs
     const existingReference = await db.vocabulary.where('category').equals('reference').toArray();
     const existingIds = new Set(existingReference.map(w => w.id));
+    const existingById = new Map(existingReference.map(w => [w.id, w]));
     
     // Filter out words that already exist
     const newWords = referenceVocabulary.filter(word => !existingIds.has(word.id));
+    const updatedWords = referenceVocabulary.filter((word) => {
+      const existing = existingById.get(word.id);
+      if (!existing) return false;
+
+      return (
+        existing.polish !== word.polish ||
+        existing.english !== word.english ||
+        existing.subcategory !== word.subcategory ||
+        existing.difficulty !== word.difficulty ||
+        existing.category !== word.category
+      );
+    });
     
     if (newWords.length > 0) {
       await db.vocabulary.bulkAdd(newWords);
       console.log(`✅ Added ${newWords.length} new reference words`);
+    }
+
+    // Update any words whose content/subcategory changed in the source file
+    if (updatedWords.length > 0) {
+      await db.vocabulary.bulkPut(updatedWords);
+      console.log(`✅ Updated ${updatedWords.length} reference words`);
     }
     
     // Always update total word count
