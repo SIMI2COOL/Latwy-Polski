@@ -82,6 +82,20 @@ export const peopleVocabulary: VocabularyWord[] = [
   { id: 'family_022', polish: 'kuzynka', spanish: 'prima', category: 'people', subcategory: 'family', difficulty: 'intermediate' },
   { id: 'family_023', polish: 'siostrzeniec', spanish: 'sobrino', category: 'people', subcategory: 'family', difficulty: 'intermediate' },
   { id: 'family_024', polish: 'siostrzenica', spanish: 'sobrina', category: 'people', subcategory: 'family', difficulty: 'intermediate' },
+
+  // EMOCJE (Emociones)
+  { id: 'emotions_001', polish: 'szczęście', spanish: 'felicidad', category: 'people', subcategory: 'emotions', difficulty: 'beginner' },
+  { id: 'emotions_002', polish: 'radość', spanish: 'alegría', category: 'people', subcategory: 'emotions', difficulty: 'beginner' },
+  { id: 'emotions_003', polish: 'smutek', spanish: 'tristeza', category: 'people', subcategory: 'emotions', difficulty: 'beginner' },
+  { id: 'emotions_004', polish: 'złość', spanish: 'ira', category: 'people', subcategory: 'emotions', difficulty: 'beginner' },
+  { id: 'emotions_005', polish: 'strach', spanish: 'miedo', category: 'people', subcategory: 'emotions', difficulty: 'beginner' },
+  { id: 'emotions_006', polish: 'zaskoczenie', spanish: 'sorpresa', category: 'people', subcategory: 'emotions', difficulty: 'intermediate' },
+  { id: 'emotions_007', polish: 'wstyd', spanish: 'vergüenza', category: 'people', subcategory: 'emotions', difficulty: 'intermediate' },
+  { id: 'emotions_008', polish: 'duma', spanish: 'orgullo', category: 'people', subcategory: 'emotions', difficulty: 'intermediate' },
+  { id: 'emotions_009', polish: 'miłość', spanish: 'amor', category: 'people', subcategory: 'emotions', difficulty: 'beginner' },
+  { id: 'emotions_010', polish: 'nienawiść', spanish: 'odio', category: 'people', subcategory: 'emotions', difficulty: 'intermediate' },
+  { id: 'emotions_011', polish: 'zazdrość', spanish: 'celos', category: 'people', subcategory: 'emotions', difficulty: 'intermediate' },
+  { id: 'emotions_012', polish: 'spokój', spanish: 'calma', category: 'people', subcategory: 'emotions', difficulty: 'beginner' },
 ];
 
 export async function seedPeopleVocabulary() {

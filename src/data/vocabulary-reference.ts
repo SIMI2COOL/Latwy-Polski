@@ -19,7 +19,7 @@ export const referenceVocabulary: VocabularyWord[] = [
   { id: 'time_015', polish: 'dziś', spanish: 'hoy', category: 'reference', subcategory: 'time', difficulty: 'beginner' },
   { id: 'time_016', polish: 'jutro', spanish: 'mañana', category: 'reference', subcategory: 'time', difficulty: 'beginner' },
 
-  // KALENDARZ (Calendar)
+  // KALENDARZ (Calendar) - Days first, then months
   { id: 'calendar_001', polish: 'poniedziałek', spanish: 'lunes', category: 'reference', subcategory: 'calendar', difficulty: 'beginner' },
   { id: 'calendar_002', polish: 'wtorek', spanish: 'martes', category: 'reference', subcategory: 'calendar', difficulty: 'beginner' },
   { id: 'calendar_003', polish: 'środa', spanish: 'miércoles', category: 'reference', subcategory: 'calendar', difficulty: 'beginner' },
@@ -41,22 +41,38 @@ export const referenceVocabulary: VocabularyWord[] = [
   { id: 'calendar_019', polish: 'grudzień', spanish: 'diciembre', category: 'reference', subcategory: 'calendar', difficulty: 'beginner' },
 
   // LICZBY (Números)
-  { id: 'numbers_001', polish: 'zero', spanish: 'cero', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_002', polish: 'jeden', spanish: 'uno', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_003', polish: 'dwa', spanish: 'dos', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_004', polish: 'trzy', spanish: 'tres', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_005', polish: 'cztery', spanish: 'cuatro', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_006', polish: 'pięć', spanish: 'cinco', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_007', polish: 'sześć', spanish: 'seis', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_008', polish: 'siedem', spanish: 'siete', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_009', polish: 'osiem', spanish: 'ocho', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_010', polish: 'dziewięć', spanish: 'nueve', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_011', polish: 'dziesięć', spanish: 'diez', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_012', polish: 'dwadzieścia', spanish: 'veinte', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_013', polish: 'trzydzieści', spanish: 'treinta', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
-  { id: 'numbers_014', polish: 'sto', spanish: 'cien', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
-  { id: 'numbers_015', polish: 'tysiąc', spanish: 'mil', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
-  { id: 'numbers_016', polish: 'milion', spanish: 'millón', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_001', polish: 'jeden', spanish: 'uno', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_002', polish: 'dwa', spanish: 'dos', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_003', polish: 'trzy', spanish: 'tres', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_004', polish: 'cztery', spanish: 'cuatro', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_005', polish: 'pięć', spanish: 'cinco', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_006', polish: 'sześć', spanish: 'seis', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_007', polish: 'siedem', spanish: 'siete', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_008', polish: 'osiem', spanish: 'ocho', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_009', polish: 'dziewięć', spanish: 'nueve', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_010', polish: 'dziesięć', spanish: 'diez', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_011', polish: 'dwadzieścia', spanish: 'veinte', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_012', polish: 'trzydzieści', spanish: 'treinta', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_013', polish: 'czterdzieści', spanish: 'cuarenta', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_014', polish: 'pięćdziesiąt', spanish: 'cincuenta', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_015', polish: 'sześćdziesiąt', spanish: 'sesenta', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_016', polish: 'siedemdziesiąt', spanish: 'setenta', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_017', polish: 'osiemdziesiąt', spanish: 'ochenta', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_018', polish: 'dziewięćdziesiąt', spanish: 'noventa', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_019', polish: 'sto', spanish: 'cien', category: 'reference', subcategory: 'numbers', difficulty: 'beginner' },
+  { id: 'numbers_020', polish: 'dwieście', spanish: 'doscientos', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_021', polish: 'trzysta', spanish: 'trescientos', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_022', polish: 'czterysta', spanish: 'cuatrocientos', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_023', polish: 'pięćset', spanish: 'quinientos', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_024', polish: 'sześćset', spanish: 'seiscientos', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_025', polish: 'siedemset', spanish: 'setecientos', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_026', polish: 'osiemset', spanish: 'ochocientos', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_027', polish: 'dziewięćset', spanish: 'novecientos', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_028', polish: 'tysiąc', spanish: 'mil', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_029', polish: 'dziesięć tysięcy', spanish: 'diez mil', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_030', polish: 'sto tysięcy', spanish: 'cien mil', category: 'reference', subcategory: 'numbers', difficulty: 'intermediate' },
+  { id: 'numbers_031', polish: 'miliard', spanish: 'mil millones', category: 'reference', subcategory: 'numbers', difficulty: 'advanced' },
+  { id: 'numbers_032', polish: 'bilion', spanish: 'un billón', category: 'reference', subcategory: 'numbers', difficulty: 'advanced' },
 
   // KOLORY (Colores)
   { id: 'colors_001', polish: 'kolor', spanish: 'color', category: 'reference', subcategory: 'colors', difficulty: 'beginner' },
@@ -85,63 +101,75 @@ export const referenceVocabulary: VocabularyWord[] = [
   { id: 'phrases_010', polish: 'cześć', spanish: 'hola', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
   { id: 'phrases_011', polish: 'jak się masz', spanish: '¿cómo estás?', category: 'reference', subcategory: 'phrases', difficulty: 'beginner' },
   { id: 'phrases_012', polish: 'ile to kosztuje', spanish: '¿cuánto cuesta esto?', category: 'reference', subcategory: 'phrases', difficulty: 'intermediate' },
+
+  // KIERUNKI ŚWIATA (Puntos cardinales y direcciones)
+  { id: 'directions_001', polish: 'północ', spanish: 'norte', category: 'reference', subcategory: 'directions', difficulty: 'beginner' },
+  { id: 'directions_002', polish: 'południe', spanish: 'sur', category: 'reference', subcategory: 'directions', difficulty: 'beginner' },
+  { id: 'directions_003', polish: 'wschód', spanish: 'este', category: 'reference', subcategory: 'directions', difficulty: 'beginner' },
+  { id: 'directions_004', polish: 'zachód', spanish: 'oeste', category: 'reference', subcategory: 'directions', difficulty: 'beginner' },
+  { id: 'directions_005', polish: 'północny wschód', spanish: 'noreste', category: 'reference', subcategory: 'directions', difficulty: 'intermediate' },
+  { id: 'directions_006', polish: 'północny zachód', spanish: 'noroeste', category: 'reference', subcategory: 'directions', difficulty: 'intermediate' },
+  { id: 'directions_007', polish: 'południowy wschód', spanish: 'sureste', category: 'reference', subcategory: 'directions', difficulty: 'intermediate' },
+  { id: 'directions_008', polish: 'południowy zachód', spanish: 'suroeste', category: 'reference', subcategory: 'directions', difficulty: 'intermediate' },
+  { id: 'directions_009', polish: 'prosto', spanish: 'recto', category: 'reference', subcategory: 'directions', difficulty: 'beginner' },
+  { id: 'directions_010', polish: 'w prawo', spanish: 'a la derecha', category: 'reference', subcategory: 'directions', difficulty: 'beginner' },
+  { id: 'directions_011', polish: 'w lewo', spanish: 'a la izquierda', category: 'reference', subcategory: 'directions', difficulty: 'beginner' },
+  { id: 'directions_012', polish: 'do tyłu', spanish: 'hacia atrás', category: 'reference', subcategory: 'directions', difficulty: 'intermediate' },
+  { id: 'directions_013', polish: 'naprzód', spanish: 'adelante', category: 'reference', subcategory: 'directions', difficulty: 'intermediate' },
+  { id: 'directions_014', polish: 'kierunek', spanish: 'dirección', category: 'reference', subcategory: 'directions', difficulty: 'beginner' },
+
+  // MAPY (Mapas)
+  { id: 'maps_001', polish: 'mapa', spanish: 'mapa', category: 'reference', subcategory: 'maps', difficulty: 'beginner' },
+  { id: 'maps_002', polish: 'globus', spanish: 'globo', category: 'reference', subcategory: 'maps', difficulty: 'beginner' },
+  { id: 'maps_003', polish: 'atlas', spanish: 'atlas', category: 'reference', subcategory: 'maps', difficulty: 'intermediate' },
+  { id: 'maps_004', polish: 'plan miasta', spanish: 'plano de la ciudad', category: 'reference', subcategory: 'maps', difficulty: 'intermediate' },
+  { id: 'maps_005', polish: 'skala', spanish: 'escala', category: 'reference', subcategory: 'maps', difficulty: 'intermediate' },
+  { id: 'maps_006', polish: 'legenda', spanish: 'leyenda', category: 'reference', subcategory: 'maps', difficulty: 'intermediate' },
+  { id: 'maps_007', polish: 'róża wiatrów', spanish: 'rosa de los vientos', category: 'reference', subcategory: 'maps', difficulty: 'advanced' },
+  { id: 'maps_008', polish: 'równoleżnik', spanish: 'paralelo', category: 'reference', subcategory: 'maps', difficulty: 'advanced' },
+  { id: 'maps_009', polish: 'południk', spanish: 'meridiano', category: 'reference', subcategory: 'maps', difficulty: 'advanced' },
+  { id: 'maps_010', polish: 'współrzędne', spanish: 'coordenadas', category: 'reference', subcategory: 'maps', difficulty: 'advanced' },
 ];
 
 export async function seedReferenceVocabulary() {
   const { db } = await import('@/utils/database');
-  
+
   try {
-    // Get existing reference vocabulary IDs
-    const existingReference = await db.vocabulary.where('category').equals('reference').toArray();
-    const existingIds = new Set(existingReference.map(w => w.id));
-    
-    // Update existing words with correct Spanish translations
-    const wordsToUpdate = referenceVocabulary.filter(word => existingIds.has(word.id));
-    for (const word of wordsToUpdate) {
-      await db.vocabulary.update(word.id, { spanish: word.spanish });
+    // Fetch all existing words for this category
+    const existingWordsInDb = await db.vocabulary.where('category').equals('reference').toArray();
+    const existingWordMap = new Map(existingWordsInDb.map(word => [word.id, word]));
+
+    const wordsToAdd: typeof referenceVocabulary = [];
+    const wordsToUpdate: typeof referenceVocabulary = [];
+
+    for (const word of referenceVocabulary) {
+      const existing = existingWordMap.get(word.id);
+      if (existing) {
+        // Check if the Spanish translation needs updating
+        if (existing.spanish !== word.spanish || existing.polish !== word.polish) {
+          wordsToUpdate.push(word);
+        }
+      } else {
+        wordsToAdd.push(word);
+      }
     }
-    
-    // Filter out words that already exist
-    const newWords = referenceVocabulary.filter(word => !existingIds.has(word.id));
-    
-    if (newWords.length > 0) {
-      await db.vocabulary.bulkAdd(newWords);
-      console.log(`✅ Added ${newWords.length} new reference words`);
+
+    if (wordsToAdd.length > 0) {
+      await db.vocabulary.bulkAdd(wordsToAdd);
+      console.log(`✅ Added ${wordsToAdd.length} new reference words`);
     }
-    
+
+    if (wordsToUpdate.length > 0) {
+      await db.vocabulary.bulkPut(wordsToUpdate);
+      console.log(`🔄 Updated ${wordsToUpdate.length} existing reference words`);
+    }
+
     // Always update total word count
     const totalCount = await db.vocabulary.where('category').equals('reference').count();
     await db.categories.update('reference', { totalWords: totalCount });
     console.log(`✅ Reference vocabulary: ${totalCount} total words (${referenceVocabulary.length} in file)`);
     return true;
   } catch (error) {
-    if (error instanceof Error && error.name === 'ConstraintError') {
-      // Some words might already exist, try to add the rest
-      const existingReference = await db.vocabulary.where('category').equals('reference').toArray();
-      const existingIds = new Set(existingReference.map(w => w.id));
-      
-      // Update existing words
-      const wordsToUpdate = referenceVocabulary.filter(word => existingIds.has(word.id));
-      for (const word of wordsToUpdate) {
-        await db.vocabulary.update(word.id, { spanish: word.spanish });
-      }
-      
-      const newWords = referenceVocabulary.filter(word => !existingIds.has(word.id));
-      
-      if (newWords.length > 0) {
-        try {
-          await db.vocabulary.bulkAdd(newWords);
-        } catch (e) {
-          console.error('Error adding remaining reference words:', e);
-        }
-      }
-      
-      // Always update total word count
-      const totalCount = await db.vocabulary.where('category').equals('reference').count();
-      await db.categories.update('reference', { totalWords: totalCount });
-      console.log(`✅ Reference vocabulary: ${totalCount} total words`);
-      return true;
-    }
     console.error('Error seeding reference vocabulary:', error);
     return false;
   }

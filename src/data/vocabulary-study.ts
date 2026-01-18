@@ -77,6 +77,18 @@ export const studyVocabulary: VocabularyWord[] = [
   { id: 'language_008', polish: 'słownik', spanish: 'diccionario', category: 'study', subcategory: 'language-learning', difficulty: 'intermediate' },
   { id: 'language_009', polish: 'ćwiczenie', spanish: 'ejercicio', category: 'study', subcategory: 'language-learning', difficulty: 'intermediate' },
   { id: 'language_010', polish: 'mówić', spanish: 'hablar', category: 'study', subcategory: 'language-learning', difficulty: 'beginner' },
+
+  // NAUKI (Ciencias)
+  { id: 'sciences_001', polish: 'nauka', spanish: 'ciencia', category: 'study', subcategory: 'sciences', difficulty: 'beginner' },
+  { id: 'sciences_002', polish: 'biologia', spanish: 'biología', category: 'study', subcategory: 'sciences', difficulty: 'intermediate' },
+  { id: 'sciences_003', polish: 'chemia', spanish: 'química', category: 'study', subcategory: 'sciences', difficulty: 'intermediate' },
+  { id: 'sciences_004', polish: 'fizyka', spanish: 'física', category: 'study', subcategory: 'sciences', difficulty: 'intermediate' },
+  { id: 'sciences_005', polish: 'matematyka', spanish: 'matemáticas', category: 'study', subcategory: 'sciences', difficulty: 'beginner' },
+  { id: 'sciences_006', polish: 'astronomia', spanish: 'astronomía', category: 'study', subcategory: 'sciences', difficulty: 'intermediate' },
+  { id: 'sciences_007', polish: 'geologia', spanish: 'geología', category: 'study', subcategory: 'sciences', difficulty: 'intermediate' },
+  { id: 'sciences_008', polish: 'eksperyment', spanish: 'experimento', category: 'study', subcategory: 'sciences', difficulty: 'intermediate' },
+  { id: 'sciences_009', polish: 'laboratorium', spanish: 'laboratorio', category: 'study', subcategory: 'sciences', difficulty: 'intermediate' },
+  { id: 'sciences_010', polish: 'naukowiec', spanish: 'científico', category: 'study', subcategory: 'sciences', difficulty: 'intermediate' },
 ];
 
 export async function seedStudyVocabulary() {

@@ -107,6 +107,42 @@ export const sportsVocabulary: VocabularyWord[] = [
   { id: 'general_010', polish: 'przegrany', spanish: 'perdedor', category: 'sports', subcategory: 'general', difficulty: 'intermediate' },
   { id: 'general_011', polish: 'wynik', spanish: 'marcador', category: 'sports', subcategory: 'general', difficulty: 'beginner' },
   { id: 'general_012', polish: 'remis', spanish: 'empate', category: 'sports', subcategory: 'general', difficulty: 'intermediate' },
+
+  // SIATKÓWKA (Voley)
+  { id: 'volleyball_001', polish: 'siatkówka', spanish: 'voleibol', category: 'sports', subcategory: 'volleyball', difficulty: 'beginner' },
+  { id: 'volleyball_002', polish: 'siatka', spanish: 'red', category: 'sports', subcategory: 'volleyball', difficulty: 'beginner' },
+  { id: 'volleyball_003', polish: 'boisko', spanish: 'cancha', category: 'sports', subcategory: 'volleyball', difficulty: 'beginner' },
+  { id: 'volleyball_004', polish: 'piłka', spanish: 'balón', category: 'sports', subcategory: 'volleyball', difficulty: 'beginner' },
+  { id: 'volleyball_005', polish: 'serwis', spanish: 'saque', category: 'sports', subcategory: 'volleyball', difficulty: 'intermediate' },
+  { id: 'volleyball_006', polish: 'odbicie', spanish: 'toque', category: 'sports', subcategory: 'volleyball', difficulty: 'intermediate' },
+  { id: 'volleyball_007', polish: 'atak', spanish: 'ataque', category: 'sports', subcategory: 'volleyball', difficulty: 'intermediate' },
+  { id: 'volleyball_008', polish: 'blok', spanish: 'bloqueo', category: 'sports', subcategory: 'volleyball', difficulty: 'intermediate' },
+  { id: 'volleyball_009', polish: 'punkt', spanish: 'punto', category: 'sports', subcategory: 'volleyball', difficulty: 'beginner' },
+  { id: 'volleyball_010', polish: 'set', spanish: 'set', category: 'sports', subcategory: 'volleyball', difficulty: 'intermediate' },
+
+  // RUGBY (Rugby)
+  { id: 'rugby_001', polish: 'rugby', spanish: 'rugby', category: 'sports', subcategory: 'rugby', difficulty: 'beginner' },
+  { id: 'rugby_002', polish: 'boisko', spanish: 'campo', category: 'sports', subcategory: 'rugby', difficulty: 'beginner' },
+  { id: 'rugby_003', polish: 'piłka', spanish: 'balón ovalado', category: 'sports', subcategory: 'rugby', difficulty: 'intermediate' },
+  { id: 'rugby_004', polish: 'przyłożenie', spanish: 'ensayo', category: 'sports', subcategory: 'rugby', difficulty: 'intermediate' },
+  { id: 'rugby_005', polish: 'podwyższenie', spanish: 'conversión', category: 'sports', subcategory: 'rugby', difficulty: 'advanced' },
+  { id: 'rugby_006', polish: 'rzut karny', spanish: 'penal', category: 'sports', subcategory: 'rugby', difficulty: 'intermediate' },
+  { id: 'rugby_007', polish: 'mecz', spanish: 'partido', category: 'sports', subcategory: 'rugby', difficulty: 'beginner' },
+  { id: 'rugby_008', polish: 'zawodnik', spanish: 'jugador', category: 'sports', subcategory: 'rugby', difficulty: 'beginner' },
+  { id: 'rugby_009', polish: 'sędzia', spanish: 'árbitro', category: 'sports', subcategory: 'rugby', difficulty: 'intermediate' },
+  { id: 'rugby_010', polish: 'aut', spanish: 'touch', category: 'sports', subcategory: 'rugby', difficulty: 'intermediate' },
+
+  // OLIMPIJSKI (Olímpico)
+  { id: 'olympic_001', polish: 'olimpiada', spanish: 'olimpiada', category: 'sports', subcategory: 'olympic', difficulty: 'beginner' },
+  { id: 'olympic_002', polish: 'igrzyska olimpijskie', spanish: 'juegos olímpicos', category: 'sports', subcategory: 'olympic', difficulty: 'intermediate' },
+  { id: 'olympic_003', polish: 'złoty medal', spanish: 'medalla de oro', category: 'sports', subcategory: 'olympic', difficulty: 'beginner' },
+  { id: 'olympic_004', polish: 'srebrny medal', spanish: 'medalla de plata', category: 'sports', subcategory: 'olympic', difficulty: 'beginner' },
+  { id: 'olympic_005', polish: 'brązowy medal', spanish: 'medalla de bronce', category: 'sports', subcategory: 'olympic', difficulty: 'beginner' },
+  { id: 'olympic_006', polish: 'podium', spanish: 'podio', category: 'sports', subcategory: 'olympic', difficulty: 'intermediate' },
+  { id: 'olympic_007', polish: 'znicz olimpijski', spanish: 'antorcha olímpica', category: 'sports', subcategory: 'olympic', difficulty: 'intermediate' },
+  { id: 'olympic_008', polish: 'wioska olimpijska', spanish: 'villa olímpica', category: 'sports', subcategory: 'olympic', difficulty: 'intermediate' },
+  { id: 'olympic_009', polish: 'dyscyplina', spanish: 'disciplina', category: 'sports', subcategory: 'olympic', difficulty: 'intermediate' },
+  { id: 'olympic_010', polish: 'rekord', spanish: 'récord', category: 'sports', subcategory: 'olympic', difficulty: 'beginner' },
 ];
 
 export async function seedSportsVocabulary() {

@@ -201,6 +201,21 @@ export class SpanishAppDatabase extends Dexie {
       console.log('Database upgraded to version 9 - adding missing themes and refreshing vocabulary');
       // The seed functions will add new themes and vocabulary
     });
+
+    // Version 10: Add more themes (arte, emociones, directions, maps, etc.)
+    this.version(10).stores({
+      vocabulary: 'id, polish, spanish, category, subcategory, difficulty, [category+subcategory]',
+      categories: 'id, titlePolish, titleSpanish',
+      subcategories: 'id, categoryId, titlePolish, titleSpanish',
+      users: 'id, name, email, createdAt',
+      userProgress: 'userId, level, totalPoints',
+      studySessions: 'id, categoryId, startedAt, completedAt',
+      flashcardStates: 'wordId, nextReview, interval',
+      settings: '++id',
+    }).upgrade(async () => {
+      console.log('Database upgraded to version 10 - adding arte, emociones, directions, maps, and other new themes');
+      // The seed functions will add new themes and vocabulary
+    });
   }
 }
 

@@ -4,6 +4,7 @@ export const subcategoryNames: Record<string, { spanish: string; polish: string 
   'body': { spanish: 'CUERPO', polish: 'CIAŁO' },
   'face': { spanish: 'CARA', polish: 'TWARZ' },
   'family': { spanish: 'FAMILIA', polish: 'RODZINA' },
+  'emotions': { spanish: 'EMOCIONES', polish: 'EMOCJE' },
   
   // Food
   'meat': { spanish: 'CARNE', polish: 'MIĘSO' },
@@ -35,6 +36,7 @@ export const subcategoryNames: Record<string, { spanish: string; polish: string 
   'supplies': { spanish: 'MATERIALES', polish: 'MATERIAŁY SZKOLNE' },
   'subjects': { spanish: 'ASIGNATURAS', polish: 'PRZEDMIOTY' },
   'language-learning': { spanish: 'APRENDIZAJE DE IDIOMAS', polish: 'NAUKA JĘZYKÓW' },
+  'sciences': { spanish: 'CIENCIAS', polish: 'NAUKI' },
   
   // Work
   'office': { spanish: 'OFICINA', polish: 'BIURO' },
@@ -74,6 +76,7 @@ export const subcategoryNames: Record<string, { spanish: string; polish: string 
   // Shopping
   'shopping-center': { spanish: 'CENTRO COMERCIAL', polish: 'CENTRUM HANDLOWE' },
   'grocery': { spanish: 'TIENDA DE COMESTIBLES', polish: 'SKLEP SPOŻYWCZY' },
+  'supermarket': { spanish: 'SUPERMERCADO', polish: 'SKLEP' },
   'buying': { spanish: 'COMPRAR', polish: 'KUPOWANIE' },
   'clothing-store': { spanish: 'TIENDA DE ROPA', polish: 'SKLEP ODZIEŻOWY' },
   'bookstore': { spanish: 'LIBRERÍA', polish: 'KSIĘGARNIA' },
@@ -82,6 +85,9 @@ export const subcategoryNames: Record<string, { spanish: string; polish: string 
   'soccer': { spanish: 'FÚTBOL', polish: 'PIŁKA NOŻNA' },
   'basketball': { spanish: 'BALONCESTO', polish: 'KOSZYKÓWKA' },
   'tennis': { spanish: 'TENIS', polish: 'TENIS' },
+  'volleyball': { spanish: 'VOLEY', polish: 'SIATKÓWKA' },
+  'rugby': { spanish: 'RUGBY', polish: 'RUGBY' },
+  'olympic': { spanish: 'OLÍMPICO', polish: 'OLIMPIJSKI' },
   'swimming': { spanish: 'NATACIÓN', polish: 'PŁYWANIE' },
   'gym': { spanish: 'GIMNASIO', polish: 'SIŁOWNIA' },
   'running': { spanish: 'CORRER', polish: 'BIEGANIE' },
@@ -92,6 +98,7 @@ export const subcategoryNames: Record<string, { spanish: string; polish: string 
   'theater': { spanish: 'TEATRO', polish: 'TEATR' },
   'cinema': { spanish: 'CINE', polish: 'KINO' },
   'music': { spanish: 'MÚSICA', polish: 'MUZYKA' },
+  'art': { spanish: 'ARTE', polish: 'SZTUKA' },
   'beach': { spanish: 'PLAYA', polish: 'PLAŻA' },
   'camping': { spanish: 'CAMPING', polish: 'KEMPING' },
   'photography': { spanish: 'FOTOGRAFÍA', polish: 'FOTOGRAFIA' },
@@ -119,6 +126,8 @@ export const subcategoryNames: Record<string, { spanish: string; polish: string 
   'numbers': { spanish: 'NÚMEROS', polish: 'LICZBY' },
   'colors': { spanish: 'COLORES', polish: 'KOLORY' },
   'phrases': { spanish: 'FRASES', polish: 'ZWROTY' },
+  'directions': { spanish: 'PUNTOS CARDINALES Y DIRECCIONES', polish: 'KIERUNKI ŚWIATA' },
+  'maps': { spanish: 'MAPAS', polish: 'MAPY' },
 };
 
 export function getSubcategoryName(subcategoryId: string): { spanish: string; polish: string } {

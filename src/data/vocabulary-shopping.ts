@@ -70,6 +70,18 @@ export const shoppingVocabulary: VocabularyWord[] = [
   { id: 'bookstore_008', polish: 'autor', spanish: 'autor', category: 'shopping', subcategory: 'bookstore', difficulty: 'intermediate' },
   { id: 'bookstore_009', polish: 'bestseller', spanish: 'bestseller', category: 'shopping', subcategory: 'bookstore', difficulty: 'intermediate' },
   { id: 'bookstore_010', polish: 'nowość', spanish: 'novedad', category: 'shopping', subcategory: 'bookstore', difficulty: 'intermediate' },
+
+  // SUPERMERCADO (Sklep)
+  { id: 'supermarket_001', polish: 'supermarket', spanish: 'supermercado', category: 'shopping', subcategory: 'supermarket', difficulty: 'beginner' },
+  { id: 'supermarket_002', polish: 'sklep', spanish: 'tienda', category: 'shopping', subcategory: 'supermarket', difficulty: 'beginner' },
+  { id: 'supermarket_003', polish: 'półka', spanish: 'estante', category: 'shopping', subcategory: 'supermarket', difficulty: 'intermediate' },
+  { id: 'supermarket_004', polish: 'dział', spanish: 'sección', category: 'shopping', subcategory: 'supermarket', difficulty: 'intermediate' },
+  { id: 'supermarket_005', polish: 'kasjer', spanish: 'cajero', category: 'shopping', subcategory: 'supermarket', difficulty: 'beginner' },
+  { id: 'supermarket_006', polish: 'skaner', spanish: 'escáner', category: 'shopping', subcategory: 'supermarket', difficulty: 'intermediate' },
+  { id: 'supermarket_007', polish: 'waga', spanish: 'balanza', category: 'shopping', subcategory: 'supermarket', difficulty: 'beginner' },
+  { id: 'supermarket_008', polish: 'cena', spanish: 'precio', category: 'shopping', subcategory: 'supermarket', difficulty: 'beginner' },
+  { id: 'supermarket_009', polish: 'promocja', spanish: 'oferta', category: 'shopping', subcategory: 'supermarket', difficulty: 'intermediate' },
+  { id: 'supermarket_010', polish: 'paragon', spanish: 'ticket', category: 'shopping', subcategory: 'supermarket', difficulty: 'intermediate' },
 ];
 
 export async function seedShoppingVocabulary() {

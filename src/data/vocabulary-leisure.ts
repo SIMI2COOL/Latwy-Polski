@@ -90,6 +90,20 @@ export const leisureVocabulary: VocabularyWord[] = [
   { id: 'games_008', polish: 'gra wideo', spanish: 'videojuego', category: 'leisure', subcategory: 'games', difficulty: 'beginner' },
   { id: 'games_009', polish: 'konsola', spanish: 'consola', category: 'leisure', subcategory: 'games', difficulty: 'intermediate' },
   { id: 'games_010', polish: 'joystick', spanish: 'palanca de mando', category: 'leisure', subcategory: 'games', difficulty: 'intermediate' },
+
+  // SZTUKA (Arte)
+  { id: 'art_001', polish: 'sztuka', spanish: 'arte', category: 'leisure', subcategory: 'art', difficulty: 'beginner' },
+  { id: 'art_002', polish: 'malarstwo', spanish: 'pintura', category: 'leisure', subcategory: 'art', difficulty: 'intermediate' },
+  { id: 'art_003', polish: 'obraz', spanish: 'cuadro', category: 'leisure', subcategory: 'art', difficulty: 'beginner' },
+  { id: 'art_004', polish: 'malarz', spanish: 'pintor', category: 'leisure', subcategory: 'art', difficulty: 'intermediate' },
+  { id: 'art_005', polish: 'pędzel', spanish: 'pincel', category: 'leisure', subcategory: 'art', difficulty: 'intermediate' },
+  { id: 'art_006', polish: 'farby', spanish: 'pinturas', category: 'leisure', subcategory: 'art', difficulty: 'beginner' },
+  { id: 'art_007', polish: 'paleta', spanish: 'paleta', category: 'leisure', subcategory: 'art', difficulty: 'intermediate' },
+  { id: 'art_008', polish: 'rzeźba', spanish: 'escultura', category: 'leisure', subcategory: 'art', difficulty: 'intermediate' },
+  { id: 'art_009', polish: 'rzeźbiarz', spanish: 'escultor', category: 'leisure', subcategory: 'art', difficulty: 'intermediate' },
+  { id: 'art_010', polish: 'galeria', spanish: 'galería', category: 'leisure', subcategory: 'art', difficulty: 'intermediate' },
+  { id: 'art_011', polish: 'muzeum', spanish: 'museo', category: 'leisure', subcategory: 'art', difficulty: 'beginner' },
+  { id: 'art_012', polish: 'wystawa', spanish: 'exposición', category: 'leisure', subcategory: 'art', difficulty: 'intermediate' },
 ];
 
 export async function seedLeisureVocabulary() {
