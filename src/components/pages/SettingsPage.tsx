@@ -52,7 +52,7 @@ function SettingsPage() {
       }
     }
     reloadUser();
-  }, []); // Only run on mount
+  }, [user, setUser]); // Only run when user changes
 
   const handleToggle = (key: keyof UserSettings) => {
     if (!settings) return;
@@ -798,7 +798,7 @@ function SettingsPage() {
         </h2>
         <div className="text-sm text-gray-600 space-y-2">
           <p>
-            <strong>Łatwy Hiszpański</strong> v1.0.0
+            <strong style={{ color: '#c7102e' }}>Łatwy Hiszpański</strong> v1.0.0
           </p>
           <p>
             Aplikacja do nauki hiszpańskiego dla Polaków

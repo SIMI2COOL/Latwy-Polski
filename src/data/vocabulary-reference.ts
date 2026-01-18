@@ -181,7 +181,7 @@ export async function seedReferenceVocabulary() {
     try {
       await db.categories.delete('reference');
       console.log('🗑️ Deleted old reference category');
-    } catch (e) {
+    } catch {
       // Category might not exist, that's fine
     }
     console.log(`✅ Reference vocabulary: ${totalCount} total words (${referenceVocabulary.length} in file)`);

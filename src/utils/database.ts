@@ -150,7 +150,10 @@ export class SpanishAppDatabase extends Dexie {
       for (const word of allWords) {
         if ('english' in word && !('spanish' in word)) {
           // For now, keep the english value as spanish (will be updated by vocabulary files)
-          await trans.table('vocabulary').update(word.id, { spanish: (word as any).english });
+          const englishValue = (word as Record<string, unknown>).english;
+          await trans
+            .table('vocabulary')
+            .update(word.id, { spanish: typeof englishValue === 'string' ? englishValue : String(englishValue ?? '') });
         }
       }
       
@@ -159,7 +162,12 @@ export class SpanishAppDatabase extends Dexie {
       for (const category of allCategories) {
         if ('titleEnglish' in category && !('titleSpanish' in category)) {
           // Will be updated by seedInitialData with proper Spanish names
-          await trans.table('categories').update(category.id, { titleSpanish: (category as any).titleEnglish });
+          const titleEnglishValue = (category as Record<string, unknown>).titleEnglish;
+          await trans
+            .table('categories')
+            .update(category.id, {
+              titleSpanish: typeof titleEnglishValue === 'string' ? titleEnglishValue : String(titleEnglishValue ?? ''),
+            });
         }
       }
       
@@ -167,7 +175,12 @@ export class SpanishAppDatabase extends Dexie {
       const allSubcategories = await trans.table('subcategories').toArray();
       for (const subcategory of allSubcategories) {
         if ('titleEnglish' in subcategory && !('titleSpanish' in subcategory)) {
-          await trans.table('subcategories').update(subcategory.id, { titleSpanish: (subcategory as any).titleEnglish });
+          const titleEnglishValue = (subcategory as Record<string, unknown>).titleEnglish;
+          await trans
+            .table('subcategories')
+            .update(subcategory.id, {
+              titleSpanish: typeof titleEnglishValue === 'string' ? titleEnglishValue : String(titleEnglishValue ?? ''),
+            });
         }
       }
     });
