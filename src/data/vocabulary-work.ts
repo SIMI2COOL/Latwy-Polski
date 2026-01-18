@@ -118,6 +118,18 @@ export const workVocabulary: VocabularyWord[] = [
   { id: 'business_008', polish: 'strategia', english: 'strategy', category: 'work', subcategory: 'business-terms', difficulty: 'intermediate' },
   { id: 'business_009', polish: 'marketing', english: 'marketing', category: 'work', subcategory: 'business-terms', difficulty: 'intermediate' },
   { id: 'business_010', polish: 'sprzedaż', english: 'sales', category: 'work', subcategory: 'business-terms', difficulty: 'beginner' },
+
+  // PRZYDATNE ZWROTY (Useful Phrases - Work)
+  { id: 'work_phrases_001', polish: 'gdzie pracujesz?', english: 'where do you work?', category: 'work', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'work_phrases_002', polish: 'co robisz w pracy?', english: 'what do you do at work?', category: 'work', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'work_phrases_003', polish: 'mam spotkanie', english: 'I have a meeting', category: 'work', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'work_phrases_004', polish: 'czy mogę z tobą porozmawiać?', english: 'can I talk to you?', category: 'work', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'work_phrases_005', polish: 'co jestem winien?', english: 'what do I owe?', category: 'work', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'work_phrases_006', polish: 'mam przerwę', english: 'I have a break', category: 'work', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'work_phrases_007', polish: 'kiedy wracasz?', english: 'when are you back?', category: 'work', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'work_phrases_008', polish: 'dobra robota', english: 'good job', category: 'work', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'work_phrases_009', polish: 'szukam pracy', english: 'I am looking for a job', category: 'work', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'work_phrases_010', polish: 'mam urlop', english: 'I have vacation', category: 'work', subcategory: 'useful-phrases', difficulty: 'beginner' },
 ];
 
 export async function seedWorkVocabulary() {

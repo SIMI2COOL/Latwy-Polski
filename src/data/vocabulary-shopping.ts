@@ -123,6 +123,18 @@ export const shoppingVocabulary: VocabularyWord[] = [
   { id: 'receipts_004', polish: 'zwrot pieniędzy', english: 'refund', category: 'shopping', subcategory: 'receipts', difficulty: 'intermediate' },
   { id: 'receipts_005', polish: 'wymiana towaru', english: 'product exchange', category: 'shopping', subcategory: 'receipts', difficulty: 'intermediate' },
   { id: 'receipts_006', polish: 'termin zwrotu', english: 'return deadline', category: 'shopping', subcategory: 'receipts', difficulty: 'intermediate' },
+
+  // PRZYDATNE ZWROTY (Useful Phrases - Shopping)
+  { id: 'shopping_phrases_001', polish: 'ile to kosztuje?', english: 'how much does it cost?', category: 'shopping', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'shopping_phrases_002', polish: 'gdzie mogę zapłacić?', english: 'where can I pay?', category: 'shopping', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'shopping_phrases_003', polish: 'czy masz to w większym rozmiarze?', english: 'do you have this in a larger size?', category: 'shopping', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'shopping_phrases_004', polish: 'chcę zwrócić', english: 'I want to return', category: 'shopping', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'shopping_phrases_005', polish: 'czy akceptujecie karty?', english: 'do you accept cards?', category: 'shopping', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'shopping_phrases_006', polish: 'gdzie jest?', english: 'where is it?', category: 'shopping', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'shopping_phrases_007', polish: 'wezmę to', english: 'I will take this', category: 'shopping', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'shopping_phrases_008', polish: 'czy macie?', english: 'do you have?', category: 'shopping', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'shopping_phrases_009', polish: 'to za drogie', english: 'that is too expensive', category: 'shopping', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'shopping_phrases_010', polish: 'mam paragon', english: 'I have a receipt', category: 'shopping', subcategory: 'useful-phrases', difficulty: 'beginner' },
 ];
 
 export async function seedShoppingVocabulary() {

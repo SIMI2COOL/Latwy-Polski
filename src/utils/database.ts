@@ -316,7 +316,7 @@ async function seedInitialData() {
     {
       id: 'reference',
       titlePolish: 'INFORMACJE',
-      titleEnglish: 'Reference',
+      titleEnglish: 'Information',
       description: 'Time, numbers, maps',
       icon: '📋',
       color: '#64748B',

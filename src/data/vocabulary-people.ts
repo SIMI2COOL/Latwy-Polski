@@ -187,6 +187,18 @@ export const peopleVocabulary: VocabularyWord[] = [
   { id: 'relationships_020', polish: 'znajomość', english: 'acquaintance', category: 'people', subcategory: 'relationships', difficulty: 'intermediate' },
   { id: 'relationships_021', polish: 'relacja', english: 'relationship', category: 'people', subcategory: 'relationships', difficulty: 'intermediate' },
   { id: 'relationships_022', polish: 'przyjaźń', english: 'friendship', category: 'people', subcategory: 'relationships', difficulty: 'intermediate' },
+
+  // PRZYDATNE ZWROTY (Useful Phrases - People)
+  { id: 'people_phrases_001', polish: 'miło cię poznać', english: 'nice to meet you', category: 'people', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'people_phrases_002', polish: 'jak się nazywasz?', english: 'what is your name?', category: 'people', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'people_phrases_003', polish: 'nazywam się', english: 'my name is', category: 'people', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'people_phrases_004', polish: 'skąd jesteś?', english: 'where are you from?', category: 'people', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'people_phrases_005', polish: 'ile masz lat?', english: 'how old are you?', category: 'people', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'people_phrases_006', polish: 'co robisz?', english: 'what do you do?', category: 'people', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'people_phrases_007', polish: 'masz rodzeństwo?', english: 'do you have siblings?', category: 'people', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'people_phrases_008', polish: 'jestem szczęśliwy', english: 'I am happy', category: 'people', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'people_phrases_009', polish: 'czuję się źle', english: 'I feel bad', category: 'people', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'people_phrases_010', polish: 'masz rację', english: 'you are right', category: 'people', subcategory: 'useful-phrases', difficulty: 'beginner' },
 ];
 
 export async function seedPeopleVocabulary() {

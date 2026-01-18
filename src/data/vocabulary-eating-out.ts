@@ -136,6 +136,18 @@ export const eatingOutVocabulary: VocabularyWord[] = [
   { id: 'courses_006', polish: 'przekąska', english: 'snack', category: 'eating-out', subcategory: 'courses', difficulty: 'beginner' },
   { id: 'courses_007', polish: 'danie', english: 'dish', category: 'eating-out', subcategory: 'courses', difficulty: 'beginner' },
   { id: 'courses_008', polish: 'specjalność', english: 'specialty', category: 'eating-out', subcategory: 'courses', difficulty: 'intermediate' },
+
+  // PRZYDATNE ZWROTY (Useful Phrases - Eating Out)
+  { id: 'eating_out_phrases_001', polish: 'stolik dla dwóch', english: 'table for two', category: 'eating-out', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'eating_out_phrases_002', polish: 'możębym zobaczyć menu?', english: 'can I see the menu?', category: 'eating-out', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'eating_out_phrases_003', polish: 'chciałbym zamówić', english: 'I would like to order', category: 'eating-out', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'eating_out_phrases_004', polish: 'co polecacie?', english: 'what do you recommend?', category: 'eating-out', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'eating_out_phrases_005', polish: 'rachunek proszę', english: 'check please', category: 'eating-out', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'eating_out_phrases_006', polish: 'czy mogę płacić kartą?', english: 'can I pay by card?', category: 'eating-out', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'eating_out_phrases_007', polish: 'smacznego', english: 'enjoy your meal', category: 'eating-out', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'eating_out_phrases_008', polish: 'było pyszne', english: 'it was delicious', category: 'eating-out', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'eating_out_phrases_009', polish: 'czy jest miejsce?', english: 'is there a seat?', category: 'eating-out', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'eating_out_phrases_010', polish: 'proszę bez', english: 'please without', category: 'eating-out', subcategory: 'useful-phrases', difficulty: 'beginner' },
 ];
 
 export async function seedEatingOutVocabulary() {

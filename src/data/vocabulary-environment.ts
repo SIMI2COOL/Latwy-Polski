@@ -168,6 +168,18 @@ export const environmentVocabulary: VocabularyWord[] = [
   { id: 'insects_010', polish: 'komar', english: 'mosquito', category: 'environment', subcategory: 'insects', difficulty: 'intermediate' },
   { id: 'insects_011', polish: 'much', english: 'fly', category: 'environment', subcategory: 'insects', difficulty: 'beginner' },
   { id: 'insects_012', polish: 'os', english: 'wasp', category: 'environment', subcategory: 'insects', difficulty: 'intermediate' },
+
+  // PRZYDATNE ZWROTY (Useful Phrases - Environment)
+  { id: 'environment_phrases_001', polish: 'jaka jest pogoda?', english: 'what is the weather?', category: 'environment', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'environment_phrases_002', polish: 'jest ładnie', english: 'it is nice', category: 'environment', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'environment_phrases_003', polish: 'pada deszcz', english: 'it is raining', category: 'environment', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'environment_phrases_004', polish: 'wieje wiatr', english: 'wind is blowing', category: 'environment', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'environment_phrases_005', polish: 'jest zimno', english: 'it is cold', category: 'environment', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'environment_phrases_006', polish: 'jest gorąco', english: 'it is hot', category: 'environment', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'environment_phrases_007', polish: 'chronimy środowisko', english: 'we protect the environment', category: 'environment', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'environment_phrases_008', polish: 'piękna natura', english: 'beautiful nature', category: 'environment', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'environment_phrases_009', polish: 'świeże powietrze', english: 'fresh air', category: 'environment', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'environment_phrases_010', polish: 'dzień jest słoneczny', english: 'the day is sunny', category: 'environment', subcategory: 'useful-phrases', difficulty: 'intermediate' },
 ];
 
 export async function seedEnvironmentVocabulary() {

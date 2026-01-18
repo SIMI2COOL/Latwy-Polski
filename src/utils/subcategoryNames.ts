@@ -29,6 +29,7 @@ export const subcategoryNames: Record<string, SubcategoryName> = {
   'lower-clothing': { polish: 'ODZIEŻ DOLNA', english: 'Lower Body Clothing' },
   'footwear': { polish: 'OBUWIE', english: 'Footwear' },
   'body-description': { polish: 'OPIS CIAŁA', english: 'Body Description' },
+  'useful-phrases': { polish: 'PRZYDATNE ZWROTY', english: 'Useful Phrases' },
 
   // Health
   'illnesses': { polish: 'CHOROBY', english: 'Illnesses' },
@@ -66,6 +67,7 @@ export const subcategoryNames: Record<string, SubcategoryName> = {
   'legal-services': { polish: 'USŁUGI PRAWNE', english: 'Legal Services' },
   'cleaning-services': { polish: 'USŁUGI SPRZĄTAJĄCE', english: 'Cleaning Services' },
   'repair-services': { polish: 'USŁUGI NAPRAWCZE', english: 'Repair Services' },
+  'useful-phrases': { polish: 'PRZYDATNE ZWROTY', english: 'Useful Phrases' },
 
   // Shopping
   'shopping-center': { polish: 'CENTRUM HANDLOWE', english: 'Shopping Center' },
@@ -78,6 +80,7 @@ export const subcategoryNames: Record<string, SubcategoryName> = {
   'quantities': { polish: 'LISTY I ILOŚCI', english: 'Shopping Lists & Quantities' },
   'prices': { polish: 'CENY I PIENIĄDZE', english: 'Prices & Money' },
   'receipts': { polish: 'PARAGONY I ZWROTY', english: 'Receipts & Returns' },
+  'useful-phrases': { polish: 'PRZYDATNE ZWROTY', english: 'Useful Phrases' },
 
   // Food
   'meat': { polish: 'MIĘSO', english: 'Meat' },
@@ -105,6 +108,7 @@ export const subcategoryNames: Record<string, SubcategoryName> = {
   'ordering': { polish: 'ZAMAWIANIE', english: 'Ordering Food' },
   'dining-experience': { polish: 'DOŚWIADCZENIE', english: 'Dining Experience' },
   'courses': { polish: 'DANIA', english: 'Food Courses' },
+  'useful-phrases': { polish: 'PRZYDATNE ZWROTY', english: 'Useful Phrases' },
 
   // Study
   'school': { polish: 'SZKOŁA', english: 'School' },
@@ -126,6 +130,7 @@ export const subcategoryNames: Record<string, SubcategoryName> = {
   'workplace-communication': { polish: 'KOMUNIKACJA W PRACY', english: 'Workplace Communication' },
   'work-schedule': { polish: 'GRAFIK PRACY', english: 'Work Schedule' },
   'business-terms': { polish: 'TERMINY BIZNESOWE', english: 'Business Terms' },
+  'useful-phrases': { polish: 'PRZYDATNE ZWROTY', english: 'Useful Phrases' },
 
   // Transport
   'car': { polish: 'SAMOCHÓD', english: 'Car' },
@@ -140,6 +145,7 @@ export const subcategoryNames: Record<string, SubcategoryName> = {
   'traffic-signs': { polish: 'RUCH DROGOWY', english: 'Traffic & Road Signs' },
   'parking': { polish: 'PARKING I GARAŻE', english: 'Parking & Garages' },
   'car-maintenance': { polish: 'KONSERWACJA SAMOCHODU', english: 'Car Maintenance' },
+  'useful-phrases': { polish: 'PRZYDATNE ZWROTY', english: 'Useful Phrases' },
 
   // Sports
   'soccer': { polish: 'PIŁKA NOŻNA', english: 'Soccer' },
@@ -184,8 +190,9 @@ export const subcategoryNames: Record<string, SubcategoryName> = {
   'natural-disasters': { polish: 'KATASTROFY NATURALNE', english: 'Natural Disasters' },
   'conservation': { polish: 'OCHRONA ŚRODOWISKA', english: 'Conservation & Ecology' },
   'insects': { polish: 'OWADY I MAŁE ZWIERZĘTA', english: 'Insects & Small Animals' },
+  'useful-phrases': { polish: 'PRZYDATNE ZWROTY', english: 'Useful Phrases' },
 
-  // Reference
+  // Reference / Information
   'time': { polish: 'CZAS', english: 'Time' },
   'calendar': { polish: 'KALENDARZ', english: 'Calendar' },
   'numbers': { polish: 'LICZBY', english: 'Numbers' },
@@ -195,6 +202,7 @@ export const subcategoryNames: Record<string, SubcategoryName> = {
   'directions': { polish: 'KIERUNKI', english: 'Directions' },
   'measurements': { polish: 'POMIARY', english: 'Measurements' },
   'questions': { polish: 'PODSTAWOWE PYTANIA', english: 'Basic Questions' },
+  'useful-phrases': { polish: 'PRZYDATNE ZWROTY', english: 'Useful Phrases' },
 };
 
 /**

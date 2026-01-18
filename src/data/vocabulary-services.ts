@@ -2,7 +2,7 @@ import { VocabularyWord } from '@/types';
 
 export const servicesVocabulary: VocabularyWord[] = [
   // NAGŁE WYPADKI (Emergency)
-  { id: 'emergency_001', polish: 'pogotowie ratunkowe', english: 'ambulance', category: 'services', subcategory: 'emergency', difficulty: 'intermediate' },
+  { id: 'emergency_001', polish: 'karetka', english: 'ambulance', category: 'services', subcategory: 'emergency', difficulty: 'intermediate' },
   { id: 'emergency_002', polish: 'policja', english: 'police', category: 'services', subcategory: 'emergency', difficulty: 'beginner' },
   { id: 'emergency_003', polish: 'straż pożarna', english: 'fire department', category: 'services', subcategory: 'emergency', difficulty: 'intermediate' },
   { id: 'emergency_004', polish: 'wypadek', english: 'accident', category: 'services', subcategory: 'emergency', difficulty: 'intermediate' },
@@ -119,6 +119,18 @@ export const servicesVocabulary: VocabularyWord[] = [
   { id: 'repair_008', polish: 'diagnostyka', english: 'diagnostics', category: 'services', subcategory: 'repair-services', difficulty: 'advanced' },
   { id: 'repair_009', polish: 'koszt naprawy', english: 'repair cost', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
   { id: 'repair_010', polish: 'naprawa gwarancyjna', english: 'warranty repair', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
+
+  // PRZYDATNE ZWROTY (Useful Phrases - Services)
+  { id: 'services_phrases_001', polish: 'potrzebuję pomocy', english: 'I need help', category: 'services', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'services_phrases_002', polish: 'gdzie jest bankomat?', english: 'where is the ATM?', category: 'services', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'services_phrases_003', polish: 'chcę otworzyć konto', english: 'I want to open an account', category: 'services', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'services_phrases_004', polish: 'czy mogę wysłać paczkę?', english: 'can I send a package?', category: 'services', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'services_phrases_005', polish: 'mam rezerwację', english: 'I have a reservation', category: 'services', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'services_phrases_006', polish: 'numer alarmowy', english: 'emergency number', category: 'services', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'services_phrases_007', polish: 'potrzebuję prawnika', english: 'I need a lawyer', category: 'services', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'services_phrases_008', polish: 'ile to kosztuje?', english: 'how much does it cost?', category: 'services', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'services_phrases_009', polish: 'kiedy będzie gotowe?', english: 'when will it be ready?', category: 'services', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'services_phrases_010', polish: 'dziękuję za pomoc', english: 'thank you for your help', category: 'services', subcategory: 'useful-phrases', difficulty: 'beginner' },
 ];
 
 export async function seedServicesVocabulary() {

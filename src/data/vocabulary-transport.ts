@@ -158,6 +158,18 @@ export const transportVocabulary: VocabularyWord[] = [
   { id: 'car_maintenance_008', polish: 'wymiana opon', english: 'tire change', category: 'transport', subcategory: 'car-maintenance', difficulty: 'intermediate' },
   { id: 'car_maintenance_009', polish: 'wymiana klocków hamulcowych', english: 'brake pad replacement', category: 'transport', subcategory: 'car-maintenance', difficulty: 'advanced' },
   { id: 'car_maintenance_010', polish: 'gwarancja', english: 'warranty', category: 'transport', subcategory: 'car-maintenance', difficulty: 'intermediate' },
+
+  // PRZYDATNE ZWROTY (Useful Phrases - Transport)
+  { id: 'transport_phrases_001', polish: 'gdzie jest przystanek?', english: 'where is the stop?', category: 'transport', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'transport_phrases_002', polish: 'jak dojechać do?', english: 'how do I get to?', category: 'transport', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'transport_phrases_003', polish: 'ile kosztuje bilet?', english: 'how much is a ticket?', category: 'transport', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'transport_phrases_004', polish: 'kiedy odjeżdża?', english: 'when does it leave?', category: 'transport', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'transport_phrases_005', polish: 'gdzie jest parking?', english: 'where is parking?', category: 'transport', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'transport_phrases_006', polish: 'potrzebuję benzyny', english: 'I need gasoline', category: 'transport', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'transport_phrases_007', polish: 'ile kilometrów?', english: 'how many kilometers?', category: 'transport', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'transport_phrases_008', polish: 'zgubiłem się', english: 'I am lost', category: 'transport', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'transport_phrases_009', polish: 'proszę prosto', english: 'please go straight', category: 'transport', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'transport_phrases_010', polish: 'zatrzymaj się tutaj', english: 'stop here', category: 'transport', subcategory: 'useful-phrases', difficulty: 'beginner' },
 ];
 
 export async function seedTransportVocabulary() {

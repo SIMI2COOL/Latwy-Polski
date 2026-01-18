@@ -130,6 +130,18 @@ export const appearanceVocabulary: VocabularyWord[] = [
   { id: 'footwear_011', polish: 'kalosze', english: 'rubber boots', category: 'appearance', subcategory: 'footwear', difficulty: 'intermediate' },
   { id: 'footwear_012', polish: 'buty zimowe', english: 'winter boots', category: 'appearance', subcategory: 'footwear', difficulty: 'intermediate' },
 
+  // PRZYDATNE ZWROTY (Useful Phrases - Appearance)
+  { id: 'appearance_phrases_001', polish: 'jak mi wyglądam?', english: 'how do I look?', category: 'appearance', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'appearance_phrases_002', polish: 'wyglądasz świetnie', english: 'you look great', category: 'appearance', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'appearance_phrases_003', polish: 'pasuje mi', english: 'it fits me', category: 'appearance', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'appearance_phrases_004', polish: 'możębym przymierzyć?', english: 'can I try it on?', category: 'appearance', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'appearance_phrases_005', polish: 'jakiej rozmiaru?', english: 'what size?', category: 'appearance', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'appearance_phrases_006', polish: 'za małe', english: 'too small', category: 'appearance', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'appearance_phrases_007', polish: 'za duże', english: 'too big', category: 'appearance', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'appearance_phrases_008', polish: 'idealnie pasuje', english: 'fits perfectly', category: 'appearance', subcategory: 'useful-phrases', difficulty: 'intermediate' },
+  { id: 'appearance_phrases_009', polish: 'w jakim kolorze?', english: 'what color?', category: 'appearance', subcategory: 'useful-phrases', difficulty: 'beginner' },
+  { id: 'appearance_phrases_010', polish: 'to mi się podoba', english: 'I like this', category: 'appearance', subcategory: 'useful-phrases', difficulty: 'beginner' },
+
   // OPIS CIAŁA (Body Description)
   { id: 'body_desc_001', polish: 'wysoki', english: 'tall', category: 'appearance', subcategory: 'body-description', difficulty: 'beginner' },
   { id: 'body_desc_002', polish: 'niski', english: 'short', category: 'appearance', subcategory: 'body-description', difficulty: 'beginner' },
