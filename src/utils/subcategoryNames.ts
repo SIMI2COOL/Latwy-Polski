@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mapping of subcategory IDs to their Polish and English names
  * Used for displaying theme names in the UI
  */
