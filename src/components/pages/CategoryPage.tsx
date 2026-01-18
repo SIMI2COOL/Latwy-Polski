@@ -154,16 +154,18 @@ function CategoryPage() {
                 <Link
                   key={subcategory}
                   to={`/study/${categoryId}/${subcategory}`}
+                  className="h-full"
                 >
                   <div 
-                    className="card-hover p-6 relative overflow-hidden"
+                    className="card-hover p-6 relative overflow-hidden h-full flex flex-col"
                     style={{
                       backgroundColor: isComplete ? '#dcfce7' : undefined, // Soft green when complete
+                      minHeight: '180px',
                     }}
                   >
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                    <div className="flex items-start justify-between mb-3 flex-shrink-0">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1 truncate">
                           {subcategoryName}
                         </h3>
                         <p className="text-sm text-gray-500">
@@ -171,13 +173,13 @@ function CategoryPage() {
                         </p>
                       </div>
                       <Play
-                        className="w-5 h-5 text-gray-400"
+                        className="w-5 h-5 text-gray-400 flex-shrink-0 ml-2"
                         style={{ color: category.color }}
                       />
                     </div>
 
                     {/* Preview of some words */}
-                    <div className="mt-4 pt-4 border-t border-gray-100">
+                    <div className="mt-auto pt-4 border-t border-gray-100">
                       <div className="flex flex-wrap gap-2">
                         {subcategoryWords.slice(0, 3).map((word) => (
                           <span

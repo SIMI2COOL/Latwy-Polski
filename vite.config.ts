@@ -14,8 +14,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'Łatwy Polski',
-        short_name: 'Łatwy Polski',
+        name: 'Latwy Polski',
+        short_name: 'Latwy Polski',
         description: 'Learn Polish with interactive flashcards and gamification',
         theme_color: '#8B0000',
         background_color: '#ffffff',

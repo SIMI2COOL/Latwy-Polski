@@ -61,6 +61,64 @@ export const servicesVocabulary: VocabularyWord[] = [
   { id: 'hotel_012', polish: 'mini bar', english: 'mini bar', category: 'services', subcategory: 'hotel', difficulty: 'intermediate' },
   { id: 'hotel_013', polish: 'śniadanie', english: 'breakfast', category: 'services', subcategory: 'hotel', difficulty: 'beginner' },
   { id: 'hotel_014', polish: 'parking', english: 'parking', category: 'services', subcategory: 'hotel', difficulty: 'beginner' },
+
+  // TELEKOMUNIKACJA (Telecommunications)
+  { id: 'telecom_001', polish: 'telefon', english: 'phone', category: 'services', subcategory: 'telecommunications', difficulty: 'beginner' },
+  { id: 'telecom_002', polish: 'internet', english: 'internet', category: 'services', subcategory: 'telecommunications', difficulty: 'beginner' },
+  { id: 'telecom_003', polish: 'Wi-Fi', english: 'Wi-Fi', category: 'services', subcategory: 'telecommunications', difficulty: 'beginner' },
+  { id: 'telecom_004', polish: 'router', english: 'router', category: 'services', subcategory: 'telecommunications', difficulty: 'intermediate' },
+  { id: 'telecom_005', polish: 'abonament', english: 'subscription', category: 'services', subcategory: 'telecommunications', difficulty: 'intermediate' },
+  { id: 'telecom_006', polish: 'rachunek', english: 'bill', category: 'services', subcategory: 'telecommunications', difficulty: 'intermediate' },
+  { id: 'telecom_007', polish: 'operator', english: 'carrier', category: 'services', subcategory: 'telecommunications', difficulty: 'intermediate' },
+  { id: 'telecom_008', polish: 'sieć', english: 'network', category: 'services', subcategory: 'telecommunications', difficulty: 'intermediate' },
+  { id: 'telecom_009', polish: 'sygnał', english: 'signal', category: 'services', subcategory: 'telecommunications', difficulty: 'intermediate' },
+  { id: 'telecom_010', polish: 'połączenie', english: 'connection', category: 'services', subcategory: 'telecommunications', difficulty: 'intermediate' },
+
+  // USŁUGI PRAWNE (Legal Services)
+  { id: 'legal_001', polish: 'prawnik', english: 'lawyer', category: 'services', subcategory: 'legal-services', difficulty: 'intermediate' },
+  { id: 'legal_002', polish: 'sąd', english: 'court', category: 'services', subcategory: 'legal-services', difficulty: 'intermediate' },
+  { id: 'legal_003', polish: 'wyrok', english: 'verdict', category: 'services', subcategory: 'legal-services', difficulty: 'intermediate' },
+  { id: 'legal_004', polish: 'umowa', english: 'contract', category: 'services', subcategory: 'legal-services', difficulty: 'intermediate' },
+  { id: 'legal_005', polish: 'dokument', english: 'document', category: 'services', subcategory: 'legal-services', difficulty: 'intermediate' },
+  { id: 'legal_006', polish: 'podpis', english: 'signature', category: 'services', subcategory: 'legal-services', difficulty: 'intermediate' },
+  { id: 'legal_007', polish: 'testament', english: 'will', category: 'services', subcategory: 'legal-services', difficulty: 'intermediate' },
+  { id: 'legal_008', polish: 'notariusz', english: 'notary', category: 'services', subcategory: 'legal-services', difficulty: 'advanced' },
+  { id: 'legal_009', polish: 'sprawa', english: 'case', category: 'services', subcategory: 'legal-services', difficulty: 'intermediate' },
+  { id: 'legal_010', polish: 'pozwany', english: 'defendant', category: 'services', subcategory: 'legal-services', difficulty: 'advanced' },
+
+  // URODA (Beauty & Personal Care)
+  { id: 'beauty_001', polish: 'fryzjer', english: 'hairdresser', category: 'services', subcategory: 'beauty', difficulty: 'intermediate' },
+  { id: 'beauty_002', polish: 'salon piękności', english: 'beauty salon', category: 'services', subcategory: 'beauty', difficulty: 'intermediate' },
+  { id: 'beauty_003', polish: 'manicure', english: 'manicure', category: 'services', subcategory: 'beauty', difficulty: 'intermediate' },
+  { id: 'beauty_004', polish: 'pedicure', english: 'pedicure', category: 'services', subcategory: 'beauty', difficulty: 'intermediate' },
+  { id: 'beauty_005', polish: 'masaż', english: 'massage', category: 'services', subcategory: 'beauty', difficulty: 'intermediate' },
+  { id: 'beauty_006', polish: 'depilacja', english: 'hair removal', category: 'services', subcategory: 'beauty', difficulty: 'intermediate' },
+  { id: 'beauty_007', polish: 'fryzura', english: 'hairstyle', category: 'services', subcategory: 'beauty', difficulty: 'intermediate' },
+  { id: 'beauty_008', polish: 'strzyżenie', english: 'haircut', category: 'services', subcategory: 'beauty', difficulty: 'intermediate' },
+  { id: 'beauty_009', polish: 'koloryzacja', english: 'coloring', category: 'services', subcategory: 'beauty', difficulty: 'intermediate' },
+  { id: 'beauty_010', polish: 'makijaż', english: 'makeup', category: 'services', subcategory: 'beauty', difficulty: 'beginner' },
+
+  // USŁUGI SPRZĄTAJĄCE (Cleaning Services)
+  { id: 'cleaning_001', polish: 'sprzątanie', english: 'cleaning', category: 'services', subcategory: 'cleaning-services', difficulty: 'beginner' },
+  { id: 'cleaning_002', polish: 'pranie', english: 'laundry', category: 'services', subcategory: 'cleaning-services', difficulty: 'intermediate' },
+  { id: 'cleaning_003', polish: 'prasowanie', english: 'ironing', category: 'services', subcategory: 'cleaning-services', difficulty: 'intermediate' },
+  { id: 'cleaning_004', polish: 'firma sprzątająca', english: 'cleaning company', category: 'services', subcategory: 'cleaning-services', difficulty: 'intermediate' },
+  { id: 'cleaning_005', polish: 'sprzątaczka', english: 'cleaner', category: 'services', subcategory: 'cleaning-services', difficulty: 'intermediate' },
+  { id: 'cleaning_006', polish: 'odkurzanie', english: 'vacuuming', category: 'services', subcategory: 'cleaning-services', difficulty: 'intermediate' },
+  { id: 'cleaning_007', polish: 'mycie okien', english: 'window cleaning', category: 'services', subcategory: 'cleaning-services', difficulty: 'intermediate' },
+  { id: 'cleaning_008', polish: 'pranie chemiczne', english: 'dry cleaning', category: 'services', subcategory: 'cleaning-services', difficulty: 'intermediate' },
+
+  // USŁUGI NAPRAWCZE (Repair Services)
+  { id: 'repair_001', polish: 'naprawa', english: 'repair', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
+  { id: 'repair_002', polish: 'serwis', english: 'service', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
+  { id: 'repair_003', polish: 'gwarancja', english: 'warranty', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
+  { id: 'repair_004', polish: 'mechanik', english: 'mechanic', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
+  { id: 'repair_005', polish: 'hydraulik', english: 'plumber', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
+  { id: 'repair_006', polish: 'elektryk', english: 'electrician', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
+  { id: 'repair_007', polish: 'warsztat', english: 'workshop', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
+  { id: 'repair_008', polish: 'diagnostyka', english: 'diagnostics', category: 'services', subcategory: 'repair-services', difficulty: 'advanced' },
+  { id: 'repair_009', polish: 'koszt naprawy', english: 'repair cost', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
+  { id: 'repair_010', polish: 'naprawa gwarancyjna', english: 'warranty repair', category: 'services', subcategory: 'repair-services', difficulty: 'intermediate' },
 ];
 
 export async function seedServicesVocabulary() {

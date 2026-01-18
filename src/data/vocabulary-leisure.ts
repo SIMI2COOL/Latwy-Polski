@@ -90,6 +90,62 @@ export const leisureVocabulary: VocabularyWord[] = [
   { id: 'games_008', polish: 'gra wideo', english: 'video game', category: 'leisure', subcategory: 'games', difficulty: 'beginner' },
   { id: 'games_009', polish: 'konsola', english: 'console', category: 'leisure', subcategory: 'games', difficulty: 'intermediate' },
   { id: 'games_010', polish: 'joystick', english: 'joystick', category: 'leisure', subcategory: 'games', difficulty: 'intermediate' },
+
+  // ROZRYWKA (Entertainment)
+  { id: 'entertainment_001', polish: 'opera', english: 'opera', category: 'leisure', subcategory: 'entertainment', difficulty: 'intermediate' },
+  { id: 'entertainment_002', polish: 'spektakl', english: 'show', category: 'leisure', subcategory: 'entertainment', difficulty: 'intermediate' },
+  { id: 'entertainment_003', polish: 'przedstawienie', english: 'performance', category: 'leisure', subcategory: 'entertainment', difficulty: 'intermediate' },
+  { id: 'entertainment_004', polish: 'kabaret', english: 'comedy show', category: 'leisure', subcategory: 'entertainment', difficulty: 'intermediate' },
+  { id: 'entertainment_005', polish: 'stand-up', english: 'stand-up comedy', category: 'leisure', subcategory: 'entertainment', difficulty: 'intermediate' },
+  { id: 'entertainment_006', polish: 'show', english: 'show', category: 'leisure', subcategory: 'entertainment', difficulty: 'beginner' },
+  { id: 'entertainment_007', polish: 'wydarzenie', english: 'event', category: 'leisure', subcategory: 'entertainment', difficulty: 'intermediate' },
+  { id: 'entertainment_008', polish: 'rozrywka', english: 'entertainment', category: 'leisure', subcategory: 'entertainment', difficulty: 'intermediate' },
+
+  // CZYTANIE (Reading)
+  { id: 'reading_001', polish: 'powieść', english: 'novel', category: 'leisure', subcategory: 'reading', difficulty: 'intermediate' },
+  { id: 'reading_002', polish: 'czasopismo', english: 'magazine', category: 'leisure', subcategory: 'reading', difficulty: 'intermediate' },
+  { id: 'reading_003', polish: 'czytelnia', english: 'reading room', category: 'leisure', subcategory: 'reading', difficulty: 'intermediate' },
+  { id: 'reading_004', polish: 'książka', english: 'book', category: 'leisure', subcategory: 'reading', difficulty: 'beginner' },
+  { id: 'reading_005', polish: 'autor', english: 'author', category: 'leisure', subcategory: 'reading', difficulty: 'intermediate' },
+  { id: 'reading_006', polish: 'rozdział', english: 'chapter', category: 'leisure', subcategory: 'reading', difficulty: 'intermediate' },
+  { id: 'reading_007', polish: 'strona', english: 'page', category: 'leisure', subcategory: 'reading', difficulty: 'beginner' },
+  { id: 'reading_008', polish: 'biblioteka', english: 'library', category: 'leisure', subcategory: 'reading', difficulty: 'beginner' },
+
+  // HOBBY (Hobbies)
+  { id: 'hobbies_001', polish: 'malowanie', english: 'painting', category: 'leisure', subcategory: 'hobbies', difficulty: 'intermediate' },
+  { id: 'hobbies_002', polish: 'rysowanie', english: 'drawing', category: 'leisure', subcategory: 'hobbies', difficulty: 'intermediate' },
+  { id: 'hobbies_003', polish: 'kolekcjonowanie', english: 'collecting', category: 'leisure', subcategory: 'hobbies', difficulty: 'intermediate' },
+  { id: 'hobbies_004', polish: 'rękodzieło', english: 'crafts', category: 'leisure', subcategory: 'hobbies', difficulty: 'intermediate' },
+  { id: 'hobbies_005', polish: 'szycie', english: 'sewing', category: 'leisure', subcategory: 'hobbies', difficulty: 'intermediate' },
+  { id: 'hobbies_006', polish: 'dzierganie', english: 'knitting', category: 'leisure', subcategory: 'hobbies', difficulty: 'intermediate' },
+  { id: 'hobbies_007', polish: 'hobby', english: 'hobby', category: 'leisure', subcategory: 'hobbies', difficulty: 'beginner' },
+  { id: 'hobbies_008', polish: 'zainteresowanie', english: 'interest', category: 'leisure', subcategory: 'hobbies', difficulty: 'intermediate' },
+  { id: 'hobbies_009', polish: 'modelarstwo', english: 'model making', category: 'leisure', subcategory: 'hobbies', difficulty: 'intermediate' },
+  { id: 'hobbies_010', polish: 'ogrodnictwo', english: 'gardening', category: 'leisure', subcategory: 'hobbies', difficulty: 'intermediate' },
+
+  // AKTYWNOŚCI NA ZEWNĄTRZ (Outdoor Activities)
+  { id: 'outdoor_001', polish: 'piknik', english: 'picnic', category: 'leisure', subcategory: 'outdoor-activities', difficulty: 'intermediate' },
+  { id: 'outdoor_002', polish: 'spacer', english: 'walk', category: 'leisure', subcategory: 'outdoor-activities', difficulty: 'beginner' },
+  { id: 'outdoor_003', polish: 'wycieczka', english: 'trip', category: 'leisure', subcategory: 'outdoor-activities', difficulty: 'beginner' },
+  { id: 'outdoor_004', polish: 'biwak', english: 'camping', category: 'leisure', subcategory: 'outdoor-activities', difficulty: 'beginner' },
+  { id: 'outdoor_005', polish: 'wędrówka', english: 'hiking', category: 'leisure', subcategory: 'outdoor-activities', difficulty: 'intermediate' },
+  { id: 'outdoor_006', polish: 'wspinaczka', english: 'climbing', category: 'leisure', subcategory: 'outdoor-activities', difficulty: 'intermediate' },
+  { id: 'outdoor_007', polish: 'spływ kajakowy', english: 'kayaking', category: 'leisure', subcategory: 'outdoor-activities', difficulty: 'intermediate' },
+  { id: 'outdoor_008', polish: 'wędkarstwo', english: 'fishing', category: 'leisure', subcategory: 'outdoor-activities', difficulty: 'intermediate' },
+  { id: 'outdoor_009', polish: 'obserwacja ptaków', english: 'bird watching', category: 'leisure', subcategory: 'outdoor-activities', difficulty: 'intermediate' },
+  { id: 'outdoor_010', polish: 'jazda konna', english: 'horseback riding', category: 'leisure', subcategory: 'outdoor-activities', difficulty: 'intermediate' },
+
+  // AKTYWNOŚCI SPOŁECZNE (Social Activities)
+  { id: 'social_001', polish: 'impreza', english: 'party', category: 'leisure', subcategory: 'social-activities', difficulty: 'beginner' },
+  { id: 'social_002', polish: 'spotkanie', english: 'meeting', category: 'leisure', subcategory: 'social-activities', difficulty: 'beginner' },
+  { id: 'social_003', polish: 'przyjęcie', english: 'celebration', category: 'leisure', subcategory: 'social-activities', difficulty: 'intermediate' },
+  { id: 'social_004', polish: 'urodziny', english: 'birthday', category: 'leisure', subcategory: 'social-activities', difficulty: 'beginner' },
+  { id: 'social_005', polish: 'ślub', english: 'wedding', category: 'leisure', subcategory: 'social-activities', difficulty: 'beginner' },
+  { id: 'social_006', polish: 'rocznica', english: 'anniversary', category: 'leisure', subcategory: 'social-activities', difficulty: 'intermediate' },
+  { id: 'social_007', polish: 'spotkanie towarzyskie', english: 'social gathering', category: 'leisure', subcategory: 'social-activities', difficulty: 'intermediate' },
+  { id: 'social_008', polish: 'zabawa', english: 'fun', category: 'leisure', subcategory: 'social-activities', difficulty: 'beginner' },
+  { id: 'social_009', polish: 'spotkanie rodzinne', english: 'family gathering', category: 'leisure', subcategory: 'social-activities', difficulty: 'intermediate' },
+  { id: 'social_010', polish: 'wieczór', english: 'evening', category: 'leisure', subcategory: 'social-activities', difficulty: 'beginner' },
 ];
 
 export async function seedLeisureVocabulary() {

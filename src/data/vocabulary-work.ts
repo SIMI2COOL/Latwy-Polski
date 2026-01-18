@@ -82,6 +82,42 @@ export const workVocabulary: VocabularyWord[] = [
   { id: 'job_search_010', polish: 'zatrudnić', english: 'to hire', category: 'work', subcategory: 'job-search', difficulty: 'intermediate' },
   { id: 'job_search_011', polish: 'zwolnić', english: 'to fire', category: 'work', subcategory: 'job-search', difficulty: 'intermediate' },
   { id: 'job_search_012', polish: 'awans', english: 'promotion', category: 'work', subcategory: 'job-search', difficulty: 'intermediate' },
+
+  // KOMUNIKACJA W PRACY (Workplace Communication)
+  { id: 'communication_001', polish: 'e-mail', english: 'email', category: 'work', subcategory: 'workplace-communication', difficulty: 'beginner' },
+  { id: 'communication_002', polish: 'spotkanie', english: 'meeting', category: 'work', subcategory: 'workplace-communication', difficulty: 'intermediate' },
+  { id: 'communication_003', polish: 'prezentacja', english: 'presentation', category: 'work', subcategory: 'workplace-communication', difficulty: 'intermediate' },
+  { id: 'communication_004', polish: 'rozmowa', english: 'conversation', category: 'work', subcategory: 'workplace-communication', difficulty: 'beginner' },
+  { id: 'communication_005', polish: 'raport', english: 'report', category: 'work', subcategory: 'workplace-communication', difficulty: 'intermediate' },
+  { id: 'communication_006', polish: 'wiadomość', english: 'message', category: 'work', subcategory: 'workplace-communication', difficulty: 'beginner' },
+  { id: 'communication_007', polish: 'telefon', english: 'phone call', category: 'work', subcategory: 'workplace-communication', difficulty: 'beginner' },
+  { id: 'communication_008', polish: 'wideokonferencja', english: 'video conference', category: 'work', subcategory: 'workplace-communication', difficulty: 'intermediate' },
+  { id: 'communication_009', polish: 'dyskusja', english: 'discussion', category: 'work', subcategory: 'workplace-communication', difficulty: 'intermediate' },
+  { id: 'communication_010', polish: 'negocjacje', english: 'negotiations', category: 'work', subcategory: 'workplace-communication', difficulty: 'intermediate' },
+
+  // GRAFIK PRACY (Work Schedule)
+  { id: 'schedule_001', polish: 'godziny pracy', english: 'working hours', category: 'work', subcategory: 'work-schedule', difficulty: 'intermediate' },
+  { id: 'schedule_002', polish: 'przerwa', english: 'break', category: 'work', subcategory: 'work-schedule', difficulty: 'beginner' },
+  { id: 'schedule_003', polish: 'nadgodziny', english: 'overtime', category: 'work', subcategory: 'work-schedule', difficulty: 'intermediate' },
+  { id: 'schedule_004', polish: 'zmiana', english: 'shift', category: 'work', subcategory: 'work-schedule', difficulty: 'intermediate' },
+  { id: 'schedule_005', polish: 'weekend', english: 'weekend', category: 'work', subcategory: 'work-schedule', difficulty: 'beginner' },
+  { id: 'schedule_006', polish: 'urlop', english: 'vacation', category: 'work', subcategory: 'work-schedule', difficulty: 'intermediate' },
+  { id: 'schedule_007', polish: 'dzień wolny', english: 'day off', category: 'work', subcategory: 'work-schedule', difficulty: 'intermediate' },
+  { id: 'schedule_008', polish: 'harmonogram', english: 'schedule', category: 'work', subcategory: 'work-schedule', difficulty: 'intermediate' },
+  { id: 'schedule_009', polish: 'dyżur', english: 'duty', category: 'work', subcategory: 'work-schedule', difficulty: 'intermediate' },
+  { id: 'schedule_010', polish: 'grafik', english: 'roster', category: 'work', subcategory: 'work-schedule', difficulty: 'intermediate' },
+
+  // TERMINY BIZNESOWE (Business Terms)
+  { id: 'business_001', polish: 'firma', english: 'company', category: 'work', subcategory: 'business-terms', difficulty: 'beginner' },
+  { id: 'business_002', polish: 'klient', english: 'client', category: 'work', subcategory: 'business-terms', difficulty: 'intermediate' },
+  { id: 'business_003', polish: 'kontrakt', english: 'contract', category: 'work', subcategory: 'business-terms', difficulty: 'intermediate' },
+  { id: 'business_004', polish: 'zysk', english: 'profit', category: 'work', subcategory: 'business-terms', difficulty: 'intermediate' },
+  { id: 'business_005', polish: 'strata', english: 'loss', category: 'work', subcategory: 'business-terms', difficulty: 'intermediate' },
+  { id: 'business_006', polish: 'budżet', english: 'budget', category: 'work', subcategory: 'business-terms', difficulty: 'intermediate' },
+  { id: 'business_007', polish: 'inwestycja', english: 'investment', category: 'work', subcategory: 'business-terms', difficulty: 'intermediate' },
+  { id: 'business_008', polish: 'strategia', english: 'strategy', category: 'work', subcategory: 'business-terms', difficulty: 'intermediate' },
+  { id: 'business_009', polish: 'marketing', english: 'marketing', category: 'work', subcategory: 'business-terms', difficulty: 'intermediate' },
+  { id: 'business_010', polish: 'sprzedaż', english: 'sales', category: 'work', subcategory: 'business-terms', difficulty: 'beginner' },
 ];
 
 export async function seedWorkVocabulary() {

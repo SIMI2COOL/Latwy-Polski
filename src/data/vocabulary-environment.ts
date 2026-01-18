@@ -101,6 +101,73 @@ export const environmentVocabulary: VocabularyWord[] = [
   { id: 'plants_010', polish: 'korzeń', english: 'root', category: 'environment', subcategory: 'plants', difficulty: 'intermediate' },
   { id: 'plants_011', polish: 'nasiono', english: 'seed', category: 'environment', subcategory: 'plants', difficulty: 'intermediate' },
   { id: 'plants_012', polish: 'kaktus', english: 'cactus', category: 'environment', subcategory: 'plants', difficulty: 'intermediate' },
+
+  // ZBIORNIKI WODNE (Water Bodies)
+  { id: 'water_bodies_001', polish: 'rzeka', english: 'river', category: 'environment', subcategory: 'water-bodies', difficulty: 'beginner' },
+  { id: 'water_bodies_002', polish: 'jezioro', english: 'lake', category: 'environment', subcategory: 'water-bodies', difficulty: 'beginner' },
+  { id: 'water_bodies_003', polish: 'strumień', english: 'stream', category: 'environment', subcategory: 'water-bodies', difficulty: 'intermediate' },
+  { id: 'water_bodies_004', polish: 'wodospad', english: 'waterfall', category: 'environment', subcategory: 'water-bodies', difficulty: 'intermediate' },
+  { id: 'water_bodies_005', polish: 'staw', english: 'pond', category: 'environment', subcategory: 'water-bodies', difficulty: 'intermediate' },
+  { id: 'water_bodies_006', polish: 'kanał', english: 'canal', category: 'environment', subcategory: 'water-bodies', difficulty: 'intermediate' },
+  { id: 'water_bodies_007', polish: 'zatoka', english: 'bay', category: 'environment', subcategory: 'water-bodies', difficulty: 'intermediate' },
+  { id: 'water_bodies_008', polish: 'port', english: 'port', category: 'environment', subcategory: 'water-bodies', difficulty: 'beginner' },
+
+  // PORY ROKU (Seasons)
+  { id: 'seasons_001', polish: 'wiosna', english: 'spring', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_002', polish: 'lato', english: 'summer', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_003', polish: 'jesień', english: 'autumn', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_004', polish: 'zima', english: 'winter', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_005', polish: 'pora roku', english: 'season', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_006', polish: 'kwiecień', english: 'April', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_007', polish: 'maj', english: 'May', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_008', polish: 'czerwiec', english: 'June', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_009', polish: 'lipiec', english: 'July', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_010', polish: 'sierpień', english: 'August', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_011', polish: 'wrzesień', english: 'September', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_012', polish: 'październik', english: 'October', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_013', polish: 'listopad', english: 'November', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_014', polish: 'grudzień', english: 'December', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_015', polish: 'styczeń', english: 'January', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_016', polish: 'luty', english: 'February', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+  { id: 'seasons_017', polish: 'marzec', english: 'March', category: 'environment', subcategory: 'seasons', difficulty: 'beginner' },
+
+  // KATASTROFY NATURALNE (Natural Disasters)
+  { id: 'disasters_001', polish: 'trzęsienie ziemi', english: 'earthquake', category: 'environment', subcategory: 'natural-disasters', difficulty: 'intermediate' },
+  { id: 'disasters_002', polish: 'powódź', english: 'flood', category: 'environment', subcategory: 'natural-disasters', difficulty: 'intermediate' },
+  { id: 'disasters_003', polish: 'pożar', english: 'fire', category: 'environment', subcategory: 'natural-disasters', difficulty: 'beginner' },
+  { id: 'disasters_004', polish: 'huragan', english: 'hurricane', category: 'environment', subcategory: 'natural-disasters', difficulty: 'intermediate' },
+  { id: 'disasters_005', polish: 'tornado', english: 'tornado', category: 'environment', subcategory: 'natural-disasters', difficulty: 'intermediate' },
+  { id: 'disasters_006', polish: 'lawina', english: 'avalanche', category: 'environment', subcategory: 'natural-disasters', difficulty: 'intermediate' },
+  { id: 'disasters_007', polish: 'susza', english: 'drought', category: 'environment', subcategory: 'natural-disasters', difficulty: 'intermediate' },
+  { id: 'disasters_008', polish: 'tsunami', english: 'tsunami', category: 'environment', subcategory: 'natural-disasters', difficulty: 'intermediate' },
+  { id: 'disasters_009', polish: 'erupcja wulkanu', english: 'volcanic eruption', category: 'environment', subcategory: 'natural-disasters', difficulty: 'advanced' },
+  { id: 'disasters_010', polish: 'burza', english: 'storm', category: 'environment', subcategory: 'natural-disasters', difficulty: 'intermediate' },
+
+  // OCHRONA ŚRODOWISKA (Conservation & Ecology)
+  { id: 'conservation_001', polish: 'recykling', english: 'recycling', category: 'environment', subcategory: 'conservation', difficulty: 'intermediate' },
+  { id: 'conservation_002', polish: 'ochrona środowiska', english: 'environmental protection', category: 'environment', subcategory: 'conservation', difficulty: 'intermediate' },
+  { id: 'conservation_003', polish: 'zanieczyszczenie', english: 'pollution', category: 'environment', subcategory: 'conservation', difficulty: 'intermediate' },
+  { id: 'conservation_004', polish: 'ekologia', english: 'ecology', category: 'environment', subcategory: 'conservation', difficulty: 'intermediate' },
+  { id: 'conservation_005', polish: 'środowisko', english: 'environment', category: 'environment', subcategory: 'conservation', difficulty: 'beginner' },
+  { id: 'conservation_006', polish: 'ochrona przyrody', english: 'nature conservation', category: 'environment', subcategory: 'conservation', difficulty: 'intermediate' },
+  { id: 'conservation_007', polish: 'park narodowy', english: 'national park', category: 'environment', subcategory: 'conservation', difficulty: 'intermediate' },
+  { id: 'conservation_008', polish: 'rezerwat', english: 'reserve', category: 'environment', subcategory: 'conservation', difficulty: 'intermediate' },
+  { id: 'conservation_009', polish: 'gatunek zagrożony', english: 'endangered species', category: 'environment', subcategory: 'conservation', difficulty: 'intermediate' },
+  { id: 'conservation_010', polish: 'zrównoważony rozwój', english: 'sustainable development', category: 'environment', subcategory: 'conservation', difficulty: 'advanced' },
+
+  // OWADY I MAŁE ZWIERZĘTA (Insects & Small Animals)
+  { id: 'insects_001', polish: 'pszczoła', english: 'bee', category: 'environment', subcategory: 'insects', difficulty: 'beginner' },
+  { id: 'insects_002', polish: 'motyl', english: 'butterfly', category: 'environment', subcategory: 'insects', difficulty: 'beginner' },
+  { id: 'insects_003', polish: 'mrówka', english: 'ant', category: 'environment', subcategory: 'insects', difficulty: 'beginner' },
+  { id: 'insects_004', polish: 'pająk', english: 'spider', category: 'environment', subcategory: 'insects', difficulty: 'beginner' },
+  { id: 'insects_005', polish: 'żaba', english: 'frog', category: 'environment', subcategory: 'insects', difficulty: 'beginner' },
+  { id: 'insects_006', polish: 'wąż', english: 'snake', category: 'environment', subcategory: 'insects', difficulty: 'beginner' },
+  { id: 'insects_007', polish: 'jaszczurka', english: 'lizard', category: 'environment', subcategory: 'insects', difficulty: 'intermediate' },
+  { id: 'insects_008', polish: 'ślimak', english: 'snail', category: 'environment', subcategory: 'insects', difficulty: 'intermediate' },
+  { id: 'insects_009', polish: 'dżdżownica', english: 'earthworm', category: 'environment', subcategory: 'insects', difficulty: 'intermediate' },
+  { id: 'insects_010', polish: 'komar', english: 'mosquito', category: 'environment', subcategory: 'insects', difficulty: 'intermediate' },
+  { id: 'insects_011', polish: 'much', english: 'fly', category: 'environment', subcategory: 'insects', difficulty: 'beginner' },
+  { id: 'insects_012', polish: 'os', english: 'wasp', category: 'environment', subcategory: 'insects', difficulty: 'intermediate' },
 ];
 
 export async function seedEnvironmentVocabulary() {

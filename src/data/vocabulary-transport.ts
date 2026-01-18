@@ -102,6 +102,62 @@ export const transportVocabulary: VocabularyWord[] = [
   { id: 'bicycle_008', polish: 'światło', english: 'light', category: 'transport', subcategory: 'bicycle', difficulty: 'beginner' },
   { id: 'bicycle_009', polish: 'kask', english: 'helmet', category: 'transport', subcategory: 'bicycle', difficulty: 'intermediate' },
   { id: 'bicycle_010', polish: 'ścieżka rowerowa', english: 'bike lane', category: 'transport', subcategory: 'bicycle', difficulty: 'intermediate' },
+
+  // MOTOCYKL I SKUTER (Motorcycle & Scooter)
+  { id: 'motorcycle_001', polish: 'motocykl', english: 'motorcycle', category: 'transport', subcategory: 'motorcycle', difficulty: 'intermediate' },
+  { id: 'motorcycle_002', polish: 'skuter', english: 'scooter', category: 'transport', subcategory: 'motorcycle', difficulty: 'intermediate' },
+  { id: 'motorcycle_003', polish: 'kask motocyklowy', english: 'motorcycle helmet', category: 'transport', subcategory: 'motorcycle', difficulty: 'intermediate' },
+  { id: 'motorcycle_004', polish: 'rękawiczki motocyklowe', english: 'motorcycle gloves', category: 'transport', subcategory: 'motorcycle', difficulty: 'intermediate' },
+  { id: 'motorcycle_005', polish: 'kurtka motocyklowa', english: 'motorcycle jacket', category: 'transport', subcategory: 'motorcycle', difficulty: 'intermediate' },
+  { id: 'motorcycle_006', polish: 'buty motocyklowe', english: 'motorcycle boots', category: 'transport', subcategory: 'motorcycle', difficulty: 'intermediate' },
+  { id: 'motorcycle_007', polish: 'silnik', english: 'engine', category: 'transport', subcategory: 'motorcycle', difficulty: 'intermediate' },
+  { id: 'motorcycle_008', polish: 'kierownica', english: 'handlebars', category: 'transport', subcategory: 'motorcycle', difficulty: 'intermediate' },
+
+  // TRANSPORT WODNY (Water Transport)
+  { id: 'water_001', polish: 'statek', english: 'ship', category: 'transport', subcategory: 'water-transport', difficulty: 'beginner' },
+  { id: 'water_002', polish: 'łódź', english: 'boat', category: 'transport', subcategory: 'water-transport', difficulty: 'beginner' },
+  { id: 'water_003', polish: 'prom', english: 'ferry', category: 'transport', subcategory: 'water-transport', difficulty: 'intermediate' },
+  { id: 'water_004', polish: 'jacht', english: 'yacht', category: 'transport', subcategory: 'water-transport', difficulty: 'intermediate' },
+  { id: 'water_005', polish: 'port', english: 'port', category: 'transport', subcategory: 'water-transport', difficulty: 'beginner' },
+  { id: 'water_006', polish: 'przystań', english: 'harbor', category: 'transport', subcategory: 'water-transport', difficulty: 'intermediate' },
+  { id: 'water_007', polish: 'kapitan', english: 'captain', category: 'transport', subcategory: 'water-transport', difficulty: 'intermediate' },
+  { id: 'water_008', polish: 'żeglarz', english: 'sailor', category: 'transport', subcategory: 'water-transport', difficulty: 'intermediate' },
+  { id: 'water_009', polish: 'kotwica', english: 'anchor', category: 'transport', subcategory: 'water-transport', difficulty: 'intermediate' },
+  { id: 'water_010', polish: 'żagiel', english: 'sail', category: 'transport', subcategory: 'water-transport', difficulty: 'intermediate' },
+
+  // RUCH DROGOWY (Traffic & Road Signs)
+  { id: 'traffic_001', polish: 'znak stopu', english: 'stop sign', category: 'transport', subcategory: 'traffic-signs', difficulty: 'intermediate' },
+  { id: 'traffic_002', polish: 'zakaz wjazdu', english: 'no entry', category: 'transport', subcategory: 'traffic-signs', difficulty: 'intermediate' },
+  { id: 'traffic_003', polish: 'ograniczenie prędkości', english: 'speed limit', category: 'transport', subcategory: 'traffic-signs', difficulty: 'intermediate' },
+  { id: 'traffic_004', polish: 'przejście dla pieszych', english: 'crosswalk', category: 'transport', subcategory: 'traffic-signs', difficulty: 'intermediate' },
+  { id: 'traffic_005', polish: 'sygnalizacja', english: 'traffic lights', category: 'transport', subcategory: 'traffic-signs', difficulty: 'intermediate' },
+  { id: 'traffic_006', polish: 'zakaz parkowania', english: 'no parking', category: 'transport', subcategory: 'traffic-signs', difficulty: 'intermediate' },
+  { id: 'traffic_007', polish: 'jednokierunkowa', english: 'one way', category: 'transport', subcategory: 'traffic-signs', difficulty: 'intermediate' },
+  { id: 'traffic_008', polish: 'ustąp pierwszeństwa', english: 'yield', category: 'transport', subcategory: 'traffic-signs', difficulty: 'intermediate' },
+  { id: 'traffic_009', polish: 'zakaz skręcania', english: 'no turning', category: 'transport', subcategory: 'traffic-signs', difficulty: 'intermediate' },
+  { id: 'traffic_010', polish: 'droga zamknięta', english: 'road closed', category: 'transport', subcategory: 'traffic-signs', difficulty: 'intermediate' },
+
+  // PARKING I GARAŻE (Parking & Garages)
+  { id: 'parking_001', polish: 'miejsce parkingowe', english: 'parking space', category: 'transport', subcategory: 'parking', difficulty: 'intermediate' },
+  { id: 'parking_002', polish: 'bilet parkingowy', english: 'parking ticket', category: 'transport', subcategory: 'parking', difficulty: 'intermediate' },
+  { id: 'parking_003', polish: 'parkometr', english: 'parking meter', category: 'transport', subcategory: 'parking', difficulty: 'intermediate' },
+  { id: 'parking_004', polish: 'parking wielopoziomowy', english: 'parking garage', category: 'transport', subcategory: 'parking', difficulty: 'intermediate' },
+  { id: 'parking_005', polish: 'parking podziemny', english: 'underground parking', category: 'transport', subcategory: 'parking', difficulty: 'intermediate' },
+  { id: 'parking_006', polish: 'strefa płatnego parkowania', english: 'paid parking zone', category: 'transport', subcategory: 'parking', difficulty: 'intermediate' },
+  { id: 'parking_007', polish: 'parking dla niepełnosprawnych', english: 'disabled parking', category: 'transport', subcategory: 'parking', difficulty: 'intermediate' },
+  { id: 'parking_008', polish: 'garaż', english: 'garage', category: 'transport', subcategory: 'parking', difficulty: 'beginner' },
+
+  // KONSERWACJA SAMOCHODU (Car Maintenance)
+  { id: 'car_maintenance_001', polish: 'naprawa', english: 'repair', category: 'transport', subcategory: 'car-maintenance', difficulty: 'intermediate' },
+  { id: 'car_maintenance_002', polish: 'serwis', english: 'service', category: 'transport', subcategory: 'car-maintenance', difficulty: 'intermediate' },
+  { id: 'car_maintenance_003', polish: 'wymiana oleju', english: 'oil change', category: 'transport', subcategory: 'car-maintenance', difficulty: 'intermediate' },
+  { id: 'car_maintenance_004', polish: 'myjnia', english: 'car wash', category: 'transport', subcategory: 'car-maintenance', difficulty: 'intermediate' },
+  { id: 'car_maintenance_005', polish: 'warsztat', english: 'workshop', category: 'transport', subcategory: 'car-maintenance', difficulty: 'intermediate' },
+  { id: 'car_maintenance_006', polish: 'diagnostyka', english: 'diagnostics', category: 'transport', subcategory: 'car-maintenance', difficulty: 'advanced' },
+  { id: 'car_maintenance_007', polish: 'przegląd', english: 'inspection', category: 'transport', subcategory: 'car-maintenance', difficulty: 'intermediate' },
+  { id: 'car_maintenance_008', polish: 'wymiana opon', english: 'tire change', category: 'transport', subcategory: 'car-maintenance', difficulty: 'intermediate' },
+  { id: 'car_maintenance_009', polish: 'wymiana klocków hamulcowych', english: 'brake pad replacement', category: 'transport', subcategory: 'car-maintenance', difficulty: 'advanced' },
+  { id: 'car_maintenance_010', polish: 'gwarancja', english: 'warranty', category: 'transport', subcategory: 'car-maintenance', difficulty: 'intermediate' },
 ];
 
 export async function seedTransportVocabulary() {

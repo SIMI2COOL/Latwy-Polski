@@ -70,6 +70,59 @@ export const shoppingVocabulary: VocabularyWord[] = [
   { id: 'bookstore_008', polish: 'autor', english: 'author', category: 'shopping', subcategory: 'bookstore', difficulty: 'intermediate' },
   { id: 'bookstore_009', polish: 'bestseller', english: 'bestseller', category: 'shopping', subcategory: 'bookstore', difficulty: 'intermediate' },
   { id: 'bookstore_010', polish: 'nowość', english: 'new release', category: 'shopping', subcategory: 'bookstore', difficulty: 'intermediate' },
+
+  // RODZAJE SKLEPÓW (Store Types)
+  { id: 'store_types_001', polish: 'sklep spożywczy', english: 'grocery store', category: 'shopping', subcategory: 'store-types', difficulty: 'intermediate' },
+  { id: 'store_types_002', polish: 'targ', english: 'market', category: 'shopping', subcategory: 'store-types', difficulty: 'beginner' },
+  { id: 'store_types_003', polish: 'butik', english: 'boutique', category: 'shopping', subcategory: 'store-types', difficulty: 'intermediate' },
+  { id: 'store_types_004', polish: 'apteka', english: 'pharmacy', category: 'shopping', subcategory: 'store-types', difficulty: 'beginner' },
+  { id: 'store_types_005', polish: 'sklep z elektroniką', english: 'electronics store', category: 'shopping', subcategory: 'store-types', difficulty: 'intermediate' },
+  { id: 'store_types_006', polish: 'sklep meblowy', english: 'furniture store', category: 'shopping', subcategory: 'store-types', difficulty: 'intermediate' },
+  { id: 'store_types_007', polish: 'sklep z zabawkami', english: 'toy store', category: 'shopping', subcategory: 'store-types', difficulty: 'intermediate' },
+  { id: 'store_types_008', polish: 'sklep z obuwiem', english: 'shoe store', category: 'shopping', subcategory: 'store-types', difficulty: 'intermediate' },
+  { id: 'store_types_009', polish: 'sklep z biżuterią', english: 'jewelry store', category: 'shopping', subcategory: 'store-types', difficulty: 'intermediate' },
+  { id: 'store_types_010', polish: 'sklep z kwiatami', english: 'flower shop', category: 'shopping', subcategory: 'store-types', difficulty: 'intermediate' },
+
+  // METODY PŁATNOŚCI (Payment Methods)
+  { id: 'payment_001', polish: 'karta', english: 'card', category: 'shopping', subcategory: 'payment-methods', difficulty: 'beginner' },
+  { id: 'payment_002', polish: 'czek', english: 'check', category: 'shopping', subcategory: 'payment-methods', difficulty: 'intermediate' },
+  { id: 'payment_003', polish: 'kredyt', english: 'credit', category: 'shopping', subcategory: 'payment-methods', difficulty: 'intermediate' },
+  { id: 'payment_004', polish: 'debet', english: 'debit', category: 'shopping', subcategory: 'payment-methods', difficulty: 'intermediate' },
+  { id: 'payment_005', polish: 'aplikacja płatnicza', english: 'payment app', category: 'shopping', subcategory: 'payment-methods', difficulty: 'intermediate' },
+  { id: 'payment_006', polish: 'płatność online', english: 'online payment', category: 'shopping', subcategory: 'payment-methods', difficulty: 'intermediate' },
+  { id: 'payment_007', polish: 'przelew', english: 'transfer', category: 'shopping', subcategory: 'payment-methods', difficulty: 'intermediate' },
+
+  // LISTY I ILOŚCI (Shopping Lists & Quantities)
+  { id: 'quantities_001', polish: 'lista zakupów', english: 'shopping list', category: 'shopping', subcategory: 'quantities', difficulty: 'intermediate' },
+  { id: 'quantities_002', polish: 'kilogram', english: 'kilogram', category: 'shopping', subcategory: 'quantities', difficulty: 'beginner' },
+  { id: 'quantities_003', polish: 'litr', english: 'liter', category: 'shopping', subcategory: 'quantities', difficulty: 'beginner' },
+  { id: 'quantities_004', polish: 'sztuka', english: 'piece', category: 'shopping', subcategory: 'quantities', difficulty: 'beginner' },
+  { id: 'quantities_005', polish: 'opakowanie', english: 'package', category: 'shopping', subcategory: 'quantities', difficulty: 'intermediate' },
+  { id: 'quantities_006', polish: 'pudełko', english: 'box', category: 'shopping', subcategory: 'quantities', difficulty: 'beginner' },
+  { id: 'quantities_007', polish: 'butelka', english: 'bottle', category: 'shopping', subcategory: 'quantities', difficulty: 'beginner' },
+  { id: 'quantities_008', polish: 'paczka', english: 'pack', category: 'shopping', subcategory: 'quantities', difficulty: 'beginner' },
+  { id: 'quantities_009', polish: 'gram', english: 'gram', category: 'shopping', subcategory: 'quantities', difficulty: 'beginner' },
+  { id: 'quantities_010', polish: 'metr', english: 'meter', category: 'shopping', subcategory: 'quantities', difficulty: 'beginner' },
+
+  // CENY I PIENIĄDZE (Prices & Money)
+  { id: 'prices_001', polish: 'kosztować', english: 'to cost', category: 'shopping', subcategory: 'prices', difficulty: 'beginner' },
+  { id: 'prices_002', polish: 'tani', english: 'cheap', category: 'shopping', subcategory: 'prices', difficulty: 'beginner' },
+  { id: 'prices_003', polish: 'drogi', english: 'expensive', category: 'shopping', subcategory: 'prices', difficulty: 'beginner' },
+  { id: 'prices_004', polish: 'promocja', english: 'sale', category: 'shopping', subcategory: 'prices', difficulty: 'intermediate' },
+  { id: 'prices_005', polish: 'wyprzedaż', english: 'clearance sale', category: 'shopping', subcategory: 'prices', difficulty: 'intermediate' },
+  { id: 'prices_006', polish: 'przecena', english: 'discount', category: 'shopping', subcategory: 'prices', difficulty: 'intermediate' },
+  { id: 'prices_007', polish: 'cena regularna', english: 'regular price', category: 'shopping', subcategory: 'prices', difficulty: 'intermediate' },
+  { id: 'prices_008', polish: 'cena promocyjna', english: 'sale price', category: 'shopping', subcategory: 'prices', difficulty: 'intermediate' },
+  { id: 'prices_009', polish: 'oszczędność', english: 'savings', category: 'shopping', subcategory: 'prices', difficulty: 'intermediate' },
+  { id: 'prices_010', polish: 'złoty', english: 'zloty', category: 'shopping', subcategory: 'prices', difficulty: 'beginner' },
+
+  // PARAGONY I ZWROTY (Receipts & Returns)
+  { id: 'receipts_001', polish: 'faktura', english: 'invoice', category: 'shopping', subcategory: 'receipts', difficulty: 'intermediate' },
+  { id: 'receipts_002', polish: 'gwarancja', english: 'warranty', category: 'shopping', subcategory: 'receipts', difficulty: 'intermediate' },
+  { id: 'receipts_003', polish: 'reklamacja', english: 'complaint', category: 'shopping', subcategory: 'receipts', difficulty: 'intermediate' },
+  { id: 'receipts_004', polish: 'zwrot pieniędzy', english: 'refund', category: 'shopping', subcategory: 'receipts', difficulty: 'intermediate' },
+  { id: 'receipts_005', polish: 'wymiana towaru', english: 'product exchange', category: 'shopping', subcategory: 'receipts', difficulty: 'intermediate' },
+  { id: 'receipts_006', polish: 'termin zwrotu', english: 'return deadline', category: 'shopping', subcategory: 'receipts', difficulty: 'intermediate' },
 ];
 
 export async function seedShoppingVocabulary() {

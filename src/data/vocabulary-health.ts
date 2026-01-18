@@ -81,6 +81,82 @@ export const healthVocabulary: VocabularyWord[] = [
   { id: 'pharmacy_010', polish: 'środek przeciwbólowy', english: 'painkiller', category: 'health', subcategory: 'pharmacy', difficulty: 'intermediate' },
   { id: 'pharmacy_011', polish: 'witaminy', english: 'vitamins', category: 'health', subcategory: 'pharmacy', difficulty: 'beginner' },
   { id: 'pharmacy_012', polish: 'suplement diety', english: 'dietary supplement', category: 'health', subcategory: 'pharmacy', difficulty: 'intermediate' },
+
+  // OBJAWY I CHOROBY (Symptoms & Conditions)
+  { id: 'symptoms_001', polish: 'katar', english: 'runny nose', category: 'health', subcategory: 'symptoms', difficulty: 'beginner' },
+  { id: 'symptoms_002', polish: 'ból', english: 'pain', category: 'health', subcategory: 'symptoms', difficulty: 'beginner' },
+  { id: 'symptoms_003', polish: 'zmęczenie', english: 'fatigue', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+  { id: 'symptoms_004', polish: 'osłabienie', english: 'weakness', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+  { id: 'symptoms_005', polish: 'zawroty głowy', english: 'dizziness', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+  { id: 'symptoms_006', polish: 'wymioty', english: 'vomiting', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+  { id: 'symptoms_007', polish: 'wysypka', english: 'rash', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+  { id: 'symptoms_008', polish: 'swędzenie', english: 'itching', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+  { id: 'symptoms_009', polish: 'dreszcze', english: 'chills', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+  { id: 'symptoms_010', polish: 'pocenie się', english: 'sweating', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+  { id: 'symptoms_011', polish: 'duszność', english: 'shortness of breath', category: 'health', subcategory: 'symptoms', difficulty: 'advanced' },
+  { id: 'symptoms_012', polish: 'ból w klatce piersiowej', english: 'chest pain', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+  { id: 'symptoms_013', polish: 'bezsenność', english: 'insomnia', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+  { id: 'symptoms_014', polish: 'utrata apetytu', english: 'loss of appetite', category: 'health', subcategory: 'symptoms', difficulty: 'intermediate' },
+
+  // PERSONEL MEDYCZNY (Medical Professionals)
+  { id: 'professionals_001', polish: 'chirurg', english: 'surgeon', category: 'health', subcategory: 'medical-professionals', difficulty: 'intermediate' },
+  { id: 'professionals_002', polish: 'pediatra', english: 'pediatrician', category: 'health', subcategory: 'medical-professionals', difficulty: 'intermediate' },
+  { id: 'professionals_003', polish: 'ginekolog', english: 'gynecologist', category: 'health', subcategory: 'medical-professionals', difficulty: 'intermediate' },
+  { id: 'professionals_004', polish: 'kardiolog', english: 'cardiologist', category: 'health', subcategory: 'medical-professionals', difficulty: 'advanced' },
+  { id: 'professionals_005', polish: 'neurolog', english: 'neurologist', category: 'health', subcategory: 'medical-professionals', difficulty: 'advanced' },
+  { id: 'professionals_006', polish: 'ortopeda', english: 'orthopedist', category: 'health', subcategory: 'medical-professionals', difficulty: 'advanced' },
+  { id: 'professionals_007', polish: 'dermatolog', english: 'dermatologist', category: 'health', subcategory: 'medical-professionals', difficulty: 'advanced' },
+  { id: 'professionals_008', polish: 'okulista', english: 'ophthalmologist', category: 'health', subcategory: 'medical-professionals', difficulty: 'advanced' },
+  { id: 'professionals_009', polish: 'laryngolog', english: 'ENT doctor', category: 'health', subcategory: 'medical-professionals', difficulty: 'advanced' },
+  { id: 'professionals_010', polish: 'psychiatra', english: 'psychiatrist', category: 'health', subcategory: 'medical-professionals', difficulty: 'intermediate' },
+  { id: 'professionals_011', polish: 'psycholog', english: 'psychologist', category: 'health', subcategory: 'medical-professionals', difficulty: 'intermediate' },
+  { id: 'professionals_012', polish: 'fizjoterapeuta', english: 'physiotherapist', category: 'health', subcategory: 'medical-professionals', difficulty: 'intermediate' },
+
+  // SPRZĘT MEDYCZNY (Medical Equipment)
+  { id: 'equipment_001', polish: 'stetoskop', english: 'stethoscope', category: 'health', subcategory: 'medical-equipment', difficulty: 'intermediate' },
+  { id: 'equipment_002', polish: 'strzykawka', english: 'syringe', category: 'health', subcategory: 'medical-equipment', difficulty: 'intermediate' },
+  { id: 'equipment_003', polish: 'bandaże', english: 'bandages', category: 'health', subcategory: 'medical-equipment', difficulty: 'intermediate' },
+  { id: 'equipment_004', polish: 'leki', english: 'medicine', category: 'health', subcategory: 'medical-equipment', difficulty: 'beginner' },
+  { id: 'equipment_005', polish: 'ciśnieniomierz', english: 'blood pressure monitor', category: 'health', subcategory: 'medical-equipment', difficulty: 'advanced' },
+  { id: 'equipment_006', polish: 'maska tlenowa', english: 'oxygen mask', category: 'health', subcategory: 'medical-equipment', difficulty: 'advanced' },
+  { id: 'equipment_007', polish: 'defibrylator', english: 'defibrillator', category: 'health', subcategory: 'medical-equipment', difficulty: 'advanced' },
+  { id: 'equipment_008', polish: 'igła', english: 'needle', category: 'health', subcategory: 'medical-equipment', difficulty: 'intermediate' },
+  { id: 'equipment_009', polish: 'nożyczki medyczne', english: 'medical scissors', category: 'health', subcategory: 'medical-equipment', difficulty: 'intermediate' },
+  { id: 'equipment_010', polish: 'pinceta', english: 'tweezers', category: 'health', subcategory: 'medical-equipment', difficulty: 'intermediate' },
+
+  // UKŁADY CIAŁA (Body Systems)
+  { id: 'body_systems_001', polish: 'układ krążenia', english: 'circulatory system', category: 'health', subcategory: 'body-systems', difficulty: 'advanced' },
+  { id: 'body_systems_002', polish: 'układ oddechowy', english: 'respiratory system', category: 'health', subcategory: 'body-systems', difficulty: 'advanced' },
+  { id: 'body_systems_003', polish: 'układ pokarmowy', english: 'digestive system', category: 'health', subcategory: 'body-systems', difficulty: 'advanced' },
+  { id: 'body_systems_004', polish: 'układ nerwowy', english: 'nervous system', category: 'health', subcategory: 'body-systems', difficulty: 'advanced' },
+  { id: 'body_systems_005', polish: 'układ kostny', english: 'skeletal system', category: 'health', subcategory: 'body-systems', difficulty: 'advanced' },
+  { id: 'body_systems_006', polish: 'układ mięśniowy', english: 'muscular system', category: 'health', subcategory: 'body-systems', difficulty: 'advanced' },
+  { id: 'body_systems_007', polish: 'układ odpornościowy', english: 'immune system', category: 'health', subcategory: 'body-systems', difficulty: 'advanced' },
+  { id: 'body_systems_008', polish: 'układ hormonalny', english: 'endocrine system', category: 'health', subcategory: 'body-systems', difficulty: 'advanced' },
+
+  // ZABIEGI (Treatments & Procedures)
+  { id: 'treatments_001', polish: 'rehabilitacja', english: 'rehabilitation', category: 'health', subcategory: 'treatments', difficulty: 'intermediate' },
+  { id: 'treatments_002', polish: 'terapia', english: 'therapy', category: 'health', subcategory: 'treatments', difficulty: 'intermediate' },
+  { id: 'treatments_003', polish: 'fizjoterapia', english: 'physiotherapy', category: 'health', subcategory: 'treatments', difficulty: 'intermediate' },
+  { id: 'treatments_004', polish: 'masaż', english: 'massage', category: 'health', subcategory: 'treatments', difficulty: 'intermediate' },
+  { id: 'treatments_005', polish: 'akupunktura', english: 'acupuncture', category: 'health', subcategory: 'treatments', difficulty: 'advanced' },
+  { id: 'treatments_006', polish: 'chemioterapia', english: 'chemotherapy', category: 'health', subcategory: 'treatments', difficulty: 'advanced' },
+  { id: 'treatments_007', polish: 'radioterapia', english: 'radiotherapy', category: 'health', subcategory: 'treatments', difficulty: 'advanced' },
+  { id: 'treatments_008', polish: 'dializa', english: 'dialysis', category: 'health', subcategory: 'treatments', difficulty: 'advanced' },
+  { id: 'treatments_009', polish: 'transplantacja', english: 'transplant', category: 'health', subcategory: 'treatments', difficulty: 'advanced' },
+  { id: 'treatments_010', polish: 'biopsja', english: 'biopsy', category: 'health', subcategory: 'treatments', difficulty: 'advanced' },
+
+  // ZDROWIE PSYCHICZNE (Mental Health)
+  { id: 'mental_health_001', polish: 'depresja', english: 'depression', category: 'health', subcategory: 'mental-health', difficulty: 'intermediate' },
+  { id: 'mental_health_002', polish: 'stres', english: 'stress', category: 'health', subcategory: 'mental-health', difficulty: 'beginner' },
+  { id: 'mental_health_003', polish: 'lęk', english: 'anxiety', category: 'health', subcategory: 'mental-health', difficulty: 'intermediate' },
+  { id: 'mental_health_004', polish: 'panika', english: 'panic', category: 'health', subcategory: 'mental-health', difficulty: 'intermediate' },
+  { id: 'mental_health_005', polish: 'fobia', english: 'phobia', category: 'health', subcategory: 'mental-health', difficulty: 'intermediate' },
+  { id: 'mental_health_006', polish: 'terapia psychologiczna', english: 'psychological therapy', category: 'health', subcategory: 'mental-health', difficulty: 'intermediate' },
+  { id: 'mental_health_007', polish: 'konsultacja', english: 'consultation', category: 'health', subcategory: 'mental-health', difficulty: 'intermediate' },
+  { id: 'mental_health_008', polish: 'wsparcie', english: 'support', category: 'health', subcategory: 'mental-health', difficulty: 'intermediate' },
+  { id: 'mental_health_009', polish: 'samopoczucie', english: 'well-being', category: 'health', subcategory: 'mental-health', difficulty: 'intermediate' },
+  { id: 'mental_health_010', polish: 'relaks', english: 'relaxation', category: 'health', subcategory: 'mental-health', difficulty: 'intermediate' },
 ];
 
 export async function seedHealthVocabulary() {

@@ -77,6 +77,52 @@ export const studyVocabulary: VocabularyWord[] = [
   { id: 'language_008', polish: 'słownik', english: 'dictionary', category: 'study', subcategory: 'language-learning', difficulty: 'intermediate' },
   { id: 'language_009', polish: 'ćwiczenie', english: 'exercise', category: 'study', subcategory: 'language-learning', difficulty: 'intermediate' },
   { id: 'language_010', polish: 'mówić', english: 'to speak', category: 'study', subcategory: 'language-learning', difficulty: 'beginner' },
+
+  // POMIESZCZENIA SZKOLNE (School Facilities)
+  { id: 'facilities_001', polish: 'sala gimnastyczna', english: 'gym', category: 'study', subcategory: 'facilities', difficulty: 'intermediate' },
+  { id: 'facilities_002', polish: 'laboratorium', english: 'laboratory', category: 'study', subcategory: 'facilities', difficulty: 'intermediate' },
+  { id: 'facilities_003', polish: 'stołówka', english: 'cafeteria', category: 'study', subcategory: 'facilities', difficulty: 'intermediate' },
+  { id: 'facilities_004', polish: 'boisko', english: 'playground', category: 'study', subcategory: 'facilities', difficulty: 'intermediate' },
+  { id: 'facilities_005', polish: 'szatnia', english: 'locker room', category: 'study', subcategory: 'facilities', difficulty: 'intermediate' },
+  { id: 'facilities_006', polish: 'sekretariat', english: 'office', category: 'study', subcategory: 'facilities', difficulty: 'intermediate' },
+  { id: 'facilities_007', polish: 'korytarz', english: 'hallway', category: 'study', subcategory: 'facilities', difficulty: 'intermediate' },
+  { id: 'facilities_008', polish: 'schody', english: 'stairs', category: 'study', subcategory: 'facilities', difficulty: 'beginner' },
+
+  // AKTYWNOŚCI AKADEMICKIE (Academic Activities)
+  { id: 'activities_001', polish: 'egzamin', english: 'exam', category: 'study', subcategory: 'academic-activities', difficulty: 'intermediate' },
+  { id: 'activities_002', polish: 'test', english: 'test', category: 'study', subcategory: 'academic-activities', difficulty: 'beginner' },
+  { id: 'activities_003', polish: 'zadanie', english: 'homework', category: 'study', subcategory: 'academic-activities', difficulty: 'intermediate' },
+  { id: 'activities_004', polish: 'projekt', english: 'project', category: 'study', subcategory: 'academic-activities', difficulty: 'intermediate' },
+  { id: 'activities_005', polish: 'prezentacja', english: 'presentation', category: 'study', subcategory: 'academic-activities', difficulty: 'intermediate' },
+  { id: 'activities_006', polish: 'referat', english: 'report', category: 'study', subcategory: 'academic-activities', difficulty: 'intermediate' },
+  { id: 'activities_007', polish: 'esej', english: 'essay', category: 'study', subcategory: 'academic-activities', difficulty: 'intermediate' },
+  { id: 'activities_008', polish: 'notatki', english: 'notes', category: 'study', subcategory: 'academic-activities', difficulty: 'beginner' },
+  { id: 'activities_009', polish: 'nauka', english: 'studying', category: 'study', subcategory: 'academic-activities', difficulty: 'beginner' },
+  { id: 'activities_010', polish: 'powtórka', english: 'review', category: 'study', subcategory: 'academic-activities', difficulty: 'intermediate' },
+
+  // UNIWERSYTET (University)
+  { id: 'university_001', polish: 'wykład', english: 'lecture', category: 'study', subcategory: 'university', difficulty: 'intermediate' },
+  { id: 'university_002', polish: 'seminarium', english: 'seminar', category: 'study', subcategory: 'university', difficulty: 'intermediate' },
+  { id: 'university_003', polish: 'dyplom', english: 'diploma', category: 'study', subcategory: 'university', difficulty: 'intermediate' },
+  { id: 'university_004', polish: 'stopień naukowy', english: 'degree', category: 'study', subcategory: 'university', difficulty: 'intermediate' },
+  { id: 'university_005', polish: 'wykładowca', english: 'lecturer', category: 'study', subcategory: 'university', difficulty: 'intermediate' },
+  { id: 'university_006', polish: 'profesor', english: 'professor', category: 'study', subcategory: 'university', difficulty: 'intermediate' },
+  { id: 'university_007', polish: 'student', english: 'student', category: 'study', subcategory: 'university', difficulty: 'beginner' },
+  { id: 'university_008', polish: 'doktorant', english: 'PhD student', category: 'study', subcategory: 'university', difficulty: 'advanced' },
+  { id: 'university_009', polish: 'kierunek', english: 'major', category: 'study', subcategory: 'university', difficulty: 'intermediate' },
+  { id: 'university_010', polish: 'semestr', english: 'semester', category: 'study', subcategory: 'university', difficulty: 'intermediate' },
+
+  // NAUKA I BADANIA (Science & Research)
+  { id: 'science_001', polish: 'eksperyment', english: 'experiment', category: 'study', subcategory: 'science', difficulty: 'intermediate' },
+  { id: 'science_002', polish: 'teoria', english: 'theory', category: 'study', subcategory: 'science', difficulty: 'intermediate' },
+  { id: 'science_003', polish: 'hipoteza', english: 'hypothesis', category: 'study', subcategory: 'science', difficulty: 'advanced' },
+  { id: 'science_004', polish: 'laboratorium', english: 'laboratory', category: 'study', subcategory: 'science', difficulty: 'intermediate' },
+  { id: 'science_005', polish: 'badanie', english: 'research', category: 'study', subcategory: 'science', difficulty: 'intermediate' },
+  { id: 'science_006', polish: 'naukowiec', english: 'scientist', category: 'study', subcategory: 'science', difficulty: 'intermediate' },
+  { id: 'science_007', polish: 'odkrycie', english: 'discovery', category: 'study', subcategory: 'science', difficulty: 'intermediate' },
+  { id: 'science_008', polish: 'wynik', english: 'result', category: 'study', subcategory: 'science', difficulty: 'beginner' },
+  { id: 'science_009', polish: 'analiza', english: 'analysis', category: 'study', subcategory: 'science', difficulty: 'intermediate' },
+  { id: 'science_010', polish: 'obserwacja', english: 'observation', category: 'study', subcategory: 'science', difficulty: 'intermediate' },
 ];
 
 export async function seedStudyVocabulary() {
