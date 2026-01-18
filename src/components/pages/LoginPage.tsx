@@ -130,9 +130,9 @@ function LoginPage() {
       <div className="max-w-md w-full">
         <div className="card p-8 shadow-xl">
           <div className="text-center mb-8">
-            <div className="flex justify-center items-center gap-3 mb-4">
+            <div className="flex flex-col justify-center items-center mb-4">
               <Logo size={48} />
-              <h1 className="text-3xl font-bold mb-2" style={{ color: '#c7102e' }}>
+              <h1 className="text-3xl font-bold mt-4 mb-2" style={{ color: '#c7102e' }}>
                 Łatwy Polski
               </h1>
             </div>
