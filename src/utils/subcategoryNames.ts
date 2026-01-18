@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mapping of subcategory IDs to their Polish and English names
  * Used for displaying theme names in the UI
  */
@@ -37,7 +37,7 @@ export const subcategoryNames: Record<string, SubcategoryName> = {
   'injuries': { polish: 'URAZY', english: 'Injuries' },
   'hospital': { polish: 'SZPITAL', english: 'Hospital' },
   'dentist': { polish: 'DENTYSTA', english: 'Dentist' },
-  'pharmacy': { polish: 'APTECA', english: 'Pharmacy' },
+  'pharmacy': { polish: 'APTEKA', english: 'Pharmacy' },
   'symptoms': { polish: 'OBJAWY I CHOROBY', english: 'Symptoms & Conditions' },
   'medical-professionals': { polish: 'PERSONEL MEDYCZNY', english: 'Medical Professionals' },
   'medical-equipment': { polish: 'SPRZĘT MEDYCZNY', english: 'Medical Equipment' },
