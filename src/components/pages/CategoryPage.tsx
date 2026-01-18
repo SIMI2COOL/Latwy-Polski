@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/utils/database';
 import { Category, VocabularyWord } from '@/types';
-import { ArrowLeft, Play, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Play, BookOpen, ChevronLeft, ChevronRight, Gamepad2 } from 'lucide-react';
 import { isSubcategoryComplete } from '@/utils/subcategoryProgress';
 import { getSubcategoryName } from '@/utils/subcategoryNames';
 
@@ -186,6 +186,37 @@ function CategoryPage() {
             <Play className="w-5 h-5 mr-2" />
             Start Studying Entire Category
           </Link>
+        </div>
+      )}
+
+      {/* Exercises */}
+      {totalWords > 0 && (
+        <div className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <Gamepad2 className="w-6 h-6 mr-2" style={{ color: category.color }} />
+            Exercises
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Link to={`/exercise/${categoryId}/multiple-choice`} className="h-full">
+              <div className="card-hover p-6 h-full flex flex-col">
+                <h3 className="text-lg font-bold text-gray-900 mb-1">Multiple Choice</h3>
+                <p className="text-sm text-gray-600 mb-4">Pick the correct Polish word.</p>
+                <div className="mt-auto">
+                  <span className="badge-primary">Fast</span>
+                </div>
+              </div>
+            </Link>
+            <Link to={`/exercise/${categoryId}/arrange-words`} className="h-full">
+              <div className="card-hover p-6 h-full flex flex-col">
+                <h3 className="text-lg font-bold text-gray-900 mb-1">Arrange the Words</h3>
+                <p className="text-sm text-gray-600 mb-4">Build a Polish phrase from shuffled words.</p>
+                <div className="mt-auto flex gap-2 flex-wrap">
+                  <span className="badge-primary">Phrases</span>
+                  <span className="badge-warning">Needs multi-word entries</span>
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
       )}
 

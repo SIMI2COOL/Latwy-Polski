@@ -26,6 +26,7 @@ import StudyPage from '@/components/pages/StudyPage';
 import ProgressPage from '@/components/pages/ProgressPage';
 import SettingsPage from '@/components/pages/SettingsPage';
 import LoginPage from '@/components/pages/LoginPage';
+import ExercisePage from '@/components/pages/ExercisePage';
 
 // Layout
 import Layout from '@/components/layout/Layout';
@@ -48,6 +49,7 @@ function AppRoutes() {
               <Route index element={<HomePage />} />
               <Route path="category/:categoryId" element={<CategoryPage />} />
               <Route path="study/:categoryId/:subcategoryId?" element={<StudyPage />} />
+              <Route path="exercise/:categoryId/:exerciseType/:subcategoryId?" element={<ExercisePage />} />
               <Route path="progress" element={<ProgressPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>
