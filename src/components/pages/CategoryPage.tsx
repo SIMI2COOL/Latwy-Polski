@@ -3,20 +3,31 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/utils/database';
 import { Category, VocabularyWord } from '@/types';
-import { ArrowLeft, Play, BookOpen } from 'lucide-react';
+import { ArrowLeft, Play, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
 import { isSubcategoryComplete } from '@/utils/subcategoryProgress';
+import { getSubcategoryName } from '@/utils/subcategoryNames';
 
 function CategoryPage() {
   const { categoryId } = useParams<{ categoryId: string }>();
   const navigate = useNavigate();
   const [category, setCategory] = useState<Category | null>(null);
+  const [allCategories, setAllCategories] = useState<Category[]>([]);
   const [completedSubcategories, setCompletedSubcategories] = useState<Set<string>>(new Set());
+
+  // Load all categories for navigation
+  const categories = useLiveQuery(() => db.categories.toArray());
 
   // Load words from this category
   const words = useLiveQuery(
     () => categoryId ? db.vocabulary.where('category').equals(categoryId).toArray() : [],
     [categoryId]
   );
+
+  useEffect(() => {
+    if (categories) {
+      setAllCategories(categories);
+    }
+  }, [categories]);
 
   useEffect(() => {
     async function loadCategory() {
@@ -85,6 +96,23 @@ function CategoryPage() {
   const subcategories = Object.keys(wordsBySubcategory);
   const totalWords = words?.length || 0;
 
+  // Find current category index and get previous/next categories
+  const currentIndex = allCategories.findIndex(cat => cat.id === categoryId);
+  const previousCategory = currentIndex > 0 ? allCategories[currentIndex - 1] : allCategories[allCategories.length - 1];
+  const nextCategory = currentIndex < allCategories.length - 1 ? allCategories[currentIndex + 1] : allCategories[0];
+
+  const handlePreviousCategory = () => {
+    if (previousCategory) {
+      navigate(`/category/${previousCategory.id}`);
+    }
+  };
+
+  const handleNextCategory = () => {
+    if (nextCategory) {
+      navigate(`/category/${nextCategory.id}`);
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 md:pb-8">
       {/* Header */}
@@ -100,22 +128,48 @@ function CategoryPage() {
         <div className="flex items-start space-x-4">
           <span className="text-6xl">{category.icon}</span>
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              {category.titlePolish}
-            </h1>
-            <p className="text-xl text-gray-600 mb-2">
-              {category.titleEnglish}
-            </p>
-            <p className="text-gray-500">{category.description}</p>
-            
-            <div className="mt-4 flex items-center space-x-4">
-              <span className="text-sm text-gray-500">
-                <BookOpen className="w-4 h-4 inline mr-1" />
-                {totalWords} words
-              </span>
-              <span className="text-sm text-gray-500">
-                {subcategories.length} themes
-              </span>
+            <div className="flex items-center gap-4">
+              {/* Previous Category Arrow */}
+              {allCategories.length > 1 && (
+                <button
+                  onClick={handlePreviousCategory}
+                  className="flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors self-start mt-2"
+                  aria-label="Previous category"
+                >
+                  <ChevronLeft className="w-6 h-6 text-gray-600" />
+                </button>
+              )}
+              
+              <div className="flex-1">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                  {category.titlePolish}
+                </h1>
+                <p className="text-xl text-gray-600 mb-2">
+                  {category.titleEnglish}
+                </p>
+                <p className="text-gray-500">{category.description}</p>
+                
+                <div className="mt-4 flex items-center space-x-4">
+                  <span className="text-sm text-gray-500">
+                    <BookOpen className="w-4 h-4 inline mr-1" />
+                    {totalWords} words
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    {subcategories.length} themes
+                  </span>
+                </div>
+              </div>
+
+              {/* Next Category Arrow */}
+              {allCategories.length > 1 && (
+                <button
+                  onClick={handleNextCategory}
+                  className="flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-colors self-start mt-2"
+                  aria-label="Next category"
+                >
+                  <ChevronRight className="w-6 h-6 text-gray-600" />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -144,10 +198,7 @@ function CategoryPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {subcategories.map((subcategory) => {
               const subcategoryWords = wordsBySubcategory[subcategory];
-              const subcategoryName = subcategory
-                .split('-')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
+              const subcategoryName = getSubcategoryName(subcategory);
               const isComplete = completedSubcategories.has(subcategory);
 
               return (
@@ -165,10 +216,13 @@ function CategoryPage() {
                   >
                     <div className="flex items-start justify-between mb-3 flex-shrink-0">
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-1 truncate">
-                          {subcategoryName}
+                        <h3 className="text-lg font-bold text-gray-900 mb-1">
+                          {subcategoryName.polish}
                         </h3>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-600 mb-2">
+                          {subcategoryName.english}
+                        </p>
+                        <p className="text-xs text-gray-500">
                           {subcategoryWords.length} words
                         </p>
                       </div>
