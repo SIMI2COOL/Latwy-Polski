@@ -10,6 +10,7 @@ import { seedEnvironmentVocabulary } from '@/data/vocabulary-environment';
 import { seedHealthVocabulary } from '@/data/vocabulary-health';
 import { seedLeisureVocabulary } from '@/data/vocabulary-leisure';
 import { seedReferenceVocabulary } from '@/data/vocabulary-reference';
+import { seedGrammarVocabulary } from '@/data/vocabulary-grammar';
 import { seedServicesVocabulary } from '@/data/vocabulary-services';
 import { seedShoppingVocabulary } from '@/data/vocabulary-shopping';
 import { seedSportsVocabulary } from '@/data/vocabulary-sports';
@@ -106,6 +107,9 @@ function App() {
         });
         seedReferenceVocabulary().catch(err => {
           console.warn('Reference vocabulary seeding failed (non-critical):', err);
+        });
+        seedGrammarVocabulary().catch(err => {
+          console.warn('Grammar vocabulary seeding failed (non-critical):', err);
         });
         seedServicesVocabulary().catch(err => {
           console.warn('Services vocabulary seeding failed (non-critical):', err);

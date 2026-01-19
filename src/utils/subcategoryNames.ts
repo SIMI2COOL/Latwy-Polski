@@ -196,6 +196,14 @@ export const subcategoryNames: Record<string, SubcategoryName> = {
   'directions': { polish: 'KIERUNKI', english: 'Directions' },
   'measurements': { polish: 'POMIARY', english: 'Measurements' },
   'questions': { polish: 'PODSTAWOWE PYTANIA', english: 'Basic Questions' },
+
+  // Grammar
+  'sentence-constructions': { polish: 'KONSTRUKCJE ZDAŃ', english: 'Sentence Constructions' },
+  'prepositions': { polish: 'PRZYIMKI', english: 'Prepositions' },
+  'conjunctions': { polish: 'SPÓJNIKI', english: 'Conjunctions' },
+  'numerals': { polish: 'LICZEBNIKI', english: 'Numerals' },
+  'verbs': { polish: 'CZASOWNIKI', english: 'Verbs' },
+  'top-verbs': { polish: 'NAJWAŻNIEJSZE CZASOWNIKI', english: 'Most Important Verbs' },
 };
 
 /**

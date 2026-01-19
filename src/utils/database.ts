@@ -131,6 +131,37 @@ export class PolishAppDatabase extends Dexie {
       console.log('Database upgraded to version 6 - added profilePicture support');
       // No data migration needed - profilePicture is optional
     });
+
+    // Version 7: Add Grammar category for existing users
+    this.version(7).stores({
+      vocabulary: 'id, polish, english, category, subcategory, difficulty, [category+subcategory]',
+      categories: 'id, titlePolish, titleEnglish',
+      subcategories: 'id, categoryId, titlePolish',
+      users: 'id, name, email, createdAt',
+      userProgress: 'userId, level, totalPoints',
+      studySessions: 'id, categoryId, startedAt, completedAt',
+      flashcardStates: 'wordId, nextReview, interval',
+      settings: '++id',
+    }).upgrade(async (trans) => {
+      console.log('Database upgraded to version 7 - added Grammar category');
+
+      const grammarCategory: Category = {
+        id: 'grammar',
+        titlePolish: 'GRAMATYKA',
+        titleEnglish: 'Grammar',
+        description: 'Sentence building, prepositions, verbs',
+        icon: '🧩',
+        color: '#0EA5E9',
+        subcategories: [],
+        totalWords: 0,
+      };
+
+      try {
+        await trans.table('categories').put(grammarCategory);
+      } catch (error) {
+        console.warn('Failed to upsert grammar category:', error);
+      }
+    });
   }
 }
 
@@ -320,6 +351,16 @@ async function seedInitialData() {
       description: 'Time, numbers, maps',
       icon: '📋',
       color: '#64748B',
+      subcategories: [],
+      totalWords: 0,
+    },
+    {
+      id: 'grammar',
+      titlePolish: 'GRAMATYKA',
+      titleEnglish: 'Grammar',
+      description: 'Sentence building, prepositions, verbs',
+      icon: '🧩',
+      color: '#0EA5E9',
       subcategories: [],
       totalWords: 0,
     },
