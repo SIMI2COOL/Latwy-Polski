@@ -23,6 +23,7 @@ import { UserProvider, useUser } from '@/contexts/UserContext';
 // Páginas
 import HomePage from '@/components/pages/HomePage';
 import CategoryPage from '@/components/pages/CategoryPage';
+import GrammarHubPage from '@/components/pages/GrammarHubPage';
 import StudyPage from '@/components/pages/StudyPage';
 import ProgressPage from '@/components/pages/ProgressPage';
 import SettingsPage from '@/components/pages/SettingsPage';
@@ -48,6 +49,8 @@ function AppRoutes() {
           <>
             <Route path="/" element={<Layout />}>
               <Route index element={<HomePage />} />
+              <Route path="grammar" element={<GrammarHubPage />} />
+              <Route path="category/grammar" element={<Navigate to="/grammar" replace />} />
               <Route path="category/:categoryId" element={<CategoryPage />} />
               <Route path="study/:categoryId/:subcategoryId?" element={<StudyPage />} />
               <Route path="exercise/:categoryId/:exerciseType/:subcategoryId?" element={<ExercisePage />} />

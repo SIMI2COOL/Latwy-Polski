@@ -71,6 +71,9 @@ function HomePage() {
     );
   }
 
+  const vocabularyCategories = categories.filter((c) => c.id !== 'grammar');
+  const grammarCategory = categories.find((c) => c.id === 'grammar') || null;
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 md:pb-8">
       {/* Stats Header */}
@@ -192,15 +195,15 @@ function HomePage() {
         </div>
       </div>
 
-      {/* Categories Section */}
+      {/* Vocabulary Categories Section */}
       <div className="mb-4">
-        <h2 className="text-2xl font-bold text-gray-900 mb-1">Categories</h2>
-        <p className="text-gray-600">Select a category to start studying</p>
+        <h2 className="text-2xl font-bold text-gray-900 mb-1">Vocabulary</h2>
+        <p className="text-gray-600">Learn themed vocabulary with flashcards and quizzes</p>
       </div>
 
       {/* Categories Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {categories.map((category) => (
+        {vocabularyCategories.map((category) => (
           <CategoryCard
             key={category.id}
             category={category}
@@ -211,9 +214,40 @@ function HomePage() {
       </div>
 
       {/* Category Carousel */}
-      {categories && categories.length > 0 && (
+      {vocabularyCategories.length > 0 && (
         <div className="mt-8">
-          <CategoryCarousel categories={categories} />
+          <CategoryCarousel categories={vocabularyCategories} />
+        </div>
+      )}
+
+      {/* Grammar Section (standalone) */}
+      {grammarCategory && (
+        <div className="mt-12">
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-1">Grammar</h2>
+            <p className="text-gray-600">Standalone modules: sentence building, prepositions, verbs</p>
+          </div>
+
+          <Link to="/grammar">
+            <div
+              className="card-hover p-6 transition-all duration-200 hover:scale-[1.01] relative overflow-hidden"
+              style={{ borderTop: `4px solid ${grammarCategory.color}` }}
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex items-start gap-4">
+                  <span className="text-4xl">{grammarCategory.icon}</span>
+                  <div>
+                    <div className="text-lg font-bold text-gray-900">{grammarCategory.titlePolish}</div>
+                    <div className="text-sm text-gray-600">{grammarCategory.titleEnglish}</div>
+                    <div className="mt-2 text-sm text-gray-500">{grammarCategory.description}</div>
+                  </div>
+                </div>
+                <div className="text-sm font-medium" style={{ color: grammarCategory.color }}>
+                  Open →
+                </div>
+              </div>
+            </div>
+          </Link>
         </div>
       )}
     </div>
