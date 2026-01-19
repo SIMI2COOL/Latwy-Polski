@@ -6,7 +6,48 @@ import { ArrowLeft, BookOpen, Gamepad2, Play } from 'lucide-react';
 import { db } from '@/utils/database';
 import type { Category, VocabularyWord } from '@/types';
 import { getSubcategoryName } from '@/utils/subcategoryNames';
-import { isSubcategoryComplete } from '@/utils/subcategoryProgress';
+import { calculateSubcategoryProgress, isSubcategoryComplete } from '@/utils/subcategoryProgress';
+
+type GrammarModule = {
+  id: string;
+  icon: string;
+  summary: string;
+  recommended?: boolean;
+};
+
+const GRAMMAR_MODULES: GrammarModule[] = [
+  {
+    id: 'sentence-constructions',
+    icon: '🧱',
+    summary: 'Sentence building: questions, negation, “there is/there isn’t”, conditionals',
+    recommended: true,
+  },
+  {
+    id: 'prepositions',
+    icon: '🧭',
+    summary: 'Prepositions + required case, with short phrase drills',
+  },
+  {
+    id: 'conjunctions',
+    icon: '🔗',
+    summary: 'Connectors: and/but/or + subordinate clause markers',
+  },
+  {
+    id: 'numerals',
+    icon: '🔢',
+    summary: 'Cardinals, ordinals, and useful number phrases',
+  },
+  {
+    id: 'verbs',
+    icon: '⚙️',
+    summary: 'Verb fundamentals and aspect pairs',
+  },
+  {
+    id: 'top-verbs',
+    icon: '⭐',
+    summary: 'High-frequency verb list (with aspect pairs where relevant)',
+  },
+];
 
 function GrammarHubPage() {
   const navigate = useNavigate();
@@ -16,6 +57,7 @@ function GrammarHubPage() {
   const flashcardStates = useLiveQuery(() => db.flashcardStates.toArray(), []);
 
   const [completedSubcategories, setCompletedSubcategories] = useState<Set<string>>(new Set());
+  const [moduleProgress, setModuleProgress] = useState<Record<string, number>>({});
 
   const wordsBySubcategory = useMemo(() => {
     const list = words ?? [];
@@ -26,16 +68,26 @@ function GrammarHubPage() {
   }, [words]);
 
   const subcategories = useMemo(() => Object.keys(wordsBySubcategory), [wordsBySubcategory]);
+  const orderedModules = useMemo(() => {
+    const available = new Set(subcategories);
+    return GRAMMAR_MODULES.filter((m) => available.has(m.id));
+  }, [subcategories]);
   const totalWords = words?.length ?? 0;
 
   useEffect(() => {
     async function checkCompletion() {
       const completed = new Set<string>();
+      const progressMap: Record<string, number> = {};
+
       for (const subId of subcategories) {
         const isComplete = await isSubcategoryComplete('grammar', subId);
         if (isComplete) completed.add(subId);
+
+        // Percent progress for nicer UX on the hub page
+        progressMap[subId] = await calculateSubcategoryProgress('grammar', subId);
       }
       setCompletedSubcategories(completed);
+      setModuleProgress(progressMap);
     }
 
     void checkCompletion();
@@ -121,10 +173,12 @@ function GrammarHubPage() {
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Grammar Modules</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {subcategories.map((subId) => {
+            {orderedModules.map((module) => {
+              const subId = module.id;
               const subWords = wordsBySubcategory[subId] ?? [];
               const subName = getSubcategoryName(subId);
               const isComplete = completedSubcategories.has(subId);
+              const progress = moduleProgress[subId] ?? 0;
 
               return (
                 <div
@@ -137,9 +191,27 @@ function GrammarHubPage() {
                 >
                   <div className="flex items-start justify-between mb-3 flex-shrink-0">
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-lg font-bold text-gray-900 mb-1">{subName.polish}</h3>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xl">{module.icon}</span>
+                        <h3 className="text-lg font-bold text-gray-900">{subName.polish}</h3>
+                        {module.recommended && (
+                          <span className="ml-1 badge-primary" title="Recommended starting module">
+                            Start here
+                          </span>
+                        )}
+                      </div>
                       <p className="text-sm text-gray-600 mb-2">{subName.english}</p>
-                      <p className="text-xs text-gray-500">{subWords.length} cards</p>
+                      <p className="text-xs text-gray-500">{module.summary}</p>
+                      <div className="mt-3 flex items-center justify-between">
+                        <p className="text-xs text-gray-500">{subWords.length} cards</p>
+                        <p className="text-xs font-medium text-gray-700">{progress}%</p>
+                      </div>
+                      <div className="mt-2 h-2 bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                          className="h-full transition-all duration-500"
+                          style={{ width: `${Math.min(progress, 100)}%`, backgroundColor: category.color }}
+                        ></div>
+                      </div>
                     </div>
                     {isComplete && (
                       <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">
